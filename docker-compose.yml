@@ -1,0 +1,143 @@
+version: '3'
+services:
+  hbweb:
+    build: ./web/
+    command: uwsgi --ini uwsgi.ini
+    #command: sh -c '/data/conf/init.sh hbmongodb1:27017'
+    container_name: hbweb
+    volumes:
+      - ./web/histbuilding:/data/web
+      - django_admin_static:/usr/local/lib/python3.7/site-packages/django/contrib/admin/static
+      - rest_framework_swagger:/usr/local/lib/python3.7/site-packages/rest_framework_swagger/static/rest_framework_swagger/
+      - drf-yasg:/usr/local/lib/python3.7/site-packages/drf_yasg/static/drf-yasg
+      - ./frontend:/data/frontend
+      - hbmongoreplica:/data/mongo-replica
+    working_dir: /data/web
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - "8000"
+    networks:
+      - hb_cluster
+    
+
+  hbmongodb3:
+    image: mongo:4
+    restart: always
+    container_name: hbmongodb3
+    env_file:
+      - .env
+    volumes:
+      - hbmongodata3:/data/db
+    expose:
+      - "27017"
+    networks:
+      - hb_cluster
+    entrypoint: [ "/usr/bin/mongod", "--replSet", "rshb", "--bind_ip_all" ]
+
+  hbmongodb2:
+    image: mongo:4
+    restart: always
+    container_name: hbmongodb2
+    env_file:
+      - .env
+    volumes:
+      - hbmongodata2:/data/db
+    expose:
+      - "27017"
+    networks:
+      - hb_cluster
+    entrypoint: [ "/usr/bin/mongod", "--replSet", "rshb", "--bind_ip_all"]
+  
+
+  hbmongodb1:
+    image: mongo:4
+    restart: always
+    container_name: hbmongodb1
+    env_file:
+      - .env
+    volumes:
+      - hbmongodata1:/data/db
+    expose:
+      - "27017"
+    ports:
+      - "27018:27017"
+    networks:
+      - hb_cluster
+    entrypoint: [ "/usr/bin/mongod", "--replSet", "rshb", "--bind_ip_all"]
+
+
+  hbmongosetup:
+    image: "mongo-setup"
+    build: "./mongo-setup"
+    container_name: "hbmongosetup"
+    depends_on:
+      - hbmongodb1
+    networks:
+      - hb_cluster
+    volumes:
+      - hbmongoreplica:/data/
+
+  nginx:
+    build: ./nginx-pagespeed/
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/app/nginx.conf
+      - ./nginx/conf:/etc/nginx/app/conf_app/
+      - django_admin_static:/django_admin_static
+      - ./web/histbuilding/static:/static
+      - ./nginx/certificate:/ssl
+      - tinymce:/tinymce
+      - django_tinymce:/django_tinymce
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - MAKE_J=4
+      - NGINX_VERSION=1.15.5
+      - PAGESPEED_VERSION=1.12.34.2
+      - LIBPNG_VERSION=1.6.29
+      - NGINX_INCLUDE_PATH=/etc/nginx/app/conf_app/*.conf
+      - NGINX_DEFAULT_SERVER=off
+      - NGINX_FASTCGI_GEOIP=off
+      - NGINX_PAGESPEED=on
+      - NGINX_PAGESPEED_IMG=on
+      - NGINX_PAGESPEED_JS=on
+      - NGINX_PAGESPEED_CSS=on
+      - NGINX_PAGESPEED_STORAGE=file
+    depends_on:
+      - hbweb
+    networks:
+      - hb_cluster
+
+  
+  portainer:
+    image: portainer/portainer
+    ports:
+      - "9000:9000"
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - hb_cluster
+
+volumes:
+  hbmongodata1:
+  hbmongodata2:
+  hbmongodata3:
+  django_admin_static:
+  rest_framework_swagger:
+  drf-yasg:
+  esdata:
+    driver: local
+  portainer_data:
+  hbmongoreplica:
+  tinymce:
+  django_tinymce:
+
+
+networks:
+  hb_cluster:
+    driver: bridge
