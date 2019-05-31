@@ -25,7 +25,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'building' %}" tabindex="-1" aria-disabled="true">Palazzi</a>
                         </li>
-                        {% if request.user.username == 'admin'%}
+                        {% if request.user.is_superuser%}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'configuration' %}" tabindex="-1" aria-disabled="true">Configurazione</a>
                         </li>
