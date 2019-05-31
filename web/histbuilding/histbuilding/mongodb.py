@@ -153,21 +153,22 @@ class MongoHandler(object):
             raise ConnectionDoesNotExist("The connection %s doesn't exist" % alias)
         
         connectionString = 'mongodb://'
-        for node in self.databases[alias]['HOST'][:-1]:
+        for node in self.databases[alias]['LOCATION'][:-1]:
             connectionString += str(node) + ','
-        connectionString += str(self.databases[alias]['HOST'][-1]) + '/?replicaSet=rshb'
+        connectionString += str(self.databases[alias]['LOCATION'][-1]) + '/'
 
         print (connectionString)
 
         #conn = MongoClient([node for node in self.databases[alias]['LOCATION']], replicaset='rslas')
-        conn = MongoClient(connectionString, tz_aware=True, connect=False)
+        if 'USERNAME' in self.databases[alias]:
+            conn = MongoClient(connectionString, tz_aware=True, connect=False, username=self.databases[alias]['USERNAME'], password=self.databases[alias]['PWD'])
+        else:
+            conn = MongoClient(connectionString, tz_aware=True, connect=False)
         print(conn.nodes)
         self._connections[alias] = ConnectionWrapper(conn, self.databases[alias]['NAME'])
         
         return self._connections[alias]
-
-
-
+    
 def to_json(o):
     return json.loads(dumps(o))
 
@@ -208,7 +209,6 @@ def commit_with_retry(session):
             else:
                 print("Error during commit ...")
                 raise
-    
 
 connections = MongoHandler(settings.MONGODB)
 connection = connections['default']

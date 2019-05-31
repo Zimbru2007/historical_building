@@ -1,0 +1,18 @@
+{% extends "private_base.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block content%}
+
+{{ block.super }}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Fonti" "sources" %}
+	
+{% endblock %}
+
+<p>Ciao</p>
+
+{% endblock %}
+

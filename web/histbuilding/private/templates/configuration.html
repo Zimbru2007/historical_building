@@ -1,0 +1,95 @@
+{% extends "private_base.html" %}
+{% load crispy_forms_tags %}
+{% load hb_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block content%}
+
+{{ block.super }}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Configurazione" "configuration" %}
+	
+{% endblock %}
+
+
+<ul class="nav nav-tabs" id="confTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#sources" role="tab" aria-controls="sources" aria-selected="true">Tipo fonti</a>
+    </li>
+    
+</ul>
+
+
+
+<div class="tab-content" id="confTabContent">
+    <div class="tab-pane fade show active" id="sources" role="tabpanel" aria-labelledby="sources-tab">
+        <div class="row pt-3">
+            <div class="col-12">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" id="newSourceType">Nuovo tipo</button>
+                    <button class="btn btn-success" id="saveForm" style="display: none">Salva</button>
+                </div>         
+            </div>
+        </div>
+
+        <div class="row pt-3" id="divSourceType" style="display: none">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        Tipo Fonte
+                    </div>
+                    <div class="card-body">
+                        <div class="row pt-3">
+                            <div class="col-8">
+                                <form id="formSourceType">
+                                    <div class="form-group">
+                                        <label>Nome</label>
+                                        <input type="text" class="form-control" name="name">
+                                    </div>
+                                
+                                </form>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <button class="btn btn-info" id="addElForm">Aggiungi elemento form</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+
+        <div class="row pt-3">
+            <div class="col-12">
+                <table style="width: 100%">
+                    <tbody>
+                        {% for t in source_types %}
+                        <tr>
+                            <td>{{t.name}}</td>
+                            <td><button type="button" class="btn btn-primary" data-oid="{{t|oid}}"><span class="oi oi-pencil"></span></button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                
+                </table>
+            </div>
+        </div>
+        
+
+
+
+    </div>
+    
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script defer type="text/javascript" src="/static/js/private/configuration.js"></script>
+{% endblock %}

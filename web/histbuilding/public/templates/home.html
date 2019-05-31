@@ -1,11 +1,41 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
 
 {% block content %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+{% endblock %}
+
 <div class="row pt-3">
     <div class="col-12">
-        <p>Welcome</p>
+        <div id="carouselHome" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                  <img src="/static/home1.png" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="/static/home2.png" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="/static/home3.png" class="d-block w-100" alt="...">
+              </div>
+            </div>
+        </div>
     </div>
 </div>
+<div class="row pt-3">
+    <div class="col-12">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+            <h1 class="display-4">Atlante palazzi comunali</h1>
+            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}

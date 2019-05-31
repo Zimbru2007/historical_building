@@ -1,0 +1,16 @@
+.breadcrumb {
+    margin-bottom: 0;
+    background-color: transparent!important;
+    border-radius: 0;
+}
+
+ol.breadcrumb {
+    padding-right: 0!important;
+    padding-left: 0!important;
+    padding-bottom: 0!important;
+    padding-top: 1.1rem!important;
+}
+
+li.breadcrumb-item {
+    font-size: 0.7rem;
+}

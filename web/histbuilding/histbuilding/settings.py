@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'tinymce',
     'crispy_forms',
+    'django_bootstrap_breadcrumbs',
     'public',
+    'private',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +89,18 @@ DATABASES = {
     }
 }
 
+
+
+MONGODB = {
+    'default': {
+        'NAME': 'histbuild', # Default database to connect to
+        'LOCATION': [ # An array of host strings, similar to the CACHES setting.
+            'hbmongodb1:27017',
+            'hbmongodb2:27017',
+            'hbmongodb3:27017',
+        ]
+    }
+}
 
 
 # Password validation
@@ -138,3 +152,26 @@ CSRF_COOKIE_PATH = '/'
 CSRF_COOKIE_NAME = 'csrf_hb'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+BREADCRUMBS_TEMPLATE = "django_bootstrap_breadcrumbs/bootstrap4.html"#"breadcrumbs.html"
+
+LOGIN_URL = '/login'
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5
+
+}

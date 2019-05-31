@@ -13,13 +13,14 @@ from django.core.exceptions import PermissionDenied
 from django.views import View
 from django.contrib.auth.decorators import login_required
 
+
 # Create your views here.
 
 def home(request):
     return render(request,'home.html')
 
 
-class login(View):
+class Login(View):
     def get(self, request):
         form = LoginForm()
         return render(request, 'login.html', {'form':form})
@@ -33,7 +34,7 @@ class login(View):
             user = auth.authenticate(username=username, password=password)
             if user is not None and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse(home))
+                return HttpResponseRedirect(reverse('main_private'))
             else:
                 return render(request, 'login.html', {'form':form})    
         else:
@@ -46,10 +47,7 @@ def privacy(request):
 
 @login_required
 def logout(request):
-    
-    for sesskey in list(request.session.keys()):
-        del request.session[sesskey]
-
+    print (request.user)
     auth.logout(request)
-      
+    
     return HttpResponseRedirect(reverse(home))

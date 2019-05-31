@@ -1,0 +1,29 @@
+<template id="Tformel">
+    <div class="card mt-3 formel">
+        <div class="card-body">
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" class="form-control name-input" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Etichetta</label>
+                <input type="text" class="form-control label-input" name="label" required>
+            </div>
+            <div class="form-group">
+                <label>Tipo</label>
+                <select class="form-control type-input" name="input-type" required>
+                    <option value="text">text</option>
+                    <option value="textarea">textarea</option>
+                    <option value="number">number</option>
+                    <option value="date">date</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Ordine</label>
+                <input type="number" class="form-control order-input" name="order" required>
+            </div>
+        </div>
+    </div>
+
+    
+</template>

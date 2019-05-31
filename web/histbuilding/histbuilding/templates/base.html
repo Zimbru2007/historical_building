@@ -1,14 +1,21 @@
+{% load i18n static %}
+{% load django_bootstrap_breadcrumbs %}
+
 <!DOCTYPE html> 
-<html lang="en"> 
+{% get_current_language as LANGUAGE_CODE %}
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ LANGUAGE_CODE|default:"it" }}">
+
+
 <head>
 	<link rel="shortcut icon" href="/img/favicon.ico">
-	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<title>LAS {% block title %}{% endblock %}</title>
 	<link defer href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link async href="/static/node_modules/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 	<link async href="/static/node_modules/open-iconic/font/css/open-iconic.min.css" rel="stylesheet">
+	<link async href="/static//css/mobile.css" rel="stylesheet">
 	<!--link async href="/static/css/style.css" rel="stylesheet"-->
 
 	{% block extrastyle %}{% endblock%}
@@ -20,13 +27,29 @@
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top justify-content-between"  style="border-bottom-style: solid; border-bottom-color:#e2b331;border-width: 5px;">
 		<a class="navbar-brand" href="/"><img src="/static/img/logo.png" height="30" alt="">
-			Historical Building Atlas
+			Atlante Palazzi Comunali
 		</a>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+				  <li class="nav-item active">
+					{% block breadcrumbs %}
+					{% endblock %}
+	  
+					{% render_breadcrumbs %}
+				  </li>
+	  
+	  
+				</ul>
+				</div>
 		{% if user.is_authenticated %}
 		<ul class="navbar-nav my-2 my-lg-0">
 			<li class="nav-item">
 				<span id="datename">{% now "jS F Y" %} | <a href="{% url 'logout' %}">Logout</a> [{{  user.username  }}]</span>
 			</li>
+			<li class="nav-item ml-3">
+				<a href="{% url 'main_private' %}">Private</a>
+			</li>
+			
 		</ul>
 		{% else %}
 		<ul class="navbar-nav my-2 my-lg-0">

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block content %}
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Private" "main_private" %}
+{% endblock %}
+
+<div class="row pt-3">
+    <div class="col-12">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav" >
+                    <ul class="navbar-nav">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'main_private' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sources' %}">Fonti</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'building' %}" tabindex="-1" aria-disabled="true">Palazzi</a>
+                        </li>
+                        {% if request.user.username == 'admin'%}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'configuration' %}" tabindex="-1" aria-disabled="true">Configurazione</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Sito pubblico</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+    </div>
+</div>
+
+
+{% endblock %}

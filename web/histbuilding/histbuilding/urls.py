@@ -34,6 +34,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('', include('public.urls')),
+    path('private/', include('private.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('jsi18n/', JavaScriptCatalog.as_view(domain="django"), name='javascript-catalog'),
     prefix_default_language=False
