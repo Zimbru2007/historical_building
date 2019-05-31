@@ -20,9 +20,7 @@ $(document).ready(function() {
         $('#divSourceType').hide();
         $(this).hide();
         $('#newSourceType').show();
-    })
-
-    
+    });
 });        
 
 
@@ -34,6 +32,8 @@ function addFormElement(){
         t.content.querySelector('.type-input').setAttribute("name","type-"+ newElementId);
         t.content.querySelector('.order-input').setAttribute("name","order-"+ newElementId);
         t.content.querySelector('.order-input').setAttribute("value",newElementId);
+        t.content.querySelector('.required-input').setAttribute("name","required-"+newElementId);
+        
         var clone = document.importNode(t.content, true);
         $('#formSourceType').append(clone);
         newElementId += 1;
@@ -66,6 +66,6 @@ function saveForm(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
     }).done(function(response) { 
-        console.log(response);
+        toastr["success"](response['message']);
     });
 }

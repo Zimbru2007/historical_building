@@ -1,4 +1,5 @@
 {% extends "private_base.html" %}
+{% load hb_tags %}
 {% load django_bootstrap_breadcrumbs %}
 
 {% block content%}
@@ -12,7 +13,82 @@
 	
 {% endblock %}
 
-<p>Ciao</p>
+
+
+<div class="row pt-3">
+    <div class="col-12">
+        <div class="form-group">
+            <label>Tipo fonte</label>
+            <select class="form-control" id="sourceType">
+                <option>Selezionare una tipologia</option>
+                {% for s in source_types %}
+                    <option value= "{{s|oid}}">{{s.name}}</option>
+                {% endfor %}
+            </select>
+        </div>    
+
+
+
+        <form id="newSource" action='.' method='POST'>
+            {% csrf_token %}
+            {% for s in sources %}
+                <div id="{{s|oid}}" style="display:none" class="formSource">
+                    {% for e in s.elements %}
+                        <div class="form-group">
+                            {% if e.type == 'text' %}
+                                <label>{{e.label}}{%if e.required%}*{%endif%}</label>
+                                <input type="text" name="{{e.name}}" placeholder="{{e.label}}" class="form-control" {%if e.required%}required{%endif%}>
+                            {% endif %}
+                            {% if e.type == 'textarea' %}
+                                <label>{{e.label}}{%if e.required%}*{%endif%}</label>
+                                <textarea name="{{e.name}}" placeholder="{{e.label}}" class="form-control" row="3" {%if e.required%}required{%endif%}></textarea>
+                            {% endif %}
+                            {% if e.type == 'number' %}
+                                <label>{{e.label}}{%if e.required%}*{%endif%}</label>
+                                <input type="number" name="{{e.name}}" class="form-control" {%if e.required%}required{%endif%}>
+                            {% endif %}
+                            {% if e.type == 'date' %}
+                                <label>{{e.label}}{%if e.required%}*{%endif%}</label>
+                                <input type="text" name="{{e.name}}" placeholder="{{e.label}}" class="form-control" {%if e.required%}required{%endif%}>
+                            {% endif %}
+                            {% if e.type == 'boolean' %}
+                                {{e.label}} {%if e.required%}*{%endif%}
+                                <label class="switch ml-2">
+                                    <input type="checkbox" class="default" name="{{e.name}}" {%if e.required%}required{%endif%}>
+                                    <span class="slider round" ></span>
+                                </label>
+                            {% endif %}
+                            
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div class="form-group">
+                <input type="submit" id="submitSource" class="btn btn-success" values="Salva" style="display: none">
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
+
+{% block script %} 
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('#sourceType').on('change', function (){
+        console.log($(this).val())
+        val = $(this).val();
+        $('.formSource').hide();
+        $('#' + val).show();
+        $('#submitSource').show();
+    });
+
+});
+</script>
+
+{% endblock %}
+
+
 
