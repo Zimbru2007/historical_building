@@ -1,11 +1,11 @@
 FROM debian:stretch-slim
 
-MAINTAINER nerd305@gmail.com
+# COPY --from=build /assets /assets
 
 ARG MAKE_J=4
-ARG NGINX_VERSION=1.14.0
+ARG NGINX_VERSION=1.15.10
 ARG PAGESPEED_VERSION=1.13.35.2
-ARG LIBPNG_VERSION=1.6.29
+ARG LIBPNG_VERSION=1.6.36
 
 ENV MAKE_J=${MAKE_J} \
     NGINX_VERSION=${NGINX_VERSION} \
@@ -48,7 +48,7 @@ RUN apt-get install -y \
         libcurl4-openssl-dev
 
 # Build libpng
-RUN cd /tmp && \
+RUN cd /tmp && \ 
     curl -L http://prdownloads.sourceforge.net/libpng/libpng-${LIBPNG_VERSION}.tar.gz | tar -zx && \
     cd /tmp/libpng-${LIBPNG_VERSION} && \
     ./configure --build=$CBUILD --host=$CHOST --prefix=/usr --enable-shared --with-libpng-compat && \
@@ -114,9 +114,11 @@ RUN rm -rf /var/lib/apt/lists/* && rm -rf /tmp/* && \
 
 RUN mkdir -p /usr/share/GeoIP && cd /usr/share/GeoIP/ && \
     rm -f GeoIP.dat GeoIPv6.dat && \
-    curl -L -O http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz && \
-    curl -L -O http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz && \
-    gzip -d *
+    curl -L -O https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz && \
+    curl -L -O https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz && \
+    tar -xzvf GeoLite2-City.tar.gz --strip-components 1 && \
+    tar -xzvf GeoLite2-Country.tar.gz --strip-components 1 && \
+    ls -l 
 
 # Inject Nginx configuration files
 COPY ./config/conf.d              /etc/nginx/conf.d
