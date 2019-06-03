@@ -6,6 +6,8 @@ from django.urls import reverse
 
 import json
 
+from bson.objectid import ObjectId
+
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.views import View
@@ -22,3 +24,4 @@ from .main import *
 from .configuration import *
 from .building import *
 from .sources import *
+from .location import *

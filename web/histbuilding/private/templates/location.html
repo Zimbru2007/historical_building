@@ -1,0 +1,86 @@
+{% extends "private_base.html" %}
+{% load hb_tags %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block content%}
+
+{{ block.super }}
+
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Luoghi" "location" %}
+{% endblock %}
+
+
+<div class="row pt-3">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Nuova località</h5>
+            </div>
+            <div class="card-body">
+                <form id="locationForm">
+                    <input type="hidden" name="oid">
+                    <div class="form-group">
+                        <label>Denominazione attuale</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Denominazioni precedenti</label>
+                        <input type="text" name="previous_name" class="form-control" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label>Prima attestazione dell’organismo comunale</label>
+                        <input type="text" name="first_date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Geolocalizzazione</label>
+                        <div id="map" style="height: 300px;"></div>
+                    </div>
+                    <div class="form-group">
+                        <input id="saveLocation" type="button" class="btn btn-success" value="Salva">
+                    </div>
+                    
+            
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Lista località</h5>
+            </div>
+            <div class="card-body">
+                    <table class="table table-striped" style="width: 100%" id="locationTable">
+                        <thead>
+                            <tr class="table-primary">
+                                <th>Nome</th>
+                                <th>Modifica</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for l in locations %}
+                            <tr>
+                                <td>{{l.name}}</td>
+                                <td><button type="button" class="btn btn-primary" data-oid="{{l|oid}}"><span class="oi oi-pencil"></span></button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    
+                    </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+{%block script %}
+<script defer type="text/javascript" src="/static/js/private/location.js"></script>
+{% endblock %}

@@ -26,7 +26,7 @@ class DefineFormSource(APIView):
             print (doc)
             
             doc_id = db.source_types.insert_one(doc).inserted_id
-            return Response({'message':'Tipo fonte salvato corretamente', 'source': {'oid': doc_id, 'name': doc['name']}})
+            return Response({'message':'Tipo fonte salvato corretamente', 'source': {'oid': str(doc_id), 'name': doc['name']}})
         except Exception as e:
             print (e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
