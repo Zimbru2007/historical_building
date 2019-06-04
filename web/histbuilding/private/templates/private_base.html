@@ -28,6 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'building' %}" tabindex="-1" aria-disabled="true">Palazzi</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'city_building' %}" tabindex="-1" aria-disabled="true">Edifici comunali</a>
+                        </li>
                         {% if request.user.is_superuser%}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'configuration' %}" tabindex="-1" aria-disabled="true">Configurazione</a>

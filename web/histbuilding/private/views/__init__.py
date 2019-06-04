@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.urls import reverse
 
 import json
+import re
 
 from bson.objectid import ObjectId
 
@@ -25,3 +26,4 @@ from .configuration import *
 from .building import *
 from .sources import *
 from .location import *
+from .city_building import *

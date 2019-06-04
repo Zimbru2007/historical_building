@@ -1,0 +1,100 @@
+{% extends "private_base.html" %}
+{% load django_bootstrap_breadcrumbs %}
+{% load hb_tags %}
+
+{% block content%}
+
+{{ block.super }}
+
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Edifici comunali" "city_building" %}
+{% endblock %}
+
+<div class="row pt-3">
+    <div class="col-12">
+        <div class="form-row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Selezionare località</label>
+                    <div class="col-8">
+                        <input type="typeahead" class="form-control" name="location">
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <button id="changeLocation" class="btn btn-warning" style="display: none">Cambia</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row pt-3" id="manageCityBuilding" style="display: none">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Nuovo Edificio</h5>
+            </div>
+            <div class="card-body">
+                <form id="cityBuildingForm">
+                    <input type="hidden" name="oid">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo edificio</label>
+                        <input type="text" name="type" class="form-control" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label>Funzione</label>
+                        <input type="text" name="function" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Geolocalizzazione</label>
+                        <div id="map" style="height: 300px;"></div>
+                    </div>
+                    <div class="form-group">
+                        <input id="saveCityBuilding" type="button" class="btn btn-success" value="Salva">
+                    </div>
+                    
+            
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Lista edifici</h5>
+            </div>
+            <div class="card-body">
+                    <table class="table table-striped" style="width: 100%" id="cityBuildingTable">
+                        <thead>
+                            <tr class="table-primary">
+                                <th>Nome</th>
+                                <th>Tipo Edificio</th>
+                                <th>Funzione</th>
+                                <th>Modifica</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    
+                    </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{%block script %}
+<script defer type="text/javascript" src="/static/js/private/city_building.js"></script>
+{% endblock %}
+

@@ -1,32 +1,62 @@
 var map, drawnItems;
-
+var currentLocation;
+var initMapFlag= true;
 $(document).ready(function() {
-
-    listTags = $('input[name="previous_name"]').amsifySuggestags({
-          type : 'amsify',
+    
+    $('input[name="location"]').typeahead({
+        onSelect: function(item) {
+            console.log(item);
+            $('#manageCityBuilding').show();
+            $('input[name="location"]').prop('disabled', 'disabled');
+            $('#changeLocation').show();
+            if (initMapFlag){
+                initMap();
+                initMapFlag=false;
+            }
+            updateLocationEntities(item['value']);
+        },
+        ajax: {
+            url: '/private/luoghi/manageLocation/',
+            displayField: "name",
+            triggerLength: 1,
+            preProcess: function (data) {
+                listLocations = [];
+                console.log(data);
+                for (var i =0; i<data['docs'].length; i++){
+                    listLocations.push({'id': data['docs'][i]['_id']['$oid'], 'name': data['docs'][i]['name']});
+                }
+                return listLocations;
+            }
+        }
     });
     
+    $('#changeLocation').on('click', function(){
+        $('input[name="location"]').prop('disabled', '');
+        $('input[name="location"]').val(undefined);
+        $('#manageCityBuilding').hide();
+        $(this).hide();
+        currentLocation = undefined;
+    });
 
-    initMap();
+    //initMap();
 
-    $('#locationTable').on('click', '.btn-primary', function(){
+    $('#cityBuildingTable').on('click', '.btn-primary', function(){
         console.log('edit');
         oid = $(this).data('oid');
         $.ajax({
-            url: "./manageLocation/",
+            url: "/private/edifici_comunali/manageCityBuilding/",
             method: 'GET',
             data: {'oid': oid},
             
         }).done(function(response) { 
             console.log(response);
             doc = response['doc'];
-            $('#locationForm input[name="oid"]').val(doc['_id']['$oid']);
-            $('#locationForm input[name="name"]').val(doc['name']);
-            if (doc['previous_name'].length){
-                $('#locationForm input[name="previous_name"]').val(doc['previous_name'].join());
-                $('input[name="previous_name"]').amsifySuggestags({type : 'amsify',}, 'refresh');
-            }
-            $('#locationForm input[name="first_date"]').val(doc['first_date']);
+            $('#cityBuildingForm input[name="oid"]').val(doc['_id']['$oid']);
+            $('#cityBuildingForm input[name="name"]').val(doc['name']);
+            $('#cityBuildingForm input[name="type"]').val(doc['type']);
+            $('#cityBuildingForm input[name="function"]').val(doc['function']);
+
+        
             if (doc['geo']){
                 removeMarkers();
                 if (doc['geo']['type'] == 'Point'){
@@ -46,23 +76,23 @@ $(document).ready(function() {
 
     })
 
-    $('#saveLocation').on('click', function(){
+    $('#saveCityBuilding').on('click', function(){
         data = {'oid': null,
                 'name': null,
-                'previous_name': [],
-                'first_date': null,
+                'type': null,
+                'function': null,
                 'geo': null
         };
-        data['oid'] = $('#locationForm input[name="oid"]').val();
-        data['name']= $('#locationForm input[name="name"]').val();
-        data['previous_name']= $('#locationForm input[name="previous_name"]').val().split(',')
-        data['first_date']= $('#locationForm input[name="first_date"]').val();
+        data['oid'] = $('#cityBuildingForm input[name="oid"]').val();
+        data['name']= $('#cityBuildingForm input[name="name"]').val();
+        data['type']= $('#cityBuildingForm input[name="type"]').val()
+        data['function']= $('#cityBuildingForm input[name="function"]').val();
         data['geo']= getMarkers();
 
         console.log(data);
-
+        
         $.ajax({
-            url: "./manageLocation/",
+            url: "/private/edifici_comunali/manageCityBuilding/",
             method: 'POST',
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
@@ -70,16 +100,55 @@ $(document).ready(function() {
         }).done(function(response) { 
             toastr["success"](response['message']);
             doc = response['doc'];
-            $('#locationTable').append("<tr><td>" +  doc['name'] +"</td><td><button type='button' class='btn btn-primary' data-oid="+ doc['oid'] +"><span class='oi oi-pencil'></span></button></td></tr>");
-            $('#locationForm').trigger('reset');
-            $('input[name="previous_name"]').amsifySuggestags({type : 'amsify',}, 'refresh');
+            updateLocationEntities(currentLocation['_id']['$oid'])
+            $('#cityBuildingForm').trigger('reset');
             removeMarkers();
         });
+        
 
 
-    })
+    });
+    
+    
 });
 
+
+
+
+function updateLocationEntities (oid){
+    $.ajax({
+        url: "/private/edifici_comunali/manageCityBuilding/",
+        method: 'GET',
+        data: {'locationid': oid},
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+    }).done(function(response) { 
+        loc = response['location'];
+        currentLocation = loc;
+        if (loc['geo']){
+            //removeMarkers();
+            if (loc['geo']['type'] == 'Point'){
+                c = loc['geo']['coordinates']
+                var marker = L.marker([c[0], c[1]]).addTo(map);
+                //enableDraw(false);
+            }
+            if (loc['geo']['type'] == 'Polygon'){
+                c = loc['geo']['coordinates']
+                console.log(c)
+                var polygon = drawnItems.addLayer(L.polygon(c))//.addTo(map);
+                map.fitBounds(polygon.getBounds());
+                //enableDraw(false);
+            }
+            docs = response['docs']
+            for (var i=0; i<docs.length; i++){
+                $('#cityBuildingTable tbody').append("<tr><td>" + docs[i]['name'] + "</td><td>"+ docs[i]['type'] + "</td><td>" + docs[i]['function'] + "</td>><td><button type='button' class='btn btn-primary' data-oid='" + docs[i]['_id']['$oid'] + "'><span class='oi oi-pencil'></span></button></td></tr> ")
+            }
+            removeMarkers();
+
+        }
+           
+    });
+}
 
 function initMap() {
     map = L.map('map').setView([44.96, 7.566], 8);
@@ -105,7 +174,7 @@ function initMap() {
         },
         draw: {
             polygon: {
-                allowIntersection: false,
+                allowIntersection: true,
                 showArea: true
             },
             polyline: false,
@@ -183,4 +252,4 @@ function getMarkers(){
         }            
     });
     return markers;
-  }
+}
