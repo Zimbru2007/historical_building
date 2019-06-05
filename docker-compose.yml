@@ -61,8 +61,6 @@ services:
       - hbmongodata1:/data/db
     expose:
       - "27017"
-    ports:
-      - "27018:27017"
     networks:
       - hb_cluster
     entrypoint: [ "/usr/bin/mongod", "--replSet", "rshb", "--bind_ip_all"]
@@ -111,17 +109,6 @@ services:
     networks:
       - hb_cluster
 
-  
-  portainer:
-    image: portainer/portainer
-    ports:
-      - "9000:9000"
-    command: -H unix:///var/run/docker.sock
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-    networks:
-      - hb_cluster
 
 volumes:
   hbmongodata1:
@@ -130,9 +117,6 @@ volumes:
   django_admin_static:
   rest_framework_swagger:
   drf-yasg:
-  esdata:
-    driver: local
-  portainer_data:
   hbmongoreplica:
   tinymce:
   django_tinymce:
