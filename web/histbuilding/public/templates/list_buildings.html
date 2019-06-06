@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block content %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Palazzi" "list_building" %}
+{% endblock %}
+
+
+<div class="row pt-3">
+    <div class="col-12">
+        <h3>Elenco palazzi</h3>
+        {% if nbuldings %}
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nome</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for b in building%}
+                        <tr>
+                            <td><a href="{% url 'building' b.slug %}"><img src="/static/buildings/{{b.image}}" style="height: 50px;"></a></td>
+                            <td>{{b.name}}</td>
+                            <td><a href="{% url 'building' b.slug %}" class="btn btn-success"><span class="oi oi-document"></span> Vai al dettaglio</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                Nessun palazzo comunale ancora disponibile
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+

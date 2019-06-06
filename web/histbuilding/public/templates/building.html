@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block content %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+{% endblock %}
+
+{% endblock %}
+
+<div class="row pt-3">
+    <div class="col-12">
+        <h3>{{building.name}}</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-9">
+        {{building.review|safe}}
+    </div>
+    <div class="col-3">
+        <img src="/static/buildings/{{building.image}}" style="max-width: 300px;">
+    </div>
+</div>

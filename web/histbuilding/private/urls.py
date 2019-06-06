@@ -6,7 +6,8 @@ from .views import *
 urlpatterns = [
     path('', Main.as_view(), name='main_private'),
     path('fonti/', Sources.as_view(), name='sources'),
-    path('palazzi/', Building.as_view(), name='building'),
+    path('palazzi/', Building.as_view(), name='private_building'),
+    path('palazzi/manageBuilding/', ManageBuilding.as_view(), name='manageBuilding'),
     path('edifici_comunali/', CityBuilding.as_view(), name='city_building'),
     path('luoghi/', Location.as_view(), name="location"),
     path('configurazione/', Configuration.as_view(), name='configuration'),
