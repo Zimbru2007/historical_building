@@ -10,7 +10,6 @@ services:
       - django_admin_static:/usr/local/lib/python3.7/site-packages/django/contrib/admin/static
       - rest_framework_swagger:/usr/local/lib/python3.7/site-packages/rest_framework_swagger/static/rest_framework_swagger/
       - drf-yasg:/usr/local/lib/python3.7/site-packages/drf_yasg/static/drf-yasg
-      - ./frontend:/data/frontend
       - hbmongoreplica:/data/mongo-replica
     working_dir: /data/web
     restart: always
