@@ -10,8 +10,9 @@ class ListBuildings(View):
     
 class Building(View):
     def get(self, request, building_slug):
-        building = db.building.find_one({'_id': building_slug}, {'name':1, 'image': 1, 'review': 1})
-        return render(request, 'list_buildings.html', {'building':building})
+        building = db.building.find_one({'slug': building_slug})
+        print (building)
+        return render(request, 'building.html', {'building':building})
 
 
 

@@ -18,15 +18,13 @@
             <table>
                 <thead>
                     <tr>
-                        <th></th>
                         <th>Nome</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for b in building%}
+                    {% for b in buildings%}
                         <tr>
-                            <td><a href="{% url 'building' b.slug %}"><img src="/static/buildings/{{b.image}}" style="height: 50px;"></a></td>
                             <td>{{b.name}}</td>
                             <td><a href="{% url 'building' b.slug %}" class="btn btn-success"><span class="oi oi-document"></span> Vai al dettaglio</a></td>
                         </tr>

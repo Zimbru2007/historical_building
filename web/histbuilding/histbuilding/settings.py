@@ -146,6 +146,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
+IMAGE_DIR = os.path.join(BASE_DIR, "static/img/buildings/")
+
 SESSION_COOKIE_PATH = '/'
 SESSION_COOKIE_AGE = 14400
 SESSION_COOKIE_NAME='hb_id'

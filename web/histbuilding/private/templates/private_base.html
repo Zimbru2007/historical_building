@@ -29,6 +29,9 @@
                             <a class="nav-link" href="{% url 'private_building' %}" tabindex="-1" aria-disabled="true">Palazzi</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'buildingReview' %}" tabindex="-1" aria-disabled="true">Sintesi Palazzo</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'city_building' %}" tabindex="-1" aria-disabled="true">Edifici comunali</a>
                         </li>
                         {% if request.user.is_superuser%}

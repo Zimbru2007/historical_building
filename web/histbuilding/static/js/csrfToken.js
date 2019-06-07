@@ -14,6 +14,7 @@ $(document).ajaxSend(function(event, xhr, settings) {
         }
         return cookieValue;
     }
+    
     function sameOrigin(url) {
         // url could be relative or scheme relative or absolute
         var host = document.location.host; // host + port
@@ -34,3 +35,6 @@ $(document).ajaxSend(function(event, xhr, settings) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrf_hb'));
     }
 });
+
+
+

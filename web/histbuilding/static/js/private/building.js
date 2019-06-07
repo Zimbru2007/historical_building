@@ -58,7 +58,12 @@ $(document).ready(function() {
             doc = response['doc'];
             $('#buildingForm input[name="oid"]').val(doc['_id']['$oid']);
             $('#buildingForm input[name="name"]').val(doc['name']);
-            $('#buildingForm input[name="old_names"]').val(doc['old_names']);
+
+            if (doc['old_names'].length){
+                console.log(doc['old_names'].join())
+                $('#buildingForm input[name="old_names"]').val(doc['old_names'].join());
+                $('input[name="old_names"]').amsifySuggestags({type : 'amsify'}, 'refresh');
+            }
 
         
             if (doc['geo']){
@@ -144,6 +149,7 @@ function updateLocationEntities (oid){
                 //enableDraw(false);
             }
             docs = response['docs']
+            $('#buildingTable tbody').empty();
             for (var i=0; i<docs.length; i++){
                 $('#buildingTable tbody').append("<tr><td>" + docs[i]['name'] + "</td><td><button type='button' class='btn btn-primary' data-oid='" + docs[i]['_id']['$oid'] + "'><span class='oi oi-pencil'></span></button></td></tr> ")
             }

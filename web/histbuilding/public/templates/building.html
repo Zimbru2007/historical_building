@@ -1,15 +1,19 @@
 {% extends "base.html" %}
+{% load hb_tags %}
 {% load crispy_forms_tags %}
 {% load django_bootstrap_breadcrumbs %}
+
 
 {% block content %}
 
 
 {% block breadcrumbs %}
     {{ block.super }}
+    {% breadcrumb "Palazzi" "list_building" %}
+    {% breadcrumb building.name "building" building.slug %}
 {% endblock %}
 
-{% endblock %}
+
 
 <div class="row pt-3">
     <div class="col-12">
@@ -17,10 +21,82 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-9">
+    <div class="col-8">
         {{building.review|safe}}
     </div>
-    <div class="col-3">
-        <img src="/static/buildings/{{building.image}}" style="max-width: 300px;">
+    <div class="col-4">
+        <div class="card mb-3">
+            <div class="card-header text-white bg-primary">Scheda di {{building.name}}</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Nome</th>
+                        <td>{{building.name}}</td>
+                    </tr>
+                    <tr>
+                        <th style="">Denominazioni antiche</th>
+                        <td>
+                            {% for n in building.old_names %}
+                                {{n}}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Riconoscibilità</th>
+                        <td>{{building.recognized}}</td>
+                    </tr>
+                </table>
+                <hr>
+                <h6>Geolocalizzazione</h6>
+                
+                <div id="geobuilding" style="height: 200px;"></div>
+                
+                
+            </div>
+        </div>
     </div>
+    
 </div>
+
+
+{% endblock %}
+
+{%block script %}
+<script defer type="text/javascript">
+$(document).ready(function() {
+    geoInfo = JSON.parse('{{building.geo|escapedict|safe}}');
+    
+
+    map = L.map('geobuilding').setView([44.96, 7.566], 13);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox.streets'
+    }).addTo(map);
+
+    if (geoInfo['type'] == 'Point'){
+        c = geoInfo['coordinates']
+        var marker = L.marker([c[0], c[1]]).addTo(map);
+        map.panTo(marker.getLatLng())
+        /*
+        var latLngs = [ marker.getLatLng() ];
+        var markerBounds = L.latLngBounds(latLngs);
+        map.fitBounds(markerBounds);
+        */
+        //enableDraw(false);
+    }
+    if (geoInfo['type'] == 'Polygon'){
+        c = geoInfo['coordinates']
+        console.log(c)
+        polygon = L.polygon(c).addTo(map);
+        map.fitBounds(polygon.getBounds());
+        //var polygon = drawnItems.addLayer(L.polygon(c))//.addTo(map);
+        //map.fitBounds(polygon.getBounds());
+        //enableDraw(false);
+    }
+
+});
+</script>
+{% endblock %}
