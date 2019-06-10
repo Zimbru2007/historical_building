@@ -14,6 +14,8 @@ urlpatterns = [
     path('luoghi/', Location.as_view(), name="location"),
     path('configurazione/', Configuration.as_view(), name='configuration'),
     path('configurazione/defineFormSource/', DefineFormSource.as_view(), name='defineFormSource'),
+    path('configurazione/editTranslation/', EditTranslation.as_view(), name='editTranslation'),
+    path('configurazione/updateTranslation/', UpdateTranslation.as_view(), name='updateTranslation'),
     path('luoghi/manageLocation/', ManageLocation.as_view(), name='manageLocation'),
     path('edifici_comunali/manageCityBuilding/', ManageCityBuilding.as_view(), name='manageCityBuilding'),
     

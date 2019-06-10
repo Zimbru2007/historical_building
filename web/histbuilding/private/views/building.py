@@ -22,11 +22,20 @@ class ManageBuilding(APIView):
                 if request.data['oid'] != '':
                     doc = db.building.find_one({'_id': ObjectId(request.data['oid']) })
             if doc == None:
-                doc = {'name': None, 'old_names': [], 'geo': None, 'recognized': None, 'review': None, '_id': None}
+                doc = {'name': None, 'old_names': [], 'geo': None, 'recognized': None, 'review': [], '_id': None}
             doc['name'] = request.data.get('name', doc['name'])
             doc['old_names'] = request.data.get('old_names', doc['old_names'])
             doc['recognized'] = request.data.get('recognized', doc['recognized'])
-            doc['review'] = request.data.get('review', doc['review'])
+            if 'review' in request.data:
+                review = request.data.get('review')
+                lang = request.data.get('language_review')
+                authors = request.data.get('authors_review')
+                oldReviews = doc['review']
+                newReviews = [{'language': lang, 'text': review, 'authors': authors}]
+                for r in doc['review']:
+                    if r['language'] != lang:
+                        newReviews.append(r)
+                doc['review'] = newReviews
             if 'geo' in request.data:
                 geo = request.data.get('geo')
                 print (geo)

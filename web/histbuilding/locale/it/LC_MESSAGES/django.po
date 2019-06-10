@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-10 13:17+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: histbuilding/settings.py:135
+msgid "Italiano"
+msgstr "Italiano"
+
+#: histbuilding/settings.py:136
+msgid "Français"
+msgstr "Français"
+
+#: histbuilding/templates/base.html:30 public/templates/home.html:17
+msgid "nome_progetto"
+msgstr "PACOME"
+
+#: public/templates/home.html:18
+msgid "desc_progetto"
+msgstr ""
+"PACOME (Palazzi comunali del Mediterraneo) studia, con un approccio "
+"comparativo e interdisciplinare, la funzione politica e urbanistica degli "
+"edifici impiegati come sedi di governo delle comunità urbane nel "
+"Mediterraneo. "
+
+#: public/templates/home.html:19
+msgid "button_explore"
+msgstr "button_explore"
+
+#: public/templates/home.html:57
+msgid "home1"
+msgstr ""
+"<h4>Il questionario storiografico di riferimento</h4>\n"
+"<p class=\"text-justify\">Gli edifici usati come sedi dei rappresentanti delle comunità urbane furono un elemento chiave del paesaggio e dell’identità urbana nel periodo medievale, sia in Italia sia nella Francia meridionale. Benché la loro costruzione, promossa da istituzioni differenti, abbia comportato una cronologia ed esiti materiali assai vari, i palazzi delle comunità del Mediterraneo nord-occidentale hanno una storia comune: la loro comparsa ha prodotto ovunque la nascita di uno spazio di vita politica collettiva e la creazione di un luogo identitario diverso dai più antichi luoghi di riunione o di culto esistenti in città. I palazzi municipali, che servirono al governo della comunità, all’esercizio della giustizia, alla conservazione degli archivi locali, sono stati un polo di sviluppo del tessuto urbano e in molti casi sono tuttora dei punti di riferimento urbanistici.</p>\n"
+"<p class=\"text-justify\">\n"
+"Lo studio dei palazzi comunali è un tema classico della storiografia medievistica, soprattutto in Italia. Questa tradizione di studi, peraltro, si è concentrata su un gruppo limitato di spazi politici: l’attenzione pressoché esclusiva riservata ai casi toscani e lombardi ha favorito la costruzione di una tipologia d’analisi la cui efficacia sulla scala europea è lungi dal risultare dimostrata.\n"
+"</p>\n"
+"<p class=\"text-justify\">\n"
+"Si avverte, oggi, il bisogno di un’iniziativa di studio collettivo, che prenda sistematicamente in esame tanto i grandi palatia urbani quanto i casi meno conosciuti di edifici pubblici, e osservi con una visione comparativa aree geografiche distanti fra loro. È inoltre necessario promuovere un vero dialogo interdisciplinare sui temi in questione. Con la parziale eccezione degli apparati decorativi, i vari aspetti dei palazzi (politici, architettonici, archeologici, urbanistici) sono stati infatti considerati in maniera autonoma dagli specialisti delle varie discipline, che hanno privilegiato tipi specifici di fonti: i documenti d’archivio, le strutture materiali, le pitture e le sculture.\n"
+"</p>"
+
+#: public/templates/home.html:60
+msgid "home2"
+msgstr "home2"
+
+#: public/templates/home.html:63
+msgid "home3"
+msgstr "home3"

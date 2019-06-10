@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n static %}
 {% load crispy_forms_tags %}
 {% load django_bootstrap_breadcrumbs %}
 
@@ -13,9 +14,9 @@
         <div class="col-12">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                <h1 class="display-4">Atlante palazzi comunali</h1>
-                <p class="lead">Descrizione breve del progetto</p>
-                <a href="{% url 'list_buildings' %}" class="btn btn-success">Esplora i palazzi</a>
+                <h1 class="display-4">{% trans 'nome_progetto' %}</h1>
+                <p class="lead">{% trans 'desc_progetto' %}</p>
+                <a href="{% url 'list_buildings' %}" class="btn btn-success">{% trans 'button_explore' %}</a>
                 </div>
             </div>
         </div>
@@ -53,30 +54,34 @@
 
 <div class="row container-fluid mb-5">
     <div class="col-4">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at nisi a urna pellentesque ultricies quis id orci. Aenean mollis ex eget dui pulvinar aliquam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec sit amet libero a eros sodales imperdiet. Pellentesque et aliquam purus. Etiam maximus risus augue, ac mattis risus vulputate ac. Nam a lectus aliquet, dapibus ante sed, sagittis magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas vitae auctor nulla. Donec vitae arcu et quam vulputate dignissim. Cras vehicula imperdiet euismod. Integer dapibus neque sit amet neque tincidunt, sit amet varius urna tristique.
-        </p>
-        <p>
-            Pellentesque ultrices massa eros, blandit finibus massa consequat nec. Fusce in nisl non tortor luctus lobortis congue aliquam tortor. Sed ipsum dolor, feugiat sit amet nisi nec, ullamcorper fermentum augue. Etiam enim orci, pharetra eu quam sit amet, venenatis ornare tortor. Curabitur quis mauris rutrum, rhoncus nisl eget, congue mi. Nunc auctor vel nisi et consectetur. In ut tincidunt nisi, ut varius nisi.
-        </p>
-            
+        {% trans 'home1' %}
     </div>
     <div class="col-4">
-        <p>
-            Etiam quis ullamcorper dolor. Mauris ipsum mauris, bibendum eget ipsum ac, egestas eleifend erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan nisi ut nisl volutpat, sit amet vulputate lectus aliquet. Fusce finibus dapibus dapibus. Nulla a ullamcorper ligula, ut congue nisl. Proin mattis tincidunt dui sit amet luctus.
-        </p>
-        <p>
-            Fusce eget lorem vel magna varius feugiat eu non diam. Suspendisse tempus, enim in dignissim pellentesque, nibh ligula ultricies erat, sit amet sodales leo felis et ligula. Integer in aliquam felis, pharetra vestibulum nulla. Donec nec purus et elit iaculis sodales. Sed ornare nisl augue, eget maximus lorem tempus a. Nullam convallis eros ac ipsum lacinia, sed fringilla odio laoreet. Proin nec ullamcorper magna. Integer nisi felis, posuere sit amet facilisis sed, condimentum at est. Fusce tincidunt augue ut nibh sagittis semper. Nulla quis pellentesque elit. Nunc et accumsan turpis. Nulla facilisi. Aliquam ornare vitae diam id consectetur. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris venenatis gravida ex in mattis.
-        </p>
-        
+        {% trans 'home2' %}
     </div>
     <div class="col-4">
-        <p>
-            Nulla vehicula quam id est placerat molestie. Duis vestibulum tortor mauris, in bibendum nulla interdum nec. Aliquam bibendum venenatis mollis. Morbi molestie ante ac tellus egestas pellentesque. Suspendisse a nisi libero. Nullam vitae arcu id dui aliquet sodales vitae sed nisi. Ut sit amet sollicitudin neque. Curabitur malesuada suscipit dolor in consequat. Phasellus suscipit volutpat lectus, sed placerat urna eleifend vitae. Curabitur non justo non mi efficitur auctor quis ac nunc.
-        </p>
-        <p>
-            Etiam pellentesque erat et semper fermentum. Quisque in leo scelerisque, tincidunt dolor interdum, molestie nisi. Suspendisse mattis eget risus quis mattis. Cras varius molestie mauris, sit amet porta nunc blandit lobortis. Quisque a orci non libero vestibulum efficitur. Ut semper nec turpis at hendrerit. Vivamus vitae aliquam odio. Sed lectus ante, bibendum id arcu non, vehicula mollis quam. Morbi sit amet eros sodales, vulputate velit sed, sagittis urna. Nam tincidunt, mi at sodales consequat, magna sapien tristique leo, eget consectetur leo quam sed tortor. Integer a porta libero.
-        </p>
+        {% trans 'home3' %}
+    </div>
+</div>
+
+<div class="row container-fluid pt-3">
+    <div class="col-12 text-center">
+        <h4>Partners</h4>
+    </div>
+</div>
+
+<div class="row container-fluid mb-5 pt-3">
+    <div class="col-4">
+        <p>UMR 5648 CIHAM. Histoire, Archéologie, Littératures des mondes chrétiens et musulmans médiévaux</p>
+        <a href="http://ciham.msh-lse.fr/"><img src="/static/img/ciham.png" style="max-width:300px; max-height: 100px"></a>    
+    </div>
+    <div class="col-4">
+        <p>DIST. Dipartimento Interateneo di Scienze, Progetto e Politiche del Territorio</p>
+        <a href="http://www.dist.polito.it/"><img src="/static/img/dist.jpg" style="max-width:300px; max-height: 100px"></a>    
+    </div>
+    <div class="col-4">
+        <p>Università degli studi di Bergamo</p>
+        <a href="https://www.unibg.it/"><img src="/static/img/unibg.svg" style="max-width:300px; max-height: 100px"></a>    
     </div>
 </div>
 

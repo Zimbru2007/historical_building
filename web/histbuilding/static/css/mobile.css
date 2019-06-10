@@ -95,3 +95,14 @@ li.breadcrumb-item {
   .hidden-layer{
       display: none
   }
+
+
+  .btn-menu2 {
+    height: 25px;
+    padding-top: 0.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.9rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}

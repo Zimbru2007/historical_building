@@ -21,6 +21,96 @@ $(document).ready(function() {
         $(this).hide();
         $('#newSourceType').show();
     });
+
+    $('#btnSearchTrans').on('click', function(){
+        $.ajax({
+            url: "./editTranslation/",
+            method: 'GET',
+            data: {'query': $('input[name="search_string"]').val()}
+        }).done(function(response) { 
+            $('#tableTransRes').hide();
+            $('#alertNoresult').hide();
+            $('#tableTransRes tbody').empty();
+            $('#resultTrans').show();
+            docs = response['docs']
+            if (docs.length == 0){
+                $('#alertNoresult').show();
+            }
+            else{
+                
+                for (var i=0; i<docs.length; i++){
+                    $('#tableTransRes tbody').append("<tr><td>" + docs[i]['message'] + "</td><td><button data-oid='" + docs[i]['_id']['$oid'] + "' class='btn btn-primary'><span class='oi oi-pencil'></span></button></td> ");
+                }
+                $('#tableTransRes').show();
+            }
+            
+        });
+
+    });
+
+
+    $('#tableTransRes').on('click','.btn-primary',function(){
+        oid = $(this).data('oid')
+        $.ajax({
+            url: "./editTranslation/",
+            method: 'GET',
+            data: {'oid': oid}
+        }).done(function(response) { 
+            doc= response['doc'];
+            $('#resultTrans').hide();
+            $('#editTrans').show();
+            $('#formEditTrans').trigger("reset");
+            $('#formEditTrans input[name="oid"]').val(doc['_id']['$oid']);
+            $('#formEditTrans input[name="message"]').val(doc['message']);
+            $('#formEditTrans input[name="message"]').prop('disabled', 'disabled');
+            for (k in doc['languages']){
+                $('#formEditTrans .languages[name="' + k + '"' ).val(doc['languages'][k]);
+            }
+
+            
+        });
+
+    });
+
+    $('#btnCompileTrans').on('click', function(){
+        $.ajax({
+            url: "./updateTranslation/",
+            method: 'POST'
+        }).done(function(response) { 
+            toastr["success"](response['message']);
+        });
+    });
+
+
+    $('#btnCreateTrans').on('click', function(){
+        $('#resultTrans').hide();
+        $('#editTrans').show();
+        $('#formEditTrans').trigger("reset");
+    });
+
+
+    $('#btnsaveTrans').on('click', function(){
+        data={'message': undefined, 'languages':{}, '_id':undefined}
+        data['_id'] = $('#formEditTrans input[name="oid"]').val();
+        data['message'] = $('#formEditTrans input[name="message"]').val();
+        $.each($('#formEditTrans .languages'), function(i, el){
+            data['languages'][$(el)[0].name] = $(el).val();
+        });
+        console.log(data);
+        $.ajax({
+            url: "./editTranslation/",
+            method: 'POST',
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        }).done(function(response) { 
+            toastr["success"](response['message']);
+            $('#formEditTrans').trigger("reset");
+            $('#editTrans').hide();
+            $('#resultTrans').hide();
+        });
+        
+    })
 });        
 
 

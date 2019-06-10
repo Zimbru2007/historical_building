@@ -1,0 +1,61 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-10 13:17+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: histbuilding/settings.py:135
+msgid "Italiano"
+msgstr "Italiano"
+
+#: histbuilding/settings.py:136
+msgid "Français"
+msgstr "Français"
+
+#: histbuilding/templates/base.html:30 public/templates/home.html:17
+msgid "nome_progetto"
+msgstr "PACOME"
+
+#: public/templates/home.html:18
+msgid "desc_progetto"
+msgstr ""
+"PACOME (Palais communaux en Méditerranée) étudie, avec une démarche "
+"comparative et interdisciplinaire, le rôle politique et urbanistique joué "
+"par les édifices servant au gouvernement des communautés urbaines en "
+"Méditerranée."
+
+#: public/templates/home.html:19
+msgid "button_explore"
+msgstr "button_explore"
+
+#: public/templates/home.html:57
+msgid "home1"
+msgstr ""
+"<h4>La question historiographique de départ</h4>\n"
+"<p class=\"text-justify\">Les édifices servant d’emplacement aux représentants des communautés urbaines furent un élément central du paysage et de l’identité des collectivités urbaines médiévales, tant en Italie qu’en France méridionale. Bien que leur édification, relevant de l’initiative d’institutions différentes, se soit déroulée avec une chronologie et des résultats matériels variés, les palais des communautés de la Méditerranée nord-occidentale ont une histoire commune : leur mise en place a impliqué partout la naissance d’un espace de vie politique collective et la création d’un lieu identitaire distingué par rapport aux anciens lieux de rassemblement ou de culte au sein de la ville. Les palais municipaux, députés au gouvernement de la communauté, à l’exercice de la justice, à la conservation des archives locales, ont agi comme un pôle du développement du tissu urbain, même dans des contextes où les villes n’étaient pas autonomes, et demeurent souvent, aujourd’hui, un point de repère urbanistique.</p>\n"
+"<p class=\"text-justify\">\n"
+"L’étude des palais communaux est un thème classique dans l’historiographie médiévale, notamment italienne. Pourtant, cette tradition de recherche n’a concerné qu’un groupe limité d’espaces politiques : l’attention presque exclusive consacrée aux exemples venant de Toscane et de Lombardie a favorisé la construction d’une typologie d’analyse centrée sur des modèles centraux, dont l’efficacité à l’échelle européenne est loin d’être vérifiée. La recherche française récente a en outre souligné le protagonisme des communautés, mêmes hors d’Italie ou dans un cadre de soumission à une domination extérieure, en tant que pouvoirs bâtisseurs.</p>\n"
+"<p>On constate la nécessité d’une initiative d’étude collective, qui prenne systématiquement en considération autant les grands palatia urbains que les cas moins connus d’édifices publics, en utilisant une vision comparative qui embrasse des aires géographiques distantes. Il est également nécessaire de développer un dialogue interdisciplinaire sur le thème en question, la plupart des aspects (politiques, architecturales, archéologiques, urbanistiques) des palais ayant jusqu’ici été considérés de façon autonome par les spécialistes des différentes disciplines, qui ont privilégié des typologies spécifiques des sources : les documents d’archives, les structures matérielles, les peintures et les sculptures, etc.\n"
+"</p>"
+
+#: public/templates/home.html:60
+msgid "home2"
+msgstr "home2"
+
+#: public/templates/home.html:63
+msgid "home3"
+msgstr "home3"

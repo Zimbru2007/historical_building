@@ -24,3 +24,4 @@ Twisted>=18.7.0
 django-tinymce>=2.8.0
 django-crispy-forms>=1.7.2
 django-bootstrap-breadcrumbs>=0.9.1
+polib>=1.1.0

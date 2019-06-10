@@ -1,4 +1,5 @@
 {% extends "private_base.html" %}
+{% load i18n static %}
 {% load crispy_forms_tags %}
 {% load hb_tags %}
 {% load django_bootstrap_breadcrumbs %}
@@ -17,7 +18,10 @@
 
 <ul class="nav nav-tabs" id="confTab" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#sources" role="tab" aria-controls="sources" aria-selected="true">Tipo fonti</a>
+        <a class="nav-link active" id="sources-tab" data-toggle="tab" href="#sources" role="tab" aria-controls="sources" aria-selected="true">Tipo fonti</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="translations-tab" data-toggle="tab" href="#translations" role="tab" aria-controls="translations" aria-selected="false">Traduzioni</a>
     </li>
     
 </ul>
@@ -91,16 +95,83 @@
                     
                 </div>
         </div>
+    </div>
 
-        
+    <div class="tab-pane fade" id="translations" role="tabpanel" aria-labelledby="translations-tab">
+        <div class="row pt-3">
+            <div class="col-12">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label>Search</label>
+                        <input type="text" name="search_string" class="form-control ml-3">
+                    </div>
+                    <div class="form-group ml-3">
+                        <input type="button" class="btn btn-info" value="Cerca" id="btnSearchTrans">
+                    </div>
+                    <div class="form-group ml-3">
+                        <input type="button" class="btn btn-primary" value="Aggiungi" id="btnCreateTrans">
+                    </div>
+                    <div class="form-group ml-3">
+                            <input type="button" class="btn btn-success" value="Compila" id="btnCompileTrans">
+                        </div>
+                </form>
+            </div>
+        </div>
+        <div class="row pt-3" id="resultTrans" style="display: none">
+            <div class="col-6">
+                <div class="alert alert-warning" role="alert" id="alertNoresult">
+                    A simple warning alert—check it out!
+                </div>
 
-        
+                <table id="tableTransRes" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Messaggio</th>
+                            <th>Modifica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="row pt-3" id="editTrans" style="display: none">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        Traduzione
+                    </div>
+                    <div class="card-body">
+                        <form id="formEditTrans">
+                            <input type="hidden" name="oid">
+                            <div class="form-group">
+                                <label>Messaggio</label>
+                                <input type="text" name="message" class="form-control" required>
+                            </div>
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang in LANGUAGES %}
+                                <div class="form-group">
+                                    <label>{{lang.1}}</label>
+                                    <textarea name="{{lang.0}}" class="form-control languages"></textarea>
+                                </div>
+                            {% endfor %}
+                            <div class="form-group pt-3">
+                                <input type="button" class="btn btn-success" value="Salva" id="btnsaveTrans">
+                            </div>
 
 
+                        </form>
+                    </div>
+                </div>
+            </div>
 
+        </div>
     </div>
     
 </div>
+
 {% endblock %}
 
 

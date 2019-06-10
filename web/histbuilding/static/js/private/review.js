@@ -1,3 +1,4 @@
+currentReview = undefined;
 $(document).ready(function() {
 
     $('input[name="building"]').typeahead({
@@ -32,7 +33,7 @@ $(document).ready(function() {
     });
 
     $('#submitReview').on('click', function(){
-        formData = {'oid': $('input[name="oid"]').val(), 'review': tinymce.get('review').getContent()}
+        formData = {'oid': $('input[name="oid"]').val(), 'review': tinymce.get('review').getContent(), 'language_review': $('select[name="languageReview"] option:selected').val(), 'authors_review': $('input[name="authors_review"]').val()}
         
         $.ajax({
             url: "/private/palazzi/manageBuilding/",
@@ -93,8 +94,14 @@ function getReview(oid){
     }).done(function(response) {
         doc = response['doc'];
         $('input[name="oid"]').val(doc['_id']['$oid']);
+        currentReview = doc;
         if ('review' in doc){
-            tinymce.get('review').setContent(doc['review']);
+            if (doc['review'].length){
+                review = doc['review'][0]
+                tinymce.get('review').setContent(review['text']);
+                //$('input[name="languageReview"] option:selected').val(review['language']);
+                $('input[name="authors_review"]').val(review['authors']);
+            }
         }
         console.log(response);
     });
