@@ -43,6 +43,7 @@
 		</div>
 		<form action="{% url 'set_language' %}" method="post" class="form-inline ml-2">{% csrf_token %}
 			<input name="next" type="hidden" value="{{ redirect_to }}" />
+			<div class="form-group">
 			<select name="language" id="language" class="form-control" style="height:25px;">
 				{% get_current_language as LANGUAGE_CODE %}
 				{% get_available_languages as LANGUAGES %}
@@ -52,7 +53,8 @@
 					</option>
 				{% endfor %}
 			</select>
-			<input class="btn btn-info text-uppercase ml-2 mr-2 btn-menu2" id="changeLanguage" type="submit" value="Go"/>
+			<input class="btn btn-info text-uppercase ml-2 mr-2" id="changeLanguage" type="submit" value="Go"/>
+		</div>
 		</form>
 		{% if user.is_authenticated %}
 		<ul class="navbar-nav my-2 my-lg-0">

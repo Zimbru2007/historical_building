@@ -22,6 +22,20 @@ class DefineFormSource(APIView):
                     doc['elements'].append(v)
 
             doc['elements'] = sorted(doc['elements'], key = lambda i: int(i['order']))
+            for e in doc['elements']:
+                r = db.translation.find_one({'message': e['name']})
+                if r == None:
+                    trans = {'message': e['name'], 'languages': {}}
+                    for l in settings.LANGUAGES:
+                        trans['languages'][l[0]] = e['name']
+                    db.translation.insert_one(trans)
+            
+            r = db.translation.find_one({'message': doc['name']})
+            if r == None:
+                trans = {'message': doc['name'], 'languages': {}}
+                for l in settings.LANGUAGES:
+                    trans['languages'][l[0]] = doc['name']
+                db.translation.insert_one(trans)
 
             print (doc)
             

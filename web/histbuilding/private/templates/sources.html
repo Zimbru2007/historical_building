@@ -35,23 +35,23 @@
                 {% for e in s.elements %}
                     <div class="form-group">
                         {% if e.type == 'text' %}
-                            <label>{{e.label}}{%if e.required%}*{%endif%}</label>
-                            <input type="text" name="{{e.name}}" placeholder="{{e.label}}" class="form-control" {%if e.required%}required{%endif%}>
+                            <label>{% trans e.name %}{%if e.required%}*{%endif%}</label>
+                            <input type="text" name="{{e.name}}" placeholder="{% trans e.name %}" class="form-control" {%if e.required%}required{%endif%}>
                         {% endif %}
                         {% if e.type == 'textarea' %}
-                            <label>{{e.label}}{%if e.required%}*{%endif%}</label>
-                            <textarea name="{{e.name}}" placeholder="{{e.label}}" class="form-control" row="3" {%if e.required%}required{%endif%}></textarea>
+                            <label>{% trans e.name %}{%if e.required%}*{%endif%}</label>
+                            <textarea name="{{e.name}}" placeholder="{% trans e.name %}" class="form-control" row="3" {%if e.required%}required{%endif%}></textarea>
                         {% endif %}
                         {% if e.type == 'number' %}
-                            <label>{{e.label}}{%if e.required%}*{%endif%}</label>
+                            <label>{% trans e.name %}{%if e.required%}*{%endif%}</label>
                             <input type="number" name="{{e.name}}" class="form-control" {%if e.required%}required{%endif%}>
                         {% endif %}
                         {% if e.type == 'date' %}
-                            <label>{{e.label}}{%if e.required%}*{%endif%}</label>
-                            <input type="text" name="{{e.name}}" placeholder="{{e.label}}" class="form-control" {%if e.required%}required{%endif%}>
+                            <label>{{% trans e.name %}{%if e.required%}*{%endif%}</label>
+                            <input type="text" name="{{e.name}}" placeholder="{% trans e.name %}" class="form-control" {%if e.required%}required{%endif%}>
                         {% endif %}
                         {% if e.type == 'boolean' %}
-                            {{e.label}} {%if e.required%}*{%endif%}
+                            {{% trans e.name %} {%if e.required%}*{%endif%}
                             <label class="switch ml-2">
                                 <input type="checkbox" class="default" name="{{e.name}}" {%if e.required%}required{%endif%}>
                                 <span class="slider round" ></span>

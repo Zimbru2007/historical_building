@@ -118,7 +118,6 @@ function addFormElement(){
     $.get("/static/templates/formElement.html", function( data ) {
         t = $.parseHTML(data)[0]
         t.content.querySelector('.name-input').setAttribute("name","name-"+ newElementId);
-        t.content.querySelector('.label-input').setAttribute("name","label-"+ newElementId);
         t.content.querySelector('.type-input').setAttribute("name","type-"+ newElementId);
         t.content.querySelector('.order-input').setAttribute("name","order-"+ newElementId);
         t.content.querySelector('.order-input').setAttribute("value",newElementId);
@@ -157,5 +156,8 @@ function saveForm(){
         dataType: "json",
     }).done(function(response) { 
         toastr["success"](response['message']);
+        source = response['source'];
+        $('#tableSources tbody').append('<tr><td>' + source['name'] + '</td><td><button type="button" class="btn btn-primary" data-oid="' + source['oid'] + '"><span class="oi oi-pencil"></span></button></td></tr>');
+
     });
 }
