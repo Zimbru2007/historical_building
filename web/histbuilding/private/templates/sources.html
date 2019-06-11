@@ -47,11 +47,11 @@
                             <input type="number" name="{{e.name}}" class="form-control" {%if e.required%}required{%endif%}>
                         {% endif %}
                         {% if e.type == 'date' %}
-                            <label>{{% trans e.name %}{%if e.required%}*{%endif%}</label>
+                            <label>{% trans e.name %}{%if e.required%}*{%endif%}</label>
                             <input type="text" name="{{e.name}}" placeholder="{% trans e.name %}" class="form-control" {%if e.required%}required{%endif%}>
                         {% endif %}
                         {% if e.type == 'boolean' %}
-                            {{% trans e.name %} {%if e.required%}*{%endif%}
+                            {% trans e.name %} {%if e.required%}*{%endif%}
                             <label class="switch ml-2">
                                 <input type="checkbox" class="default" name="{{e.name}}" {%if e.required%}required{%endif%}>
                                 <span class="slider round" ></span>
