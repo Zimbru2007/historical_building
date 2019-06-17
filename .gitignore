@@ -100,4 +100,4 @@ ENV/
 
 *.zip
 
-web/static/node_modules/
+web/histbuilding/static/node_modules

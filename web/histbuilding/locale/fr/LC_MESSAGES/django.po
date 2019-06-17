@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-10 13:17+0000\n"
+"POT-Creation-Date: 2019-06-11 12:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,26 +36,96 @@ msgstr ""
 "PACOME (Palais communaux en Méditerranée) étudie, avec une démarche "
 "comparative et interdisciplinaire, le rôle politique et urbanistique joué "
 "par les édifices servant au gouvernement des communautés urbaines en "
-"Méditerranée."
+"Méditerranée"
 
 #: public/templates/home.html:19
 msgid "button_explore"
-msgstr "button_explore"
+msgstr "Explore les palais"
 
 #: public/templates/home.html:57
 msgid "home1"
 msgstr ""
-"<h4>La question historiographique de départ</h4>\n"
+"<h5>La question historiographique de départ</h5>\n"
 "<p class=\"text-justify\">Les édifices servant d’emplacement aux représentants des communautés urbaines furent un élément central du paysage et de l’identité des collectivités urbaines médiévales, tant en Italie qu’en France méridionale. Bien que leur édification, relevant de l’initiative d’institutions différentes, se soit déroulée avec une chronologie et des résultats matériels variés, les palais des communautés de la Méditerranée nord-occidentale ont une histoire commune : leur mise en place a impliqué partout la naissance d’un espace de vie politique collective et la création d’un lieu identitaire distingué par rapport aux anciens lieux de rassemblement ou de culte au sein de la ville. Les palais municipaux, députés au gouvernement de la communauté, à l’exercice de la justice, à la conservation des archives locales, ont agi comme un pôle du développement du tissu urbain, même dans des contextes où les villes n’étaient pas autonomes, et demeurent souvent, aujourd’hui, un point de repère urbanistique.</p>\n"
-"<p class=\"text-justify\">\n"
-"L’étude des palais communaux est un thème classique dans l’historiographie médiévale, notamment italienne. Pourtant, cette tradition de recherche n’a concerné qu’un groupe limité d’espaces politiques : l’attention presque exclusive consacrée aux exemples venant de Toscane et de Lombardie a favorisé la construction d’une typologie d’analyse centrée sur des modèles centraux, dont l’efficacité à l’échelle européenne est loin d’être vérifiée. La recherche française récente a en outre souligné le protagonisme des communautés, mêmes hors d’Italie ou dans un cadre de soumission à une domination extérieure, en tant que pouvoirs bâtisseurs.</p>\n"
-"<p>On constate la nécessité d’une initiative d’étude collective, qui prenne systématiquement en considération autant les grands palatia urbains que les cas moins connus d’édifices publics, en utilisant une vision comparative qui embrasse des aires géographiques distantes. Il est également nécessaire de développer un dialogue interdisciplinaire sur le thème en question, la plupart des aspects (politiques, architecturales, archéologiques, urbanistiques) des palais ayant jusqu’ici été considérés de façon autonome par les spécialistes des différentes disciplines, qui ont privilégié des typologies spécifiques des sources : les documents d’archives, les structures matérielles, les peintures et les sculptures, etc.\n"
-"</p>"
+"<p class=\"text-justify\">L’étude des palais communaux est un thème classique dans l’historiographie médiévale, notamment italienne. Pourtant, cette tradition de recherche n’a concerné qu’un groupe limité d’espaces politiques : l’attention presque exclusive consacrée aux exemples venant de Toscane et de Lombardie a favorisé la construction d’une typologie d’analyse centrée sur des modèles centraux, dont l’efficacité à l’échelle européenne est loin d’être vérifiée. La recherche française récente a en outre souligné le protagonisme des communautés, mêmes hors d’Italie ou dans un cadre de soumission à une domination extérieure, en tant que pouvoirs bâtisseurs.</p>\n"
+"<p class=\"text-justify\">On constate la nécessité d’une initiative d’étude collective, qui prenne systématiquement en considération autant les grands palatia urbains que les cas moins connus d’édifices publics, en utilisant une vision comparative qui embrasse des aires géographiques distantes. Il est également nécessaire de développer un dialogue interdisciplinaire sur le thème en question, la plupart des aspects (politiques, architecturales, archéologiques, urbanistiques) des palais ayant jusqu’ici été considérés de façon autonome par les spécialistes des différentes disciplines, qui ont privilégié des typologies spécifiques des sources : les documents d’archives, les structures matérielles, les peintures et les sculptures, etc.</p>"
 
 #: public/templates/home.html:60
 msgid "home2"
-msgstr "home2"
+msgstr ""
+"<h5>Un projet international et multidisciplinaire</h5>\n"
+"<p class=\"text-justify\">La mise en dialogue des différentes disciplines concernées, ainsi que l’expansion de l’échelle géographique et chronologique des recherches sur les palais communaux, sont les priorités opératives du projet PACOME. Les activités du groupe de recherche italo-français ont permis, en octobre 2017, la constitution d’un cadre technique et problématique multidisciplinaire utile à la conception d’un Atlas des Palais Communaux en Méditerranée, soutenu par le CIHAM, le CNE Centre Norbert Elias, l’UMR Espace, le laboratoire Hemoc pour la France, l’Université de Bergame et l’École Polytechnique de Turin pour l’Italie. Ce projet a bénéficié, pour la phase de montage, d’un financement de la part de la FR Agorantic (Université d’Avignon).</p>\n"
+"<p class=\"text-justify\">Outre au travail sur la structure de l’Atlas, l’équipe franco-italienne est active dans le recensement des palais communaux en France méridionale et Italie et dans la rédaction de leurs fiches descriptives ; dans l’organisation de séminaires et leçons sur les thèmes en question auprès des écoles doctorales et de spécialisation des institutions partenaires ; dans l’activation de collaborations avec des institutions locales intéressées à l’étude et à la valorisation des palais communaux.</p>"
 
 #: public/templates/home.html:63
 msgid "home3"
-msgstr "home3"
+msgstr ""
+"<h5>Les objectifs du projet</h5>\n"
+"<p class=\"text-justify\">La composante française et la composante italienne de l’équipe internationale PACOME sont engagées dans une série d’initiatives de recherche locale et d’innovation technologique visant à la construction de l’Atlas des palais communaux. Il s’agit d’une plateforme composée de fiches interdisciplinaires sur chaque édifice, avec des informations historiques, des cartographies, des relevés et éventuellement des reconstitutions 3D. Cette plateforme rassemble, étudie, analyse et communique au public l’ensemble des informations utiles à comprendre, sous les différents points de vue, les palais communaux ou les hôtels de ville, par le biais d’un système d’information géographique : le travail classique de recherche (études documentaires, archéologiques, iconographiques, enquêtes de terrain) est en effet couplé avec un géoréférencement systématique des informations historiques. Par le biais de la collecte d’informations homogènes, la plateforme veut répondre à des questions de recherche utiles à plusieurs disciplines : les rythmes de diffusion, les typologies architecturales, les institutions promotrices, l’usage contemporain des bâtiments.</p>\n"
+"<p class=\"text-justify\">PACOME organise en outre une série de séminaires scientifiques et de journées de travail entre France et Italie. Ces échanges ont l’objectif de favoriser au maximum le partage des compétences spécifiques relevant des deux traditions historiographiques nationales, qui s’avère la principale valeur ajoutée offerte par une collaboration franco-italienne sur le thème en question.</p>"
+
+msgid "authors"
+msgstr "Auteurs"
+
+msgid "title"
+msgstr "Titre"
+
+msgid "tomo"
+msgstr "Tome"
+
+msgid "ndoc"
+msgstr "Numerò document, tableau, image"
+
+msgid "pages"
+msgstr "Pages où il y a l'information"
+
+msgid "notes"
+msgstr "Notes"
+
+msgid "content_date"
+msgstr "Date du contenu"
+
+msgid "publication_date"
+msgstr "Date de publication"
+
+msgid "place"
+msgstr "Lieu"
+
+msgid "title_journal"
+msgstr "Titre de la revue"
+
+msgid "author_journal"
+msgstr "Auteur ou conservateur du dossier"
+
+msgid "nvol"
+msgstr "Numero du dossier"
+
+msgid "publisher"
+msgstr "Maison d'édition"
+
+msgid "url"
+msgstr "URL"
+
+msgid "second_hand"
+msgstr "Source de second main"
+
+msgid "annotations"
+msgstr "Annotations"
+
+msgid "Fonti edite"
+msgstr "Sources éditées"
+
+msgid "institution"
+msgstr "Organisme responsable de la conservation"
+
+msgid "signature_archive"
+msgstr "Signature archivistique"
+
+msgid "paper"
+msgstr "Page où il y a l'information"
+
+msgid "Fonti archivistiche"
+msgstr "Sources archivistiques"
+
+msgid "Pubblicazioni scientifiche"
+msgstr "Publication scientifique"
