@@ -15,7 +15,7 @@
 <div class="row pt-3">
     <div class="col-4">
         <h3>Elenco palazzi</h3>
-        {% if nbuldings %}
+        
             <table class="table table-striped" style="width: 100%">
                 <thead>
                     <tr>
@@ -26,17 +26,14 @@
                 <tbody>
                     {% for b in buildings%}
                         <tr>
+                            <td>{{b.locationInfo.0.name}}</td>
                             <td>{{b.name}}</td>
                             <td><a href="{% url 'building' b.slug %}" class="btn btn-success"><span class="oi oi-document"></span> Vai al dettaglio</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <div class="alert alert-info" role="alert">
-                Nessun palazzo comunale ancora disponibile
-            </div>
-        {% endif %}
+        
     </div>
 </div>
 

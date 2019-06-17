@@ -12,6 +12,7 @@ $(document).ready(function() {
         onSelect: function(item) {
             console.log(item);
             $('#manageBuilding').show();
+            $('#buildingForm input[name="locationid"]').val(item.value);
             $('input[name="location"]').prop('disabled', 'disabled');
             $('#changeLocation').show();
             if (initMapFlag){
@@ -93,6 +94,7 @@ $(document).ready(function() {
                 'geo': null
         };
         data['oid'] = $('#buildingForm input[name="oid"]').val();
+        data['locationid'] = $('#buildingForm input[name="locationid"]').val();
         data['name']= $('#buildingForm input[name="name"]').val();
         data['old_names']= $('#buildingForm input[name="old_names"]').val().split(',');
         data['recognized']= $('#buildingForm input[name="recognized"]').val();
