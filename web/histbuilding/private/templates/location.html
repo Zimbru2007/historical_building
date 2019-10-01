@@ -19,7 +19,7 @@
     <div class="col-6">
         <div class="card">
             <div class="card-header">
-                <h5>Nuova località</h5>
+                <h5 id="cardTitle">Nuova località</h5>
             </div>
             <div class="card-body">
                 <form id="locationForm">
@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label>Denominazioni precedenti</label>
-                        <input type="text" name="previous_name" class="form-control" placeholder="">
+                        <input type="text" name="previous_name" class="form-control" placeholder="" >
                     </div>
                     <div class="form-group">
                         <label>Prima attestazione dell’organismo comunale</label>
@@ -42,6 +42,8 @@
                     </div>
                     <div class="form-group">
                         <input id="saveLocation" type="button" class="btn btn-success" value="Salva">
+                        <input id="cancelLocation" type="button" class="btn btn-danger" value="Resetta il modulo">
+                   
                     </div>
                     
             
@@ -67,7 +69,7 @@
                             <tr>
                                 <td>{{l.name}}</td>
                                 <td><button type="button" class="btn btn-primary" data-oid="{{l|oid}}"><span class="oi oi-pencil"></span></button></td>
-                            </tr>
+                             </tr>
                             {% endfor %}
                         </tbody>
                     

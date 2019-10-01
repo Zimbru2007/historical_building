@@ -15,7 +15,6 @@
 	
 {% endblock %}
 
-
 <ul class="nav nav-tabs" id="confTab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="sources-tab" data-toggle="tab" href="#sources" role="tab" aria-controls="sources" aria-selected="true">Tipo fonti</a>
@@ -25,9 +24,6 @@
     </li>
     
 </ul>
-
-
-
 <div class="tab-content" id="confTabContent">
     <div class="tab-pane fade show active" id="sources" role="tabpanel" aria-labelledby="sources-tab">
         <div class="row pt-3">
@@ -35,6 +31,8 @@
                 <div class="form-group">
                     <button type="button" class="btn btn-primary" id="newSourceType">Nuovo tipo</button>
                     <button class="btn btn-success" id="saveForm" style="display: none">Salva</button>
+                    <button class="btn btn-success" id="updateForm" style="display: none">Salva</button>
+                    <button class="btn btn-danger" id="cancelForm" style="display: none">Cancella</button>
                 </div>
                 <div class="row pt-3" id="divSourceType" style="display: none">
                         <div class="col-12">
@@ -83,8 +81,10 @@
                                         {% for t in source_types %}
                                         <tr>
                                             <td>{{t.name}}</td>
-                                            <td><button type="button" class="btn btn-primary" data-oid="{{t|oid}}"><span class="oi oi-pencil"></span></button></td>
+                                            <td><button type="button" class="btn btn-primary" data-oid="{{t|oid}}"><span class="oi oi-pencil">EDIT</span></button></td>
+           
                                         </tr>
+                                       
                                         {% endfor %}
                                     </tbody>
                                 
@@ -176,5 +176,6 @@
 
 
 {% block script %}
+
 <script defer type="text/javascript" src="/static/js/private/configuration.js"></script>
 {% endblock %}

@@ -47,10 +47,10 @@ class ManageLocation(APIView):
                         raise Exception('no matching oid')
                 else:
                     doc_id = db.location.insert_one(doc).inserted_id
-                    print ('insert', doc_id)
+                    print ('insert1', doc_id)
             else:
                 doc_id = db.location.insert_one(doc).inserted_id
-                print ('insert', doc_id)
+                print ('insert2', doc_id)
             #print (doc)
             
             return Response({'message':'Luogo salvato corretamente', 'doc': {'oid': str(doc_id), 'name': doc['name']}})

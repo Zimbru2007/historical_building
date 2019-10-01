@@ -1,12 +1,113 @@
 {% extends "private_base.html" %}
 {% load i18n static %}
+{% load hb_tags %}
 {% load django_bootstrap_breadcrumbs %}
 
 {% block content%}
 
 {{ block.super }}
 
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Home" "home" %}
+{% endblock %}
 
-<p>Da definire il contenuto</p>
+<div class="row pt-3">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Lista delle località più recenti</h5>
+            </div>
+                <div class="card-body">
+                    <table class="table table-striped" style="width: 100%" id="locationTable">
+                        <thead>
+                            <tr class="table-primary">
+                                <th>Nome</th>
+                                <th>Modifica</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for l in locations %}
+                            <tr>
+                                <td>{{l.name}}</td>
+                                <td>
+                                 <button type="button" class="btn btn-primary" data-oid="{{l|oid}}"><span class="oi oi-pencil"></span></button>
+                                 <!--<a href="{% url 'location' %}" class="btn btn-primary" role="button" aria-pressed="true"><span class="oi oi-pencil"></span></a>-->
+                   
+                                </td>
+                             </tr>
+                            {% endfor %}
+                        </tbody>
+                    
+                    </table>
+                    <div class="text-right">
+                        <a href="{% url 'location' %}" class="btn btn-primary" role="button" aria-pressed="true" id="jumpLocation">Vai a "Località"</a>
+                    </div>    
+                </div>
+            </div> 
+        </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Numero di palazzi nelle località </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="myChart" width="100%"></canvas>
+            </div> 
+        </div> 
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Lista degli utenti più recenti</h5>
+            </div>
+            <div class="card-body">
+                    <table class="table table-striped" style="width: 100%" id="locationTable">
+                        <thead>
+                            <tr class="table-primary">
+                                <th>Nome utente</th>
+                                <th>Ultimo accesso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for l in users %}
+                            <tr>
+                                <td>{{l.username}}</td>
+                                <td>{{l.last_login}}</td>
+                             </tr>
+                            {% endfor %}
+                        </tbody>
+                    
+                    </table>   
+                </div>
+        </div> 
+    </div>
+    <div class="w-100"></div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Da definire</h5>
+            </div>
+        </div> 
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Da definire</h5>
+            </div>
+        </div> 
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Da definire</h5>
+            </div>
+        </div> 
+    </div>
+</div>
 
+{% endblock %}
+
+{%block script %}
+<script defer type="text/javascript" src="/static/js/private/main.js"></script>
 {% endblock %}

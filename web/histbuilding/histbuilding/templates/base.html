@@ -17,8 +17,10 @@
 	<link async href="/static/node_modules/open-iconic/font/css/open-iconic.min.css" rel="stylesheet">
 	<link async href="/static/css/mobile.css" rel="stylesheet">
 	<!--link async href="/static/css/style.css" rel="stylesheet"-->
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet"> 
 
-	{% block extrastyle %}{% endblock%}
+	
+  	{% block extrastyle %}{% endblock%}
 
 </head>
 
@@ -77,7 +79,6 @@
 
 	</nav>
 
-
 	<div id="content" class="mb-5 container-fluid">	
 		{% block content %}{% endblock %}
 	</div>
@@ -94,6 +95,8 @@
 	<script src="/static/node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="/static/node_modules/popper.js/dist/umd/popper.min.js"></script>
 	<script src="/static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/static/node_modules/chart.js/dist/Chart.js"></script>
+	<script src="/static/node_modules/chart.js/dist/Chart.min.js"></script>
 	<script src="/static/js/intersection-observer.min.js"></script>
 	<script defer src="/static/node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
 	<script defer src="/static/node_modules/cookieconsent/build/cookieconsent.min.js"></script>

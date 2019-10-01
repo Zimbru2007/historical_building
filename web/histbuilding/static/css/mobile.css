@@ -17,19 +17,26 @@ li.breadcrumb-item {
 
 
 /* The switch - the box around the slider */
+
 .switch {
     position: relative;
     display: inline-block;
     width: 52px;
     height: 30px;
-    float:right;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {display:none;}
-  
-  /* The slider */
-  .slider {
+    float: right;
+}
+
+
+/* Hide default HTML checkbox */
+
+.switch input {
+    display: none;
+}
+
+
+/* The slider */
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -39,9 +46,9 @@ li.breadcrumb-item {
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 20px;
@@ -51,53 +58,58 @@ li.breadcrumb-item {
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input.default:checked + .slider {
+}
+
+input.default:checked+.slider {
     background-color: #28a745;
-  }
-  input.primary:checked + .slider {
+}
+
+input.primary:checked+.slider {
     background-color: #2196F3;
-  }
-  input.success:checked + .slider {
+}
+
+input.success:checked+.slider {
     background-color: #8bc34a;
-  }
-  input.info:checked + .slider {
+}
+
+input.info:checked+.slider {
     background-color: #3de0f5;
-  }
-  input.warning:checked + .slider {
+}
+
+input.warning:checked+.slider {
     background-color: #FFC107;
-  }
-  input.danger:checked + .slider {
+}
+
+input.danger:checked+.slider {
     background-color: #f44336;
-  }
-  
-  input:focus + .slider {
+}
+
+input:focus+.slider {
     box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
+}
+
+input:checked+.slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
+}
+
+
+/* Rounded sliders */
+
+.slider.round {
     border-radius: 30px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
-  
+}
 
-  .hidden-layer{
-      display: none
-  }
+.hidden-layer {
+    display: none
+}
 
-
-  .btn-menu2 {
+.btn-menu2 {
     height: 25px;
     padding-top: 0.25rem;
     padding-left: 1rem;
@@ -105,4 +117,126 @@ li.breadcrumb-item {
     font-size: 0.9rem;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
+}
+
+
+/*--------------------General Template----------------------*/
+
+
+/*
+.navbar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #CDDC39;
+    overflow-x: hidden;
+}*/
+
+
+/* Side navigation links */
+
+
+/*
+.navbar a {
+    font-family: 'Lato', sans-serif;
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-style: solid;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-color: #000;
+    font-weight: bold;
+}*/
+
+
+/* Change color on hover */
+
+
+/*.navbar a:hover {
+    background-color: #AFB42B;
+    color: white;
+    margin-left: 5px;
+    font-weight: bold;
+}*/
+
+
+/* Style the content */
+
+
+/*#content {
+    margin-left: 200px;
+    padding-left: 20px;
+}
+
+#bottom {
+    margin-left: 200px;
+    padding-left: 20px;
+}*/
+
+
+/*-------------------Table primary--------------------------*/
+
+
+/*
+.table-primary {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-primary td,
+.table-primary th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table-primary tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-primary tr:hover {
+    background-color: #ddd;
+}
+
+.table-primary th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+*/
+
+
+/*----------------Rounded buttons --------------------*/
+
+
+/*
+.btn {
+    background-color: #CDDC39;
+    border: none;
+    color: #000;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 8px;
+}
+
+.btn:hover {
+    background-color: #AFB42B;
+    color: white;
+}*/
+
+body {
+    padding-top: 110px;
 }

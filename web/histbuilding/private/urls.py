@@ -10,6 +10,7 @@ urlpatterns = [
     path('palazzi/manageBuilding/', ManageBuilding.as_view(), name='manageBuilding'),
     path('palazzi/sintesi/', BuildingReview.as_view(), name='buildingReview'),
     path('uploadImage/', UploadImage.as_view(), name='uploadImage'),
+    path('buildingStatistics/', BuildingStatistics.as_view(), name='buildingStatistics'),
     path('edifici_comunali/', CityBuilding.as_view(), name='city_building'),
     path('luoghi/', Location.as_view(), name="location"),
     path('configurazione/', Configuration.as_view(), name='configuration'),
