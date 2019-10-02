@@ -18,7 +18,6 @@ $(document).ready(function() {
 
     $('#tableSources').on('click', '.btn-primary', function() {
         console.log('edit fonte');
-        //$('input[name="search_string"]').val('tqqqqqq');
         oid = $(this).data('oid');
         curroid = oid;
         // alert('edit fonte ' + oid);
@@ -51,10 +50,8 @@ $(document).ready(function() {
                     }
                 }
                 newElementId = maxElementId;
-                //$('input[name="search_string"]').val(str);
             })
             /*.fail(function(xhr, textStatus, errorThrown) {
-                        $('input[name="search_string"]').val('error=' + xhr.responseText);
                     })*/
         ;
 
@@ -252,17 +249,18 @@ function saveForm() {
         data['_id'] = curroid;
     }
     $.ajax({
-        url: "./defineFormSource/",
-        method: 'POST',
-        data: JSON.stringify(data),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-    }).done(function(response) {
-        toastr["success"](response['message']);
-        source = response['source'];
-        $('#tableSources tbody').append('<tr><td>' + source['name'] + '</td><td><button type="button" class="btn btn-primary" data-oid="' + source['oid'] + '"><span class="oi oi-pencil"></span></button></td></tr>');
-        curroid = "";
-    }).fail(function(xhr, textStatus, errorThrown) {
-        $('input[name="search_string"]').val('error=' + xhr.responseText + ' ' + errorThrown + ' ' + textStatus);
-    });
+            url: "./defineFormSource/",
+            method: 'POST',
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        }).done(function(response) {
+            toastr["success"](response['message']);
+            source = response['source'];
+            $('#tableSources tbody').append('<tr><td>' + source['name'] + '</td><td><button type="button" class="btn btn-primary" data-oid="' + source['oid'] + '"><span class="oi oi-pencil"></span></button></td></tr>');
+            curroid = "";
+        })
+        /*.fail(function(xhr, textStatus, errorThrown) {
+             })*/
+    ;
 }

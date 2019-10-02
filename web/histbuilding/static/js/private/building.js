@@ -74,7 +74,7 @@ $(document).ready(function() {
 
 
             if (doc['geo']) {
-                removeMarkers();
+                //removeMarkers();
                 if (doc['geo']['type'] == 'Point') {
                     c = doc['geo']['coordinates'];
                     var marker = drawnItems.addLayer(L.marker([c[0], c[1]]));
