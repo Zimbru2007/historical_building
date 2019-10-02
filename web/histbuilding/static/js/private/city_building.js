@@ -1,4 +1,4 @@
-var map, drawnItems;
+var map, drawnItems, nonEditableDrawnItems;
 var currentLocation;
 var initMapFlag = true;
 $(document).ready(function() {
@@ -36,6 +36,9 @@ $(document).ready(function() {
         $('#manageCityBuilding').hide();
         $(this).hide();
         currentLocation = undefined;
+        $('#cityBuildingForm input[name="oid"]').val(null);
+        $('#cityBuildingForm').trigger('reset');
+        removeMarkers(false);
     });
 
     //initMap();
@@ -58,10 +61,10 @@ $(document).ready(function() {
 
 
             if (doc['geo']) {
-                removeMarkers();
+                removeMarkers(true);
                 if (doc['geo']['type'] == 'Point') {
                     c = doc['geo']['coordinates']
-                    var marker = L.marker([c[0], c[1]]).addTo(map);
+                    var marker = drawnItems.addLayer(L.marker([c[0], c[1]]));
                     enableDraw(false);
                 }
                 if (doc['geo']['type'] == 'Polygon') {
@@ -102,8 +105,9 @@ $(document).ready(function() {
             toastr["success"](response['message']);
             doc = response['doc'];
             updateLocationEntities(currentLocation['_id']['$oid'])
+            $('#cityBuildingForm input[name="oid"]').val(null);
             $('#cityBuildingForm').trigger('reset');
-            removeMarkers();
+            removeMarkers(true);
         });
 
 
@@ -127,24 +131,26 @@ function updateLocationEntities(oid) {
         loc = response['location'];
         currentLocation = loc;
         if (loc['geo']) {
-            //removeMarkers();
+            removeMarkers(true);
             if (loc['geo']['type'] == 'Point') {
                 c = loc['geo']['coordinates']
-                var marker = L.marker([c[0], c[1]]).addTo(map);
+                var marker = nonEditableDrawnItems.addLayer(L.marker([c[0], c[1]]));
                 //enableDraw(false);
             }
             if (loc['geo']['type'] == 'Polygon') {
                 c = loc['geo']['coordinates']
                 console.log(c)
-                var polygon = drawnItems.addLayer(L.polygon(c)) //.addTo(map);
+                var polygon = nonEditableDrawnItems.addLayer(L.polygon(c)) //.addTo(map);
                 map.fitBounds(polygon.getBounds());
                 //enableDraw(false);
             }
             docs = response['docs']
+            $('#cityBuildingTable tbody').empty();
+
             for (var i = 0; i < docs.length; i++) {
                 $('#cityBuildingTable tbody').append("<tr><td>" + docs[i]['name'] + "</td><td>" + docs[i]['type'] + "</td><td>" + docs[i]['function'] + "</td>><td><button type='button' class='btn btn-primary' data-oid='" + docs[i]['_id']['$oid'] + "'><span class='oi oi-pencil'></span></button></td></tr> ")
             }
-            removeMarkers();
+            //removeMarkers();
 
         }
 
@@ -154,6 +160,7 @@ function updateLocationEntities(oid) {
 function initMap() {
     map = L.map('map').setView([44.96, 7.566], 8);
     drawnItems = L.featureGroup().addTo(map);
+    nonEditableDrawnItems = L.featureGroup().addTo(map);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -163,7 +170,7 @@ function initMap() {
     }).addTo(map);
 
 
-    L.control.layers({ 'drawlayer': drawnItems }).addTo(map);
+    L.control.layers({ 'drawlayer': drawnItems, 'noneditabledrawlayer': nonEditableDrawnItems }).addTo(map);
 
 
     map.addControl(new L.Control.Draw({
@@ -200,9 +207,9 @@ function initMap() {
     map.on('draw:deletestop', function(e) {
         var layers = e.layers;
         markers = getMarkers();
-        if (markers) {
-            enableDraw(true);
-        }
+        // if (markers) {
+        enableDraw(true);
+        //}
     });
 
 }
@@ -220,25 +227,49 @@ function enableDraw(flag) {
 }
 
 
-function removeMarkers() {
-    map.eachLayer(function(layer) {
-        if (layer instanceof L.Marker) {
-            map.removeLayer(layer);
-        }
-        /*
-        if(layer instanceof L.Circle){
-            markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
-        }
-        */
-        if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-            map.removeLayer(layer);
-        }
-    });
+function removeMarkers(editable) {
+    if (editable) {
+        drawnItems.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+                drawnItems.removeLayer(layer);
+                enableDraw(true);
+            }
+            /*
+            if(layer instanceof L.Circle){
+                markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
+            }
+            */
+            if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+                drawnItems.removeLayer(layer);
+                enableDraw(true);
+            }
+
+
+        });
+    } else {
+        nonEditableDrawnItems.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+                nonEditableDrawnItems.removeLayer(layer);
+                enableDraw(true);
+            }
+            /*
+            if(layer instanceof L.Circle){
+                markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
+            }
+            */
+            if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+                nonEditableDrawnItems.removeLayer(layer);
+                enableDraw(true);
+            }
+
+
+        });
+    }
 }
 
 function getMarkers() {
     markers = null;
-    map.eachLayer(function(layer) {
+    drawnItems.eachLayer(function(layer) {
         if (layer instanceof L.Marker) {
             markers = { 'type': 'Point', 'coordinates': layer.getLatLng() };
         }

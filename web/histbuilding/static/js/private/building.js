@@ -43,6 +43,10 @@ $(document).ready(function() {
         $('#manageBuilding').hide();
         $(this).hide();
         currentLocation = undefined;
+        $('#buildingForm input[name="oid"]').val(null);
+        $('#buildingForm').trigger('reset');
+        $('#buildingForm input[name="old_names"]').amsifySuggestags({ type: 'amsify', }, 'refresh');
+        removeMarkers(false);
     });
 
     //initMap();
@@ -74,18 +78,18 @@ $(document).ready(function() {
 
 
             if (doc['geo']) {
-                //removeMarkers();
+                removeMarkers(true);
                 if (doc['geo']['type'] == 'Point') {
                     c = doc['geo']['coordinates'];
                     var marker = drawnItems.addLayer(L.marker([c[0], c[1]]));
-                    ////  enableDraw(false);
+                    enableDraw(false);
                 }
                 if (doc['geo']['type'] == 'Polygon') {
                     c = doc['geo']['coordinates'];
                     console.log(c);
                     var polygon = drawnItems.addLayer(L.polygon(c)); //.addTo(map);
                     map.fitBounds(polygon.getBounds());
-                    // enableDraw(false);
+                    enableDraw(false);
                 }
             }
         });
@@ -123,7 +127,7 @@ $(document).ready(function() {
             $('#buildingForm').trigger('reset');
             $('#buildingForm input[name="old_names"]').amsifySuggestags({ type: 'amsify', }, 'refresh');
 
-            removeMarkers();
+            removeMarkers(true);
         });
 
 
@@ -147,7 +151,7 @@ function updateLocationEntities(oid) {
         loc = response['location'];
         currentLocation = loc;
         if (loc['geo']) {
-            removeMarkers();
+            removeMarkers(true);
             if (loc['geo']['type'] == 'Point') {
                 c = loc['geo']['coordinates'];
                 var marker = nonEditableDrawnItems.addLayer(L.marker([c[0], c[1]]));
@@ -245,27 +249,49 @@ function enableDraw(flag) {
 }
 
 
-function removeMarkers() {
-    map.eachLayer(function(layer) {
-        if (layer instanceof L.Marker) {
-            map.removeLayer(layer);
-            enableDraw(true);
-        }
-        /*
-        if(layer instanceof L.Circle){
-            markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
-        }
-        */
-        if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-            map.removeLayer(layer);
-            enableDraw(true);
-        }
-    });
+function removeMarkers(editable) {
+    if (editable) {
+        drawnItems.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+                drawnItems.removeLayer(layer);
+                enableDraw(true);
+            }
+            /*
+            if(layer instanceof L.Circle){
+                markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
+            }
+            */
+            if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+                drawnItems.removeLayer(layer);
+                enableDraw(true);
+            }
+
+
+        });
+    } else {
+        nonEditableDrawnItems.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+                nonEditableDrawnItems.removeLayer(layer);
+                enableDraw(true);
+            }
+            /*
+            if(layer instanceof L.Circle){
+                markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
+            }
+            */
+            if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+                nonEditableDrawnItems.removeLayer(layer);
+                enableDraw(true);
+            }
+
+
+        });
+    }
 }
 
 function getMarkers() {
     markers = null;
-    map.eachLayer(function(layer) {
+    drawnItems.eachLayer(function(layer) {
         if (layer instanceof L.Marker) {
             markers = { 'type': 'Point', 'coordinates': layer.getLatLng() };
         }
