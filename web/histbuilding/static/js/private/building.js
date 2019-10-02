@@ -1,4 +1,4 @@
-var map, drawnItems;
+var map, drawnItems, nonEditableDrawnItems;
 var currentLocation;
 var initMapFlag = true;
 $(document).ready(function() {
@@ -150,13 +150,13 @@ function updateLocationEntities(oid) {
             removeMarkers();
             if (loc['geo']['type'] == 'Point') {
                 c = loc['geo']['coordinates'];
-                var marker = drawnItems.addLayer(L.marker([c[0], c[1]]));
+                var marker = nonEditableDrawnItems.addLayer(L.marker([c[0], c[1]]));
                 //enableDraw(false);
             }
             if (loc['geo']['type'] == 'Polygon') {
                 c = loc['geo']['coordinates'];
                 console.log(c);
-                var polygon = drawnItems.addLayer(L.polygon(c)); //addTo(map);
+                var polygon = nonEditableDrawnItems.addLayer(L.polygon(c)); //addTo(map);
                 map.fitBounds(polygon.getBounds());
                 //enableDraw(false);
             }
@@ -177,6 +177,7 @@ function updateLocationEntities(oid) {
 function initMap() {
     map = L.map('map').setView([44.96, 7.566], 8);
     drawnItems = L.featureGroup().addTo(map);
+    nonEditableDrawnItems = L.featureGroup().addTo(map);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -186,7 +187,7 @@ function initMap() {
     }).addTo(map);
 
 
-    L.control.layers({ 'drawlayer': drawnItems }).addTo(map);
+    L.control.layers({ 'drawlayer': drawnItems, 'noneditabledrawlayer': nonEditableDrawnItems }).addTo(map);
 
 
     map.addControl(new L.Control.Draw({
@@ -210,6 +211,7 @@ function initMap() {
         var layer = event.layer;
 
         drawnItems.addLayer(layer);
+        //nonEditableDrawnItems.addLayer(layer);
     });
 
     map.on('draw:drawstop', function(e) {
@@ -223,9 +225,9 @@ function initMap() {
     map.on('draw:deletestop', function(e) {
         var layers = e.layers;
         markers = getMarkers();
-        if (!markers) {
-            enableDraw(true);
-        }
+        // if (markers) {
+        enableDraw(true);
+        //}
     });
 
 }
