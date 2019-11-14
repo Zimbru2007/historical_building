@@ -189,6 +189,7 @@ $(document).ready(function() {
 function addFormElement() {
     $.get("/static/templates/formElement.html", function(data) {
         t = $.parseHTML(data)[0]
+        console.log(t.content);
         t.content.querySelector('.name-input').setAttribute("name", "name-" + newElementId);
         t.content.querySelector('.type-input').setAttribute("name", "type-" + newElementId);
         t.content.querySelector('.order-input').setAttribute("name", "order-" + newElementId);

@@ -19,19 +19,21 @@
 <div class="row pt-3">
     <div class="col-12">
         <div class="form-group">
-            <label>Tipo fonte</label>
-            <select class="form-control" id="sourceType">
-                <option>Selezionare una tipologia</option>
-                {% for s in source_types %}
-                    <option value= "{{s|oid}}">{{s.name}}</option>
-                {% endfor %}
-            </select>
-        </div>    
+                <label>Tipo fonte</label>
+                <select class="form-control" id="sourceType">
+                    <option>Selezionare una tipologia</option>
+                    {% for s in source_types %}
+                        <option value= "{{s|oid}}">{{s.name}}</option>
+                    {% endfor %}
+                </select>
+            </div> 
+        </div>
+    </div>
 
-
+ <div class="row pt-3">
+    <div class="col-6">
         {% for s in sources %}
-            <form id="{{s|oid}}" style="display:none" action='.' method='POST' class="formSource">
-                {% csrf_token %}
+            <form id="{{s|oid}}" style="display:none" class="formSource">
                 {% for e in s.elements %}
                     <div class="form-group">
                         {% if e.type == 'text' %}
@@ -61,34 +63,81 @@
                     </div>
                 {% endfor %}
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success" value="Salva">
+                    <input type="hidden" name="oid">
+                    <input type="text" hidden="False" name="SourceType" value="{{s|oid}}">
+                    <input id="saveButton" type="button" class="btn btn-success" value="Salva">
+                   
+                 <button type="button" class="btn btn-info" id="newElement" style="display: none">Aggiungi nuovo elemento</button>
+                 <button class="btn btn-success" id="saveElement" style="display: none">Salva</button>
+                    <button class="btn btn-success" id="updateElement" style="display: none">Salva</button>
+                    <button class="btn btn-danger" id="cancelElement" style="display: none">Cancella</button>
+                
                 </div>
             </form>    
         {% endfor %}
             
         
     </div>
+    <div class="col-6">
+        <div class="card">
+				<div class="card-header">
+					<h5>Lista fonti</h5>
+				</div>
+				<div class="card-body">
+						<table class="table table-striped" style="width: 100%" id="sourcesTable">
+							<thead>
+								<tr class='table-primary'>
+									<th>Autori</th>
+                                    <th>Titolo</th>
+									<th>Modifica</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						
+						</table>
+	
+				</div>
+			</div>
+    </div>
+</div>
+<div class="row pt-3">
+    <div class="col-8">
+             <div class="form-group">
+                   
+                   </div>
+                <div class="row pt-3" id="divElement" style="display: none">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    Nuovo elemento
+                                </div>
+                                <div class="card-body">
+                                    <div class="row pt-3">
+                                        <div class="col-8">
+                                            <form id="formElement">
+                                              
+                                            
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+            
+                        </div>
+                    </div> 
+    </div>
+     <div class="col-4">
+        list of elements
+    </div>
 </div>
 
 {% endblock %}
 
 {% block script %} 
-
-<script defer type="text/javascript">
-
-$(document).ready(function() {
-    $('#sourceType').on('change', function (){
-        console.log($(this).val())
-        val = $(this).val();
-        $('.formSource').hide();
-        $('#' + val).show();
-       
-    });
-
-    
-});
-</script>
-
+    <script defer type="text/javascript" src="/static/js/private/sources.js"></script>
 {% endblock %}
 
 

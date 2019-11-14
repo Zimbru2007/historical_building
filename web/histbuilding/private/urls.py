@@ -6,6 +6,9 @@ from .views import *
 urlpatterns = [
     path('', Main.as_view(), name='main_private'),
     path('fonti/', Sources.as_view(), name='sources'),
+    path('fonti/listSources/', ListSources.as_view(), name='listSources'),
+    path('utenti/', UserCreation.as_view(), name='user_creation'),
+    path('elementi/', Element.as_view(), name='element'),
     path('palazzi/', Building.as_view(), name='private_building'),
     path('palazzi/manageBuilding/', ManageBuilding.as_view(), name='manageBuilding'),
     path('palazzi/sintesi/', BuildingReview.as_view(), name='buildingReview'),

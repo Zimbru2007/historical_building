@@ -50,10 +50,7 @@ $(document).ready(function() {
             toastr["success"](response['message']);
             doc = response['doc'];
             $('#cardTitle').text("Nuova località");
-            /*if (!isedit) {
-                $('#locationTable').append("<tr><td>" + doc['name'] + "</td><td><button type='button' class='btn btn-primary' data-oid=" + doc['oid'] + "><span class='oi oi-pencil'></span></button></td></tr>");
-            } else {
-                isedit = false;*/
+
             updateTable();
             //  }
             $('#locationForm input[name="oid"]').val(null);

@@ -34,9 +34,15 @@
                          <li class="nav-item">
                             <a class="nav-link" href="{% url 'city_building' %}" tabindex="-1" aria-disabled="true">Edifici comunali</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'element' %}" tabindex="-1" aria-disabled="true">Elementi descrittivi</a>
+                        </li>
                         {% if request.user.is_superuser%}
                          <li class="nav-item">
                             <a class="nav-link" href="{% url 'configuration' %}" tabindex="-1" aria-disabled="true">Configurazione</a>
+                       </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'user_creation' %}" tabindex="-1" aria-disabled="true">Nouvi utenti</a>
                        </li>
                         {% endif %}
                          <li class="nav-item">

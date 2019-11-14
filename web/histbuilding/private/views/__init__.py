@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.urls import reverse
 from django.core import management
+from ..forms import *
 
 import json
 import re
@@ -33,3 +34,5 @@ from .sources import *
 from .location import *
 from .city_building import *
 from .translations import *
+from .user_creation import *
+from .element import *

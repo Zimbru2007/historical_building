@@ -1,0 +1,118 @@
+<template id="Tformsourel">
+    <div class="card mt-3 formel">
+        <div class="card-body">
+            <div class="form-group">
+                <label>Fonte</label>
+                <input type="hidden" class="form-control fonteoid-input" name="fontioid">
+                <input type="text" class="form-control fonte-input" name="fonte" readonly>
+            </div>
+            <div class="form-group">
+                <label>Citta</label>
+                <input type="text" class="form-control city-input" name="city">
+                <label>Pallazzo</label>
+                <input type="text" class="form-control building-input" name="building" required>
+            </div>
+            <div class="form-group" style="display: none">
+                <label>Fonti</label>
+                <input type="text" class="form-control source-input" name="source">
+            </div>
+            <div class="form-group">
+                <label>Attestazioni dell'edificio</label>
+                <input type="text" class="form-control elemA-input" name="elemA">
+            </div>
+            <div class="form-group">
+                <label>Intorno urbano dell palazzo</label>
+                <select class="form-control elemB-input" name="elemB">
+                    <option value="platea">platea</option>
+                    <option value="presso cattedrale o palazzo vescovile">presso cattedrale o palazzo vescovile</option>
+                    <option value="presso palazzo signorile">presso palazzo signorile</option>
+                    <option value="presso castello signorile">presso castello signorile</option>
+                    <option value="altro">altro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Proprietà del suolo/dell’edificio nella fase precedente l’uso comunitario</label>
+                <select class="form-control elemC-input" name="elemC">
+                    <option value="beni pubblici">beni pubblici</option>
+                    <option value="beni signorili">beni signorili</option>
+                    <option value="beni ecclesiastici">beni ecclesiastici</option>
+                    <option value="beni acquistati da privati">beni acquistati da privati</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Tipo di acquisizione da parte della comunità</label>
+                <select class="form-control elemD-input" name="elemD">
+                    <option value="acquisto">acquisto</option>
+                    <option value="donazione">donazione</option>
+                    <option value="esproprio">esproprio</option>
+                    <option value="locazione">locazione</option>
+                    <option value="cessione a titolo precario">cessione a titolo precario</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Rapporto della prima fase costruttiva con la preesistenza</label>
+                <select class="form-control elemE-input" name="elemE">
+                    <option value="Costruzione ex novo (su spazio aperto, su spazio liberato da preesistenze)">
+                        Costruzione ex novo (su spazio aperto, su spazio liberato da preesistenze)</option>
+                    <option
+                        value="Costruzione ex novo con parziale utilizzo di strutture esistenti (specificare: es., torre,tempio romano)">
+                        Costruzione ex novo con parziale utilizzo di strutture esistenti (specificare: es., torre,
+                        tempio romano)</option>
+                    <option value="Utilizzo di edifici già esistenti">Utilizzo di edifici già esistenti</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label>Costruzione e successive modifiche:</label>
+                <label>a) committenza:</label>
+                <div class="input-group mt-3 mb-3">
+                    <div class="input-group-prepend">
+                        <select class="form-control elemF1-input" name="elemF1">
+                            <option value="consoli (nomi e provenienza)">consoli (nomi e provenienza)</option>
+                            <option value="podestà di nomina locale (idem)">podestà di nomina locale (idem)</option>
+                            <option value="podestà nominato dalla dominante (idem)">podestà nominato dalla dominante
+                                (idem)</option>
+                            <option value="governo centrale della dominante (idem)">governo centrale della dominante
+                                (idem)</option>
+                            <option value="signore (specificare)">signore (specificare)</option>
+                            <option value="ignoto">ignoto</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control elemF1text-input" placeholder="committenza"
+                        name="elemF1text">
+                </div>
+                <label>b) tipo di intervento:</label>
+                <div class="input-group mt-3 mb-3">
+                    <div class="input-group-prepend">
+                        <select class="form-control elemF2-input" name="elemF2">
+                            <option value="costruzione">costruzione</option>
+                            <option value="sopraelevazione">sopraelevazione</option>
+                            <option value="interventi agli spazi aperti porticati">interventi agli spazi aperti
+                                porticati
+                            </option>
+                            <option value="interventi interni">interventi interni
+                            </option>
+                            <option value="costruzione di una torre">costruzione di una torre</option>
+                            <option value="altro">altro</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control elemF2text-input" placeholder="Specifica" name="elemF2text"
+                        style="display: none">
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+</template>

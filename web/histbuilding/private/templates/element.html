@@ -1,0 +1,47 @@
+{% extends "private_base.html" %}
+{% load i18n static %}
+{% load crispy_forms_tags %}
+{% load hb_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block content%}
+
+{{ block.super }}
+
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Elemento descrittivo" "element" %}
+
+{% endblock %}
+
+<div class="row pt-3">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				Nuovo elemento
+			</div>
+			<div class="card-body">
+				<div class="row pt-3">
+					<div class="col-8">
+						<form id="formElement">
+  <input type="button" class="btn btn-success" value="Salva" id="btnsaveTrans">
+                      
+
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block script %} 
+    <script defer type="text/javascript" src="/static/js/private/element.js"></script>
+{% endblock %}
