@@ -10,19 +10,25 @@
 
 
 {% block breadcrumbs %}
-    {{ block.super }}
-    {% breadcrumb "Configurazione" "configuration" %}
-	
+{{ block.super }}
+{% breadcrumb "Configurazione" "configuration" %}
+
 {% endblock %}
 
 <ul class="nav nav-tabs" id="confTab" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="sources-tab" data-toggle="tab" href="#sources" role="tab" aria-controls="sources" aria-selected="true">Tipo fonti</a>
+        <a class="nav-link active" id="sources-tab" data-toggle="tab" href="#sources" role="tab" aria-controls="sources"
+            aria-selected="true">Tipo fonti</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="translations-tab" data-toggle="tab" href="#translations" role="tab" aria-controls="translations" aria-selected="false">Traduzioni</a>
+        <a class="nav-link" id="elements-tab" data-toggle="tab" href="#elements" role="tab" aria-controls="elements"
+            aria-selected="false">Tipo elementi descrittivi</a>
     </li>
-    
+    <li class="nav-item">
+        <a class="nav-link" id="translations-tab" data-toggle="tab" href="#translations" role="tab"
+            aria-controls="translations" aria-selected="false">Traduzioni</a>
+    </li>
+
 </ul>
 <div class="tab-content" id="confTabContent">
     <div class="tab-pane fade show active" id="sources" role="tabpanel" aria-labelledby="sources-tab">
@@ -30,73 +36,140 @@
             <div class="col-8">
                 <div class="form-group">
                     <button type="button" class="btn btn-primary" id="newSourceType">Nuovo tipo</button>
-                    <button class="btn btn-success" id="saveForm" style="display: none">Salva</button>
-                    <button class="btn btn-success" id="updateForm" style="display: none">Salva</button>
-                    <button class="btn btn-danger" id="cancelForm" style="display: none">Cancella</button>
+                    <button class="btn btn-success" id="saveSrcForm" style="display: none">Salva</button>
+                    <button class="btn btn-success" id="updateSrcForm" style="display: none">Salva</button>
+                    <button class="btn btn-danger" id="cancelSrcForm" style="display: none">Cancella</button>
                 </div>
                 <div class="row pt-3" id="divSourceType" style="display: none">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    Tipo Fonte
-                                </div>
-                                <div class="card-body">
-                                    <div class="row pt-3">
-                                        <div class="col-8">
-                                            <form id="formSourceType">
-                                                <div class="form-group">
-                                                    <label>Nome</label>
-                                                    <input type="text" class="form-control" name="name">
-                                                </div>
-                                            
-                                            </form>
-                                        </div>
-                                        <div class="col-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                Tipo Fonte
+                            </div>
+                            <div class="card-body">
+                                <div class="row pt-3">
+                                    <div class="col-8">
+                                        <form id="formSourceType">
                                             <div class="form-group">
-                                                <button class="btn btn-info" id="addElForm">Aggiungi elemento form</button>
+                                                <label>Nome</label>
+                                                <input type="text" class="form-control" name="name">
                                             </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <button class="btn btn-info" id="addSrcForm">Aggiungi elemento form</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-            
-                        </div>
-                    </div>         
-            </div>
-            <div class="col-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Lista tipologia fonti</h5>
-                        </div>
-                        <div class="card-body">
-                                <table id="tableSources" class="table table-striped" style="width: 100%">
-                                    <thead>
-                                        <tr class="table-primary">
-                                            <th>Nome</th>
-                                            <th>Modifica</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for t in source_types %}
-                                        <tr>
-                                            <td>{{t.name}}</td>
-                                            <td><button type="button" class="btn btn-primary" data-oid="{{t|oid}}"><span class="oi oi-pencil"></span></button></td>
-           
-                                        </tr>
-                                       
-                                        {% endfor %}
-                                    </tbody>
-                                
-                                </table>
-    
                         </div>
                     </div>
-                    
                 </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Lista tipologia fonti</h5>
+                    </div>
+                    <div class="card-body">
+                        <table id="tableSources" class="table table-striped" style="width: 100%">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>Nome</th>
+                                    <th>Modifica</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in source_types %}
+                                <tr>
+                                    <td>{{t.name}}</td>
+                                    <td><button type="button" class="btn btn-primary" data-oid="{{t|oid}}"><span
+                                                class="oi oi-pencil"></span></button></td>
+
+                                </tr>
+
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
+    <div class="tab-pane fade show active" id="elements" role="tabpanel" aria-labelledby="elements-tab">
+        <div class="row pt-3">
+            <div class="col-8">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" id="newElementType" style="display: none">Nuovo tipo el</button>
+                    <button class="btn btn-success" id="saveElForm" style="display: none">Salva</button>
+                    <button class="btn btn-success" id="updateElForm" style="display: none">Salva</button>
+                    <button class="btn btn-danger" id="cancelElForm" style="display: none">Cancella</button>
+                </div>
+                <div class="row pt-3" id="divElementType" style="display: none">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                Tipo Elemento Descrittivo                            </div>
+                            <div class="card-body">
+                                <div class="row pt-3">
+                                    <div class="col-8">
+                                        <form id="formElementType">
+                                            <div class="form-group">
+                                                <label>Nome</label>
+                                                <input type="text" class="form-control" name="elname">
+                                            </div>
 
+                                        </form>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <button class="btn btn-info" id="addElForm">Aggiungi elemento form</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Lista tipologia elementi descrittivi</h5>
+                    </div>
+                    <div class="card-body">
+                        <table id="tableElements" class="table table-striped" style="width: 100%">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>Nome</th>
+                                    <th>Modifica</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in element_types %}
+                                <tr>
+                                    <td>{{t.name}}</td>
+                                    <td><button type="button" class="btn btn-primary" data-oid="{{t|oid}}"><span
+                                                class="oi oi-pencil"></span></button></td>
+
+                                </tr>
+
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="tab-pane fade" id="translations" role="tabpanel" aria-labelledby="translations-tab">
         <div class="row pt-3">
             <div class="col-12">
@@ -112,8 +185,8 @@
                         <input type="button" class="btn btn-primary" value="Aggiungi" id="btnCreateTrans">
                     </div>
                     <div class="form-group ml-3">
-                            <input type="button" class="btn btn-success" value="Compila" id="btnCompileTrans">
-                        </div>
+                        <input type="button" class="btn btn-success" value="Compila" id="btnCompileTrans">
+                    </div>
                 </form>
             </div>
         </div>
@@ -152,10 +225,10 @@
                             </div>
                             {% get_available_languages as LANGUAGES %}
                             {% for lang in LANGUAGES %}
-                                <div class="form-group">
-                                    <label>{{lang.1}}</label>
-                                    <textarea name="{{lang.0}}" class="form-control languages"></textarea>
-                                </div>
+                            <div class="form-group">
+                                <label>{{lang.1}}</label>
+                                <textarea name="{{lang.0}}" class="form-control languages"></textarea>
+                            </div>
                             {% endfor %}
                             <div class="form-group pt-3">
                                 <input type="button" class="btn btn-success" value="Salva" id="btnsaveTrans">
@@ -169,7 +242,7 @@
 
         </div>
     </div>
-    
+
 </div>
 
 {% endblock %}

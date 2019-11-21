@@ -3,6 +3,14 @@ curroid = "";
 
 $(document).ready(function() {
 
+    $('#sources-tab').on('click', function() {
+        $('#newSourceType').show();
+    });
+
+    $('#elements-tab').on('click', function() {
+        $('#newElementType').show();
+    });
+
     $('#newSourceType').on('click', function() {
         $('#divSourceType').show();
         $('.formel').remove();
@@ -10,9 +18,22 @@ $(document).ready(function() {
         curroid = '';
         newElementId = 1;
         $(this).hide();
-        $('#saveForm').show();
-        $('#cancelForm').show();
-        $('#updateForm').hide();
+        $('#saveSrcForm').show();
+        $('#cancelSrcForm').show();
+        $('#updateSrcForm').hide();
+
+    });
+
+    $('#newElementType').on('click', function() {
+        $('#divElementType').show();
+        $('.formel').remove();
+        $('input[name="elname"]').val('');
+        curroid = '';
+        newElementId = 1;
+        $(this).hide();
+        $('#saveElForm').show();
+        $('#cancelElForm').show();
+        $('#updateElForm').hide();
 
     });
 
@@ -37,12 +58,12 @@ $(document).ready(function() {
                 $('.formel').remove();
 
                 $('#newSourceType').hide();
-                $('#updateForm').show();
-                $('#cancelForm').show();
-                $('#saveForm').hide();
+                $('#updateSrcForm').show();
+                $('#cancelSrcForm').show();
+                $('#saveSrcForm').hide();
                 $('input[name="name"]').val(source['name']);
                 for (var i = 0; i < source['elements'].length; i++) {
-                    addEditFormElement(source['elements'][i]);
+                    addSrcEditFormElement(source['elements'][i]);
                     //str = str + " " + source['elements'][i]['type'];
                     tempElemntId = parseInt(source['elements'][i]['order']);
                     if (maxElementId <= tempElemntId) {
@@ -57,42 +78,105 @@ $(document).ready(function() {
 
     });
 
+    $('#tableElements').on('click', '.btn-primary', function() {
+        console.log('edit elemento descrittivo');
+        oid = $(this).data('oid');
+        curroid = oid;
+        $.ajax({
+            url: "./defineFormElement/",
+            method: 'GET',
+            data: { 'oid': oid }
+
+        }).done(function(response) {
+            //console.log(response);
+            element = response['element'];
+            maxElementId = 1;
+            $('#divElementType').show();
+            $('.formel').remove();
+
+            $('#newElementType').hide();
+            $('#updateElForm').show();
+            $('#cancelElForm').show();
+            $('#saveElForm').hide();
+            $('input[name="elname"]').val(element['name']);
+            for (var i = 0; i < element['elements'].length; i++) {
+                addElEditFormElement(element['elements'][i]);
+                tempElemntId = parseInt(element['elements'][i]['order']);
+                if (maxElementId <= tempElemntId) {
+                    maxElementId = tempElemntId + 1;
+                }
+            }
+            newElementId = maxElementId;
+        });
+
+    });
+    $('#addSrcForm').on('click', function() {
+        addSrcFormElement()
+    });
+
     $('#addElForm').on('click', function() {
-        addFormElement()
+        addElFormElement()
     });
 
-    $('#saveForm').on('click', function() {
-        saveForm();
+    $('#saveSrcForm').on('click', function() {
+        saveSrcForm();
         $('#divSourceType').hide();
         $(this).hide();
-        $('#cancelForm').hide();
-        $('#updateForm').hide();
+        $('#cancelSrcForm').hide();
+        $('#updateSrcForm').hide();
         $('#newSourceType').show();
     });
 
-    $('#updateForm').on('click', function() {
-        saveForm();
+    $('#saveElForm').on('click', function() {
+        saveElForm();
+        $('#divElementType').hide();
+        $(this).hide();
+        $('#cancelElForm').hide();
+        $('#updateElForm').hide();
+        $('#newElementType').show();
+    });
+
+    $('#updateSrcForm').on('click', function() {
+        saveSrcForm();
         $('#divSourceType').hide();
         $(this).hide();
-        $('#cancelForm').hide();
-        $('#saveForm').hide();
+        $('#cancelSrcForm').hide();
+        $('#saveSrcForm').hide();
         $('#newSourceType').show();
     });
 
-    $('#cancelForm').on('click', function() {
+    $('#updateElForm').on('click', function() {
+        saveElForm();
+        $('#divElementType').hide();
+        $(this).hide();
+        $('#cancelElForm').hide();
+        $('#saveElForm').hide();
+        $('#newElementType').show();
+    });
+
+    $('#cancelSrcForm').on('click', function() {
         r = confirm("Vuoi davvero cancellare tutte le modifiche?");
         if (r == true) {
             $(this).hide();
-            $('#updateForm').hide();
-            $('#saveForm').hide();
+            $('#updateSrcForm').hide();
+            $('#saveSrcForm').hide();
             $('#divSourceType').hide();
             $('#newSourceType').show();
         }
 
-        /*saveForm();
-        $('#divSourceType').hide();
-        $(this).hide();
-        $('#newSourceType').show();*/
+
+    });
+
+    $('#cancelElForm').on('click', function() {
+        r = confirm("Vuoi davvero cancellare tutte le modifiche?");
+        if (r == true) {
+            $(this).hide();
+            $('#updateElForm').hide();
+            $('#saveElForm').hide();
+            $('#divElementType').hide();
+            $('#newElementType').show();
+        }
+
     });
 
     $('#btnSearchTrans').on('click', function() {
@@ -186,7 +270,7 @@ $(document).ready(function() {
 });
 
 
-function addFormElement() {
+function addSrcFormElement() {
     $.get("/static/templates/formElement.html", function(data) {
         t = $.parseHTML(data)[0]
         console.log(t.content);
@@ -202,7 +286,23 @@ function addFormElement() {
     });
 }
 
-function addEditFormElement(element) {
+function addElFormElement() {
+    $.get("/static/templates/formElement.html", function(data) {
+        t = $.parseHTML(data)[0]
+        console.log(t.content);
+        t.content.querySelector('.name-input').setAttribute("name", "name-" + newElementId);
+        t.content.querySelector('.type-input').setAttribute("name", "type-" + newElementId);
+        t.content.querySelector('.order-input').setAttribute("name", "order-" + newElementId);
+        t.content.querySelector('.order-input').setAttribute("value", newElementId);
+        t.content.querySelector('.required-input').setAttribute("name", "required-" + newElementId);
+
+        var clone = document.importNode(t.content, true);
+        $('#formElementType').append(clone);
+        newElementId += 1;
+    });
+}
+
+function addSrcEditFormElement(element) {
     $.get("/static/templates/formElement.html", function(data) {
         t = $.parseHTML(data)[0]
         t.content.querySelector('.name-input').setAttribute("name", "name-" + element['order']);
@@ -227,8 +327,33 @@ function addEditFormElement(element) {
     });
 }
 
+function addElEditFormElement(element) {
+    $.get("/static/templates/formElement.html", function(data) {
+        t = $.parseHTML(data)[0]
+        t.content.querySelector('.name-input').setAttribute("name", "name-" + element['order']);
+        t.content.querySelector('.name-input').setAttribute("value", element['name']);
+        t.content.querySelector('.type-input').setAttribute("name", "type-" + element['order']);
+        //t.content.querySelector('.type-input').setAttribute("value", element['type']);
+        t.content.querySelector('.order-input').setAttribute("name", "order-" + element['order']);
+        t.content.querySelector('.order-input').setAttribute("value", element['order']);
+        t.content.querySelector('.required-input').setAttribute("name", "required-" + element['order']);
+        // t.content.querySelector('.required-input').setAttribute("value", element['required']);
+        /* if (element['required'] == 'on') {
+             t.content.querySelector('.required-input').setAttribute("checked", true);
+         }*/
+        if (element['required'] == 'on') {
+            t.content.querySelector('.required-input').checked = true;
+        }
+        var clone = document.importNode(t.content, true);
+        clone.querySelector('.type-input').value = element['type'];
 
-function saveForm() {
+        // $('#formElemSourceType').append(clone);
+        $('#formElementType').append(clone);
+    });
+}
+
+
+function saveSrcForm() {
     formData = $('#formSourceType').serializeArray();
     data = {}
     for (var i = 0; i < formData.length; i++) {
@@ -258,10 +383,55 @@ function saveForm() {
         }).done(function(response) {
             toastr["success"](response['message']);
             source = response['source'];
-            $('#tableSources tbody').append('<tr><td>' + source['name'] + '</td><td><button type="button" class="btn btn-primary" data-oid="' + source['oid'] + '"><span class="oi oi-pencil"></span></button></td></tr>');
             curroid = "";
+            updateTable('#tableSources');
+            // $('#tableSources tbody').append('<tr><td>' + source['name'] + '</td><td><button type="button" class="btn btn-primary" data-oid="' + source['oid'] + '"><span class="oi oi-pencil"></span></button></td></tr>');
+
         })
         /*.fail(function(xhr, textStatus, errorThrown) {
              })*/
     ;
+}
+
+
+
+function saveElForm() {
+    formData = $('#formElementType').serializeArray();
+    data = {}
+    for (var i = 0; i < formData.length; i++) {
+        el = formData[i];
+        if (el['name'].indexOf('-') != -1) {
+            idEl = el['name'].split("-")[1];
+            feature = el['name'].split("-")[0]
+            keyEl = 'el-' + idEl;
+            if (keyEl in data == false) {
+                data[keyEl] = {}
+            }
+            data[keyEl][feature] = el['value'];
+        } else {
+            data[el['name']] = el['value'];
+        }
+    }
+
+    if (curroid != "") {
+        console.log('edit fonte = ' + curroid);
+        data['_id'] = curroid;
+    }
+    $.ajax({
+        url: "./defineFormElement/",
+        method: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+    }).done(function(response) {
+        toastr["success"](response['message']);
+        element = response['element'];
+        //$('#tableElements tbody').append('<tr><td>' + element['name'] + '</td><td><button type="button" class="btn btn-primary" data-oid="' + element['oid'] + '"><span class="oi oi-pencil"></span></button></td></tr>');
+        curroid = "";
+        updateTable('#tableElements');
+    });
+}
+
+function updateTable(tableName) {
+    $(tableName).load(window.location.href + " " + tableName);
 }

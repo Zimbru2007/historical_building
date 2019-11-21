@@ -96,6 +96,18 @@ class ManageBuilding(APIView):
                 regex = re.compile(search, re.IGNORECASE)
                 docs = db.building.find({'name': {"$regex":regex,"$options": 'ix'} }).limit(10)
                 return Response({'docs': to_json(docs)})
+            if 'search' in request.query_params and 'searchlocationid' in request.query_params:
+                queryString = request.query_params.get('search')
+                locationid = request.query_params.get('searchlocationid')
+                search = '(.*)' + queryString.strip() + '(.*)'
+                search = search.replace(' ', '(.*)')
+                regex = re.compile(search, re.IGNORECASE)
+                if locationid=='':
+                    docs = db.building.find({'name': {"$regex":regex,"$options": 'ix'} }).limit(10)
+                    return Response({'docs': to_json(docs)})
+                else:
+                    docs = db.building.find({'name': {"$regex":regex,"$options": 'ix'},'locationid': ObjectId(locationid) }).limit(10)
+                    return Response({'docs': to_json(docs)})
             if 'oid' in request.query_params:
                 oid = request.query_params['oid']
                 doc = db.building.find_one({'_id': ObjectId(oid)})

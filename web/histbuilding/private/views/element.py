@@ -6,6 +6,7 @@ from .__init__ import *
 class Element(View):
     def get(self, request):
         element = db.element.find()
-        return render(request, 'element.html', {'element': element})
+        element_types = db.element_types.find()
+        return render(request, 'element.html', {'element': element,'element_types': element_types})
 
 
