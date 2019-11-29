@@ -35,7 +35,10 @@
                             <a class="nav-link" href="{% url 'city_building' %}" tabindex="-1" aria-disabled="true">Edifici comunali</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link" href="{% url 'element' %}" tabindex="-1" aria-disabled="true">Elementi descrittivi</a>
+                            <a class="nav-link" href="{% url 'element' %}" tabindex="-1" aria-disabled="true">Inserimento di elementi descrittivi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'listElements' %}" tabindex="-1" aria-disabled="true">Elenco di elementi descrittivi</a>
                         </li>
                         {% if request.user.is_superuser%}
                          <li class="nav-item">

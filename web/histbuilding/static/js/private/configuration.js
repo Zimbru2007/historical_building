@@ -374,6 +374,8 @@ function saveSrcForm() {
     if (curroid != "") {
         data['_id'] = curroid;
     }
+
+    console.log(data);
     $.ajax({
             url: "./defineFormSource/",
             method: 'POST',

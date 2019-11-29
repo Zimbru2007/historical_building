@@ -1,7 +1,7 @@
 {% load i18n static %}
 {% load django_bootstrap_breadcrumbs %}
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
 <html xmlns="http://www.w3.org/1999/xhtml" lang="{{ LANGUAGE_CODE|default:"it" }}">
 
@@ -12,61 +12,63 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<title>{% block title %}{% endblock %}</title>
-	<link href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link async href="/static/node_modules/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 	<link async href="/static/node_modules/open-iconic/font/css/open-iconic.min.css" rel="stylesheet">
 	<link async href="/static/css/mobile.css" rel="stylesheet">
 	<!--link async href="/static/css/style.css" rel="stylesheet"-->
-<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 
-	
-  	{% block extrastyle %}{% endblock%}
+
+	{% block extrastyle %}{% endblock%}
 
 </head>
 
 
 <body {%block bodyoption %}{% endblock %}>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top justify-content-between"  style="border-bottom-style: solid; border-bottom-color:#e2b331;border-width: 5px;">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top justify-content-between"
+		style="border-bottom-style: solid; border-bottom-color:#e2b331;border-width: 5px;">
 		<a class="navbar-brand" href="/"><img src="/static/img/logo.png" height="30" alt="">
 			{% trans 'nome_progetto' %}
 		</a>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-				{% block breadcrumbs %}
-				{% endblock %}
-	
-				{% render_breadcrumbs %}
+					{% block breadcrumbs %}
+					{% endblock %}
+
+					{% render_breadcrumbs %}
 				</li>
-	
-	
+
+
 			</ul>
 		</div>
 		<form action="{% url 'set_language' %}" method="post" class="form-inline ml-2">{% csrf_token %}
 			<input name="next" type="hidden" value="{{ redirect_to }}" />
 			<div class="form-group">
-			<select name="language" id="language" class="form-control">
-				{% get_current_language as LANGUAGE_CODE %}
-				{% get_available_languages as LANGUAGES %}
-				{% for lang in LANGUAGES %}
-					<option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
+				<select name="language" id="language" class="form-control">
+					{% get_current_language as LANGUAGE_CODE %}
+					{% get_available_languages as LANGUAGES %}
+					{% for lang in LANGUAGES %}
+					<option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected" {% endif %}>
 						{{ lang.1 }}
 					</option>
-				{% endfor %}
-			</select>
-			<input class="btn btn-info text-uppercase ml-2 mr-2" id="changeLanguage" type="submit" value="Go"/>
-		</div>
+					{% endfor %}
+				</select>
+				<input class="btn btn-info text-uppercase ml-2 mr-2" id="changeLanguage" type="submit" value="Go" />
+			</div>
 		</form>
 		{% if user.is_authenticated %}
 		<ul class="navbar-nav my-2 my-lg-0">
 			<li class="nav-item">
-				<span id="datename">{% now "j F Y" %} | <a href="{% url 'logout' %}">Logout</a> [{{  user.username  }}]</span>
+				<span id="datename">{% now "j F Y" %} | <a href="{% url 'logout' %}">Logout</a>
+					[{{  user.username  }}]</span>
 			</li>
 			<li class="nav-item ml-3">
 				<a href="{% url 'main_private' %}">Private</a>
 			</li>
-			
+
 		</ul>
 		{% else %}
 		<ul class="navbar-nav my-2 my-lg-0">
@@ -79,19 +81,21 @@
 
 	</nav>
 
-	<div id="content" class="mb-5 container-fluid">	
+	<div id="content" class="mb-5 container-fluid">
 		{% block content %}{% endblock %}
 	</div>
 
 	<div class="container-fluid fixed-bottom navbar-dark bg-dark mt-5 text-right">
 		<span class="navbar-text ml-auto" style="color:#ccc; font-size:0.8em">
-				Copyright 2019 | All rights reserved
+			Copyright 2019 | All rights reserved
 		</span>
 	</div>
-	
 
-	<div class="modal"><!-- Place at bottom of page --></div>	
-	
+
+	<div class="modal">
+		<!-- Place at bottom of page -->
+	</div>
+
 	<script src="/static/node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="/static/node_modules/popper.js/dist/umd/popper.min.js"></script>
 	<script src="/static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -104,68 +108,74 @@
 	<script defer src="/static/node_modules/toastr/build/toastr.min.js"></script>
 	<script defer src="/static/node_modules/pdfmake/build/pdfmake.min.js"></script>
 	<script defer src="/static/node_modules/pdfmake/build/vfs_fonts.js"></script>
-	<script defer src="/static/js/bootstrap-ajax-typeahead-master/js/bootstrap-typeahead.min.js" type="text/javascript"></script>
+	<script defer src="/static/js/bootstrap-ajax-typeahead-master/js/bootstrap-typeahead.min.js" type="text/javascript">
+	</script>
 	<script defer src="/static/node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
 	<script defer src="/static/node_modules/moment/min/moment-with-locales.min.js"></script>
-	<script defer src="/static/node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
-	
+	<script defer src="/static/node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js">
+	</script>
+
 	<script defer src="/static/node_modules/multiselect/js/jquery.multi-select.js"></script>
 
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
+		integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+		crossorigin="" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
 	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
 
-   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-   crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+		integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+		crossorigin=""></script>
 
-   <script src="/static/js/tagging/js/jquery.amsify.suggestags.js"></script>
+	<script src="/static/js/tagging/js/jquery.amsify.suggestags.js"></script>
 
-   <script src="/static/js/tinymce/tinymce.min.js"></script>
+	<script src="/static/js/tinymce/tinymce.min.js"></script>
 
-	
+	<script type="text/javascript" src="{%url 'javascript-catalog'%}"></script>
 
 
-	<link async rel="stylesheet" type="text/css" href="/static/node_modules/datatables/media/css/jquery.dataTables.min.css"/>
-	<link async rel="stylesheet" type="text/css" href="/static/node_modules/cookieconsent/build/cookieconsent.min.css" />
-	<link async rel="stylesheet" type="text/css" href="/static/node_modules/toastr/build/toastr.min.css"/>
-	<link async rel="stylesheet" type="text/css" href="/static/node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css" />
-	<link async rel="stylesheet" type="text/css" href="/static/node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" />
+	<link async rel="stylesheet" type="text/css"
+		href="/static/node_modules/datatables/media/css/jquery.dataTables.min.css" />
+	<link async rel="stylesheet" type="text/css"
+		href="/static/node_modules/cookieconsent/build/cookieconsent.min.css" />
+	<link async rel="stylesheet" type="text/css" href="/static/node_modules/toastr/build/toastr.min.css" />
+	<link async rel="stylesheet" type="text/css"
+		href="/static/node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css" />
+	<link async rel="stylesheet" type="text/css"
+		href="/static/node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" />
 	<link async rel="stylesheet" type="text/css" href="/static/node_modules/multiselect/css/multi-select.css" />
-	
-	<link defer rel="stylesheet" href="/static/js/tagging/css/amsify.suggestags.css">
-	<link async rel="stylesheet" type="text/css" href="/static/node_modules/DataTables/datatables.min.css"/>
- 
 
-	
+	<link defer rel="stylesheet" href="/static/js/tagging/css/amsify.suggestags.css">
+	<link async rel="stylesheet" type="text/css" href="/static/node_modules/DataTables/datatables.min.css" />
+
+
+
 	<script defer type="text/javascript" src="/static/js/csrfToken.js"></script>
 	<script type="text/javascript">
+		window.addEventListener("load", function () {
+			window.cookieconsent.initialise({
+				"palette": {
+					"popup": {
+						"background": "#eaf7f7",
+						"text": "#5c7291"
+					},
+					"button": {
+						"background": "transparent",
+						"text": "#56cbdb",
+						"border": "#56cbdb"
+					}
+				},
+				"content": {
+					"message": "This site uses third-party cookies: by using the site, you consent the use of cookies. For more information view the ",
+					"dismiss": "OK",
+					"link": "cookies policy",
+					"href": "{% url 'privacy' %}"
+				}
+			})
+		});
 
-		window.addEventListener("load", function(){
-		window.cookieconsent.initialise({
-		"palette": {
-			"popup": {
-			"background": "#eaf7f7",
-			"text": "#5c7291"
-			},
-			"button": {
-			"background": "transparent",
-			"text": "#56cbdb",
-			"border": "#56cbdb"
-			}
-		},
-		"content": {
-			"message": "This site uses third-party cookies: by using the site, you consent the use of cookies. For more information view the ",
-			"dismiss": "OK",
-			"link": "cookies policy",
-			"href": "{% url 'privacy' %}"
-		}
-		})});
 
-
-		$(document).ready(function() {
+		$(document).ready(function () {
 
 			toastr.options = {
 				"closeButton": false,
@@ -184,22 +194,22 @@
 				"showMethod": "fadeIn",
 				"hideMethod": "fadeOut"
 			}
-			
-		
-			
-			$('body').ajaxComplete(function(e, xhr, settings) {
+
+
+
+			$('body').ajaxComplete(function (e, xhr, settings) {
 				if (xhr.status == 278) {
-					window.location.href = xhr.getResponseHeader("Location").replace(/\?.*$/, "?next="+window.location.pathname);
+					window.location.href = xhr.getResponseHeader("Location").replace(/\?.*$/, "?next=" +
+						window.location.pathname);
 				}
 			});
-		
-			
-		});        
-		
+
+
+		});
 	</script>
 
 	{% block script %} {% endblock %}
-	
+
 </body>
 
 </html>

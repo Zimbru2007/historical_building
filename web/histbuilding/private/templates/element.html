@@ -19,36 +19,36 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				Nuovo elemento
+				{% trans "Nuovo elemento" %}
 			</div>
 			<div class="card-body">
 				<div class="row pt-3">
 					<div class="col-8">
 						<form id="formElement">
 							<div class="form-group">
-								<input type="button" class="btn btn-success" value="Salva" id="btnsaveTrans">
+								<input type="button" class="btn btn-success" value="Salva" id="btnsaveElem">
 							</div>
 							<div class="form-group">
 								<label>Fonti*</label>
-								<input type="text" name="fonte-list" class="form-control" id="fontelist" required>
-								<input type="hidden" name="fonte-id-list" class="form-control" id="fonteidlist">
+								<input type="text" name="fontelist" class="form-control" id="fontelist" required>
+								<input type="hidden" name="fonteidlist" class="form-control" id="fonteidlist">
 							</div>
 							<div class="form-group">
 								<label>Citta</label>
 								<input type="text" name="citta" class="form-control" id="citta">
-								<input type="hidden" name="citta-id" class="form-control" id="cittaid">
+								<input type="hidden" name="cittaid" class="form-control" id="cittaid">
 
 							</div>
 							<div class="form-group">
 								<label>Palazzo*</label>
 								<input type="text" name="palazzo" class="form-control" id="palazzo" required>
-								<input type="hidden" name="palazzo-id" class="form-control" id="palazzoid">
+								<input type="hidden" name="palazzoid" class="form-control" id="palazzoid">
 
 							</div>
 							<div class="form-group" id="elemPart">
 							</div>
 							<div class="form-group">
-								<label>Elemento descrittivo</label>
+								<label>Aggiungi nuovo elemento descrittivo</label>
 								<select class="form-control" id="elementType">
 									<option>Selezionare un elemento</option>
 									{% for s in element_types %}

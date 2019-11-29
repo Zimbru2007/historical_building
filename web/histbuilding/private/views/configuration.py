@@ -14,8 +14,6 @@ class Configuration(View):
 class DefineFormSource(APIView):
     def post(self, request):
         try:
-            print(request.data)
-            print ('a00b00')
             doc = {'_id': '', 'name': '', 'elements': []}
             for k, v in request.data.items():
                 if k == 'name':

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-11 12:29+0000\n"
+"POT-Creation-Date: 2019-11-22 13:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,106 +26,240 @@ msgstr "Italiano"
 msgid "Français"
 msgstr "Français"
 
-#: histbuilding/templates/base.html:30 public/templates/home.html:17
+#: histbuilding/templates/base.html:33 public/templates/home.html:17
 msgid "nome_progetto"
-msgstr "PACOME"
+msgstr "nome_progetto"
+
+#: private/templates/element.html:22
+msgid "Nuovo elemento"
+msgstr "Nuovo elemento"
 
 #: public/templates/home.html:18
 msgid "desc_progetto"
-msgstr ""
-"PACOME (Palazzi comunali del Mediterraneo) studia, con un approccio "
-"comparativo e interdisciplinare, la funzione politica e urbanistica degli "
-"edifici impiegati come sedi di governo delle comunità urbane nel "
-"Mediterraneo"
+msgstr "desc_progetto"
 
 #: public/templates/home.html:19
 msgid "button_explore"
-msgstr "Esplora i palazzi"
+msgstr "button_explore"
 
 #: public/templates/home.html:57
 msgid "home1"
-msgstr ""
-"<h5>Il questionario storiografico di riferimento</h5>\n"
-"<p class=\"text-justify\">Gli edifici usati come sedi dei rappresentanti delle comunità urbane furono un elemento chiave del paesaggio e dell’identità urbana nel periodo medievale, sia in Italia sia nella Francia meridionale. Benché la loro costruzione, promossa da istituzioni differenti, abbia comportato una cronologia ed esiti materiali assai vari, i palazzi delle comunità del Mediterraneo nord-occidentale hanno una storia comune: la loro comparsa ha prodotto ovunque la nascita di uno spazio di vita politica collettiva e la creazione di un luogo identitario diverso dai più antichi luoghi di riunione o di culto esistenti in città. I palazzi municipali, che servirono al governo della comunità, all’esercizio della giustizia, alla conservazione degli archivi locali, sono stati un polo di sviluppo del tessuto urbano e in molti casi sono tuttora dei punti di riferimento urbanistici.</p>\n"
-"<p class=\"text-justify\">Lo studio dei palazzi comunali è un tema classico della storiografia medievistica, soprattutto in Italia. Questa tradizione di studi, peraltro, si è concentrata su un gruppo limitato di spazi politici: l’attenzione pressoché esclusiva riservata ai casi toscani e lombardi ha favorito la costruzione di una tipologia d’analisi la cui efficacia sulla scala europea è lungi dal risultare dimostrata.</p>\n"
-"<p class=\"text-justify\">Si avverte, oggi, il bisogno di un’iniziativa di studio collettivo, che prenda sistematicamente in esame tanto i grandi palatia urbani quanto i casi meno conosciuti di edifici pubblici, e osservi con una visione comparativa aree geografiche distanti fra loro. È inoltre necessario promuovere un vero dialogo interdisciplinare sui temi in questione. Con la parziale eccezione degli apparati decorativi, i vari aspetti dei palazzi (politici, architettonici, archeologici, urbanistici) sono stati infatti considerati in maniera autonoma dagli specialisti delle varie discipline, che hanno privilegiato tipi specifici di fonti: i documenti d’archivio, le strutture materiali, le pitture e le sculture.</p>"
+msgstr "home1"
 
 #: public/templates/home.html:60
 msgid "home2"
-msgstr ""
-"<h5>Un progetto internazionale e multidisciplinare</h5>\n"
-"<p class=\"text-justify\">Il dialogo tra le varie discipline coinvolte e l’estensione della scala geografica e cronologica delle ricerche sui palazzi comunali sono le priorità del progetto PACOME. Le attività del gruppo di ricerca italo-francese hanno reso possibile, nell’ottobre 2017, la costruzione di un quadro di saperi tecnici e di un questionario di ricerca pluridisciplinare utili alla progettazione di un Atlante dei palazzi comunali del Mediterraneo: un’iniziativa che gode del sostegno del CIHAM, del Centre Norbert Elias (CNE), dell’UMR Espace e del laboratorio Hemoc per la Francia, dell’Università di Bergamo e del Politecnico di Torino per l’Italia. Il progetto ha inoltre beneficiato, per la fase di concezione, di un finanziamento da parte della FR Agorantic (Università di Avignone).</p>\n"
-"<p class=\"text-justify\">Oltre al lavoro sulla struttura dell’Atlante, l’équipe franco-italiana è attiva nel censimento dei palazzi comunali in Francia meridionale e in Italia e nella redazione delle loro schede descrittive; nell’organizzazione di seminari e lezioni sui temi in questione presso le scuole dottorali e di specializzazione delle istituzioni coinvolte; nell’attivazione di collaborazioni con istituzioni locali interessate allo studio e alla valorizzazione dei palazzi comunali.</p>"
+msgstr "home2"
 
 #: public/templates/home.html:63
 msgid "home3"
-msgstr ""
-"<h5>Gli obiettivi del progetto</h5>\n"
-"<p class=\"text-justify\">Le componenti francese e italiana dell’équipe internazionale PACOME sono impegnate in attività di ricerca locale e di innovazione tecnologica intese alla costruzione dell’Atlante dei palazzi comunali. Si tratta di una piattaforma composta da schede interdisciplinari sui singoli edifici, con informazioni storiche, raffigurazioni cartografiche, rilievi e ricostruzioni 3D, che intende riunire, studiare, analizzare e presentare al pubblico l’insieme delle informazioni utili a comprendere, sotto differenti punti di vista, i palazzi comunali. Attraverso la geolocalizzazione dei dati i palazzi sono presentati entro il loro contesto spaziale; attraverso la raccolta di informazioni omogenee si intende rispondere a questioni di ricerca che appartengono a più discipline (la cronologia della diffusione dei palazzi comunali, i tipi architettonici, le istituzioni promotrici…).</p>\n"
-"<p class=\"text-justify\">PACOME promuove anche un programma di scambi internazionali, nel quadro di una serie di seminari scientifici e di giornate di lavoro e di studio in Italia e in Francia. Questi scambi hanno l’obiettivo di favorire al massimo la condivisione delle competenze specifiche sviluppate nell’ambito delle differenti tradizioni storiografiche nazionali e di promuovere la costruzione di una rete di studiosi sulla scala euro-mediterranea, dal Maghreb all’Europa orientale.</p>"
+msgstr "home3"
 
 msgid "authors"
-msgstr "Autori"
+msgstr "authors"
 
 msgid "title"
-msgstr "Titolo"
+msgstr "title"
 
 msgid "tomo"
-msgstr "Tomo"
+msgstr "tomo"
 
 msgid "ndoc"
-msgstr "Numero documento, tavola o figura"
+msgstr "ndoc"
 
 msgid "pages"
-msgstr "Pagine in cui si trova l’informazione"
+msgstr "pages"
 
 msgid "notes"
-msgstr "Note"
+msgstr "notes"
 
 msgid "content_date"
-msgstr "Data del contenuto"
+msgstr "content_date"
 
 msgid "publication_date"
-msgstr "Data di pubblicazione"
+msgstr "publication_date"
 
 msgid "place"
-msgstr "Luogo"
+msgstr "place"
 
 msgid "title_journal"
-msgstr "Titolo della raccolta o della rivista"
+msgstr "title_journal"
 
 msgid "author_journal"
-msgstr "Autore o curatore della raccolta"
+msgstr "author_journal"
 
 msgid "nvol"
-msgstr "Numero del volume/fascicolo"
+msgstr "nvol"
 
 msgid "publisher"
-msgstr "Casa editrice"
+msgstr "publisher"
 
 msgid "url"
-msgstr "URL"
+msgstr "url"
 
 msgid "second_hand"
-msgstr "Fonte di seconda mano"
+msgstr "second_hand"
 
 msgid "annotations"
-msgstr "Annotazioni"
+msgstr "annotations"
 
 msgid "Fonti edite"
 msgstr "Fonti edite"
 
 msgid "institution"
-msgstr "Ente di conservazione"
+msgstr "institution"
 
 msgid "signature_archive"
-msgstr "Segnatura archivistica"
+msgstr "signature_archive"
 
 msgid "paper"
-msgstr "Foglio o pagina in cui si trova l’informazione"
+msgstr "paper"
 
 msgid "Fonti archivistiche"
 msgstr "Fonti archivistiche"
 
 msgid "Pubblicazioni scientifiche"
 msgstr "Pubblicazioni scientifiche"
+
+msgid "d1"
+msgstr "d1"
+
+msgid "a1"
+msgstr "a1"
+
+msgid "Autori"
+msgstr "Autori"
+
+msgid "Titolo"
+msgstr "Titolo"
+
+msgid "Tomo"
+msgstr "Tomo"
+
+msgid "Numero documento, tavola o figura"
+msgstr "Numero documento, tavola o figura"
+
+msgid "Pagine"
+msgstr "Pagine"
+
+msgid "Nota"
+msgstr "Nota"
+
+msgid "Data del contenuto (gg/mm/yyyy)"
+msgstr "Data del contenuto (gg/mm/yyyy)"
+
+msgid "Anno di publicazione"
+msgstr "Anno di publicazione"
+
+msgid "Luogo"
+msgstr "Luogo"
+
+msgid "Titolo della raccolta o della rivista"
+msgstr "Titolo della raccolta o della rivista"
+
+msgid "Autore o curatore della raccolta"
+msgstr "Autore o curatore della raccolta"
+
+msgid "Numero del volume/fascicolo"
+msgstr "Numero del volume/fascicolo"
+
+msgid "Casa editrice"
+msgstr "Casa editrice"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Fonti di seconda mano"
+msgstr "Fonti di seconda mano"
+
+msgid "Annotazioni"
+msgstr "Annotazioni"
+
+msgid "Fonti edite2"
+msgstr "Fonti edite2"
+
+msgid "namw"
+msgstr "namw"
+
+msgid "Fonti2"
+msgstr "Fonti2"
+
+msgid "namu"
+msgstr "namu"
+
+msgid "Foti3"
+msgstr "Foti3"
+
+msgid "namu45"
+msgstr "namu45"
+
+msgid "n43amu45"
+msgstr "n43amu45"
+
+msgid "el1"
+msgstr "el1"
+
+msgid "el2"
+msgstr "el2"
+
+msgid "Fonti4"
+msgstr "Fonti4"
+
+msgid "Name1"
+msgstr "Name1"
+
+msgid "Fonti5"
+msgstr "Fonti5"
+
+msgid "name1"
+msgstr "name1"
+
+msgid "Fonti6"
+msgstr "Fonti6"
+
+msgid "Autore"
+msgstr "Autore"
+
+msgid "Picture"
+msgstr "Picture"
+
+msgid "Sculpture"
+msgstr "Sculpture"
+
+msgid "data"
+msgstr "data"
+
+msgid "DAta"
+msgstr "DAta"
+
+msgid "Mosaic"
+msgstr "Mosaic"
+
+msgid "Anno"
+msgstr "Anno"
+
+msgid "Autore323"
+msgstr "Autore323"
+
+msgid "Element1"
+msgstr "Element1"
+
+msgid "pascuda"
+msgstr "pascuda"
+
+msgid "Fonti52"
+msgstr "Fonti52"
+
+msgid "bracad"
+msgstr "bracad"
+
+msgid "Fonti7"
+msgstr "Fonti7"
+
+msgid "name"
+msgstr "name"
+
+msgid "is"
+msgstr "is"
+
+msgid ""
+msgstr ""

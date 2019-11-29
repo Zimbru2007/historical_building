@@ -9,6 +9,12 @@ $(document).ready(function() {
         //
     });
 
+    $('#btnsaveElem').on('click', function() {
+        saveForm();
+        //$('#saveButton').val('test');
+    })
+
+
     fontename = "";
     fonteid = getUrlVars()["fonteid"];
     if (fonteid) {
@@ -50,43 +56,43 @@ function updateElementForm(element_typeid) {
         console.log(response);
         element = response['element'];
         console.log(element['elements']);
-        elhtml = '<div class="card mt-3 formel"><div class="card-body"><h5 class="card-title">' + element['name'] + '</h5><div class="form-group" id="elem-' + newElementId + '"></div></div></div>';
+        elhtml = '<div class="card mt-3 formel"><div class="card-body"><h5 class="card-title">' + element['name'] + '</h5><div class="form-group" id="elem-' + newElementId + '">';
+        elhtml = elhtml + '<input type="hidden" name="element_id-' + newElementId + '"  class="form-control" value="' + element_typeid + '">';
+        elhtml = elhtml + '</div></div></div>';
         $('#elemPart').append(elhtml);
         console.log(elhtml);
         for (var i = 0; i < element['elements'].length; i++) {
             elhtml = '<div class="form-group">';
             required = '';
             requiredtext = '';
-            console.log(element['elements']);
-
             if (element['elements'][i]['required']) {
                 required = '*';
                 requiredtext = 'required';
             }
             if (element['elements'][i]['type'] == 'text') {
                 elhtml = elhtml + '<label>' + element['elements'][i]['name'] + required + '</label>';
-                elhtml = elhtml + '<input type="text" name="' + element['elements'][i]['name'] + '" placeholder="' + element['elements'][i]['name'] + '" class="form-control" ' + requiredtext + '>';
+                elhtml = elhtml + '<input type="text" name="' + gettext(element['elements'][i]['name']) + '-' + newElementId + '" placeholder="' + element['elements'][i]['name'] + '" class="form-control" ' + requiredtext + '>';
                 //$('#elem-' + newElementId).append(elhtml);
             }
             if (element['elements'][i]['type'] == 'textarea') {
                 elhtml = elhtml + '<label>' + element['elements'][i]['name'] + required + '</label>';
-                elhtml = elhtml + '<textarea name="' + element['elements'][i]['name'] + '" placeholder="' + element['elements'][i]['name'] + '" class="form-control" row="3" ' + requiredtext + '></textarea>';
+                elhtml = elhtml + '<textarea name="' + element['elements'][i]['name'] + '-' + newElementId + '" placeholder="' + element['elements'][i]['name'] + '" class="form-control" row="3" ' + requiredtext + '></textarea>';
                 // $('#elem-' + newElementId).append(elhtml);
             }
             if (element['elements'][i]['type'] == 'number') {
                 elhtml = elhtml + '<label>' + element['elements'][i]['name'] + required + '</label>';
-                elhtml = elhtml + '<input type="number" name="' + element['elements'][i]['name'] + '" placeholder="' + element['elements'][i]['name'] + '" class="form-control" ' + requiredtext + '>';
+                elhtml = elhtml + '<input type="number" name="' + element['elements'][i]['name'] + '-' + newElementId + '" placeholder="' + element['elements'][i]['name'] + '" class="form-control" ' + requiredtext + '>';
                 //  $('#elem-' + newElementId).append(elhtml);
             }
             if (element['elements'][i]['type'] == 'date') {
                 elhtml = elhtml + '<label>' + element['elements'][i]['name'] + required + '</label>';
-                elhtml = elhtml + '<input type="text" name="' + element['elements'][i]['name'] + '" placeholder="' + element['elements'][i]['name'] + '" class="form-control datecontrol" ' + requiredtext + 'pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}">';
+                elhtml = elhtml + '<input type="text" name="' + element['elements'][i]['name'] + '-' + newElementId + '" placeholder="' + element['elements'][i]['name'] + '" class="form-control datecontrol" ' + requiredtext + 'pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}">';
                 // $('#elem-' + newElementId).append(elhtml);
             }
             if (element['elements'][i]['type'] == 'boolean') {
                 elhtml = elhtml + element['elements'][i]['name'] + required;
                 elhtml = elhtml + '<label class="switch ml-2">';
-                elhtml = elhtml + '<input type="checkbox" class="default" name="' + element['elements'][i]['name'] + '"' + requiredtext + '>';
+                elhtml = elhtml + '<input type="checkbox" class="default" name="' + element['elements'][i]['name'] + '-' + newElementId + '"' + requiredtext + '>';
                 elhtml = elhtml + '<span class="slider round" ></span></label>';
                 //$('#elem-' + newElementId).append(elhtml);
             }
@@ -97,6 +103,7 @@ function updateElementForm(element_typeid) {
             // $('#elemPart').append(elhtml);
         }
         newElementId += 1;
+        $("#elementType option:eq(0)").prop('selected', true);
     });
 }
 
@@ -239,4 +246,57 @@ function addFormElement(is_existing) {
 
 
 
+}
+
+
+function saveForm() {
+    formData = $('#formElement').serializeArray();
+
+    data = {}
+    for (var i = 0; i < formData.length; i++) {
+        el = formData[i];
+        //if (el['value'] != "") {
+        if (el['name'].indexOf('-') != -1) {
+            idEl = el['name'].split("-")[1];
+            feature = el['name'].split("-")[0]
+            keyEl = 'el-' + idEl;
+            if (keyEl in data == false) {
+                data[keyEl] = {}
+            }
+            data[keyEl][feature] = el['value'];
+        } else {
+            if (el['name'] == "fonteidlist" || el['name'] == "palazzoid")
+                data[el['name']] = el['value'];
+        }
+        // }
+    }
+    console.log(formData);
+    console.log(data);
+    // alert("formData " + JSON.stringify(data));
+    $.ajax({
+            url: "./manageElements/",
+            method: 'POST',
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        }).done(function(response) {
+            /*toastr["success"](response['message']);
+            doc = response['doc'];
+
+            r = confirm("Vuoi inserire nuove elementi su questa fonte?");
+            if (r == true) {
+                location.replace('/private/elementi/?fonteid=' + doc["oid"]);
+            } else {
+                sourcetable.destroy();
+                updateSourceEntities(val);
+                curr_source = doc["oid"];
+                $('#newElement').show();
+            }*/
+        })
+        /*.fail(function(xhr, textStatus, errorThrown) {
+            console.log(xhr);
+            console.log(textStatus);
+            console.log(errorThrown);
+        })*/
+    ;
 }

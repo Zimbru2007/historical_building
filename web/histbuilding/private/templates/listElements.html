@@ -1,0 +1,47 @@
+{% extends "private_base.html" %}
+{% load i18n static %}
+{% load crispy_forms_tags %}
+{% load hb_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block content%}
+
+{{ block.super }}
+
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Elenco elementi descrittivi" "listElements" %}
+
+{% endblock %}
+<div class="row pt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Lista elementi descrittivi</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" style="width: 100%" id="elementsTable">
+                    <thead>
+                        <tr class='table-primary'>
+                            <th>Autori</th>
+                            <th>Titolo</th>
+                            <th>Modifica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+<script defer type="text/javascript" src="/static/js/private/listElements.js"></script>
+{% endblock %}
