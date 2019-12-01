@@ -1,7 +1,16 @@
 newElementId = 1;
 var fonteid;
 var fontename;
+var fontilist = [];
 $(document).ready(function() {
+
+    /*listTags = $('#fontelist').amsifySuggestags({
+        type: 'amsify',
+        suggestionsAction: {
+            url: '/private/fonti/listSources/'
+        }
+        // suggestions: ['Black', 'White', 'Red', 'Blue', 'Green', 'Orange'],
+    });*/
 
     $('#elementType').on('change', function() {
         val = $(this).val();
@@ -114,32 +123,80 @@ function selectFontiECitta(is_existing) {
     } else {
         $('#fontelist').prop('readonly', false);
     }
-    $('#fontelist').typeahead({
-        onSelect: function(item) {
-            console.log(item);
-            $('#fonteidlist').val(item.value);
-        },
-        ajax: {
-            url: '/private/fonti/listSources/',
-            displayField: "name",
-            triggerLength: 1,
-            preProcess: function(data) {
-                listLocations = [];
-                console.log(data);
-                for (var i = 0; i < data['docs'].length; i++) {
-                    name = "";
-                    for (var key in data['docs'][i]) {
-
-                        if (key != '_id') {
-                            name = name + data['docs'][i][key] + " ";
-                        }
-                    }
-                    listLocations.push({ 'id': data['docs'][i]['_id']['$oid'], 'name': name });
+    $.ajax({
+        url: "/private/fonti/listSources/",
+        method: 'GET',
+        data: { 'suggestquery': 'suggestquery' },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+    }).done(function(response) {
+        console.log(response);
+        docs = response['docs'];
+        console.log(docs);
+        suggestionswithidlist = {};
+        suggestionslist = [];
+        for (var i = 0; i < docs.length; i++) {
+            sug = {}
+            tag = "";
+            for (var key in docs[i]) {
+                if (key != "_id") {
+                    tag += docs[i][key] + " ";
                 }
-                return listLocations;
             }
+
+            suggestionswithidlist[tag] = docs[i]["_id"];
+            //sug["tag"] = tag;
+            //suggestionswithidlist.push(sug);
+            suggestionslist.push(tag);
+
         }
+        fontilist = [];
+        console.log(suggestionswithidlist);
+        listTags = $('#fontelist').amsifySuggestags({
+            type: 'amsify',
+            suggestions: suggestionslist,
+            whiteList: true,
+            afterAdd: function(value) {
+                //console.info(value); // Parameter will be value
+                fontilist.push(suggestionswithidlist[value]["$oid"]);
+                console.info(fontilist);
+                $('#fonteidlist').val(fontilist);
+            },
+            afterRemove: function(value) {
+                //console.info(value); // Parameter will be value
+                fontilist.splice(fontilist.indexOf(suggestionswithidlist[value]["$oid"]), 1);
+                console.info(fontilist);
+                $('#fonteidlist').val(fontilist);
+            },
+        });
     });
+
+    /* $('#fontelist').typeahead({
+         onSelect: function(item) {
+             console.log(item);
+             $('#fonteidlist').val(item.value);
+         },
+         ajax: {
+             url: '/private/fonti/listSources/',
+             displayField: "name",
+             triggerLength: 1,
+             preProcess: function(data) {
+                 listLocations = [];
+                 console.log(data);
+                 for (var i = 0; i < data['docs'].length; i++) {
+                     name = "";
+                     for (var key in data['docs'][i]) {
+
+                         if (key != '_id') {
+                             name = name + data['docs'][i][key] + " ";
+                         }
+                     }
+                     listLocations.push({ 'id': data['docs'][i]['_id']['$oid'], 'name': name });
+                 }
+                 return listLocations;
+             }
+         }
+     });*/
     $('#citta').typeahead({
         onSelect: function(item) {
             console.log(item);
@@ -253,6 +310,7 @@ function saveForm() {
     formData = $('#formElement').serializeArray();
 
     data = {}
+    data["fonteidlist"] = fontilist;
     for (var i = 0; i < formData.length; i++) {
         el = formData[i];
         //if (el['value'] != "") {
@@ -265,8 +323,11 @@ function saveForm() {
             }
             data[keyEl][feature] = el['value'];
         } else {
-            if (el['name'] == "fonteidlist" || el['name'] == "palazzoid")
+            if (el['name'] == "palazzoid") {
                 data[el['name']] = el['value'];
+            } else if (el['name'] == "fonteidlist") {
+
+            }
         }
         // }
     }
@@ -280,6 +341,8 @@ function saveForm() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
         }).done(function(response) {
+            window.location.href = "/private/elenco_elementi";
+
             /*toastr["success"](response['message']);
             doc = response['doc'];
 

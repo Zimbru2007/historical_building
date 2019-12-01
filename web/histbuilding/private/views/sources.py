@@ -70,45 +70,57 @@ class ListSources(APIView):
                 print()
                 print(oid)
                 return Response({'docs': to_json(docs),'doc': aaa})
-            else:
-                if 'oid' in request.query_params:
-                    oid = request.query_params['oid']
-                    doc = db.sources.find_one({'_id': ObjectId(oid)})
-                    return Response({'doc': to_json(doc)})
-                else:
-                    if 'oid_required' in request.query_params:
-                        oid = request.query_params['oid_required']
-                        doc_temp = db.sources.find_one({'_id': ObjectId(oid)},{'SourceType':1})
-                        doc_temp2 = db.source_types.find_one({'_id': doc_temp['SourceType']},{'elements':1})
-                        aaa={}
-                        for x in doc_temp2["elements"]:
-                            if "required" in x:
-                                if x["required"]=="on":
-                                    aaa[x["name"]] = 1
-                        doc = db.sources.find_one({'_id': ObjectId(oid)},aaa)
-                        print(aaa)
-                        return Response({'doc': to_json(doc)})
-                    else:
-                        if 'query' in request.query_params:
-                            queryString = request.query_params.get('query')
-                            search = '(.*)' + queryString.strip() + '(.*)'
-                            search = search.replace(' ', '(.*)')
-                            regex = re.compile(search, re.IGNORECASE)
-                            docs_temp = db.source_types.find({},{'elements':1})
-                            aaa={}
-                            bbb=[]
-                            ccc={}
-                            b = {"$regex":regex,"$options": 'ix'}
-                            for x in docs_temp:
-                                for y in x["elements"]:
-                                    if "required" in y:
-                                        if y["required"]=="on":                                            
-                                            aaa[y["name"]] = b
-                                            bbb.append(aaa.copy())
-                                            aaa={}
-                                            ccc[y["name"]] = 1                    
-                            docs = db.sources.find({"$or": bbb },ccc).limit(10)
-                            return Response({'docs': to_json(docs)})
+            elif 'oid' in request.query_params:
+                oid = request.query_params['oid']
+                doc = db.sources.find_one({'_id': ObjectId(oid)})
+                return Response({'doc': to_json(doc)})
+            elif 'oid_required' in request.query_params:
+                oid = request.query_params['oid_required']
+                doc_temp = db.sources.find_one({'_id': ObjectId(oid)},{'SourceType':1})
+                doc_temp2 = db.source_types.find_one({'_id': doc_temp['SourceType']},{'elements':1})
+                aaa={}
+                for x in doc_temp2["elements"]:
+                    if "required" in x:
+                        if x["required"]=="on":
+                            aaa[x["name"]] = 1
+                doc = db.sources.find_one({'_id': ObjectId(oid)},aaa)
+                print(aaa)
+                return Response({'doc': to_json(doc)})
+            elif 'query' in request.query_params:
+                queryString = request.query_params.get('query')
+                search = '(.*)' + queryString.strip() + '(.*)'
+                search = search.replace(' ', '(.*)')
+                regex = re.compile(search, re.IGNORECASE)
+                docs_temp = db.source_types.find({},{'elements':1})
+                aaa={}
+                bbb=[]
+                ccc={}
+                b = {"$regex":regex,"$options": 'ix'}
+                for x in docs_temp:
+                    for y in x["elements"]:
+                        if "required" in y:
+                            if y["required"]=="on":                                            
+                                aaa[y["name"]] = b
+                                bbb.append(aaa.copy())
+                                aaa={}
+                                ccc[y["name"]] = 1                    
+                docs = db.sources.find({"$or": bbb },ccc).limit(10)
+                return Response({'docs': to_json(docs)})
+            elif 'suggestquery' in request.query_params:
+                docs_temp = db.source_types.find({},{'elements':1})
+                aaa=[]
+                ccc={}
+                for x in docs_temp:
+                    for y in x["elements"]:
+                        if "required" in y:
+                            if y["required"]=="on":
+                                ccc[y["name"]] = 1
+                    docs2=db.sources.find({"SourceType":x["_id"]},ccc)
+                    for t in docs2:
+                        aaa.append(t)
+                
+                print(to_json(aaa))
+                return Response({'docs': to_json(aaa)})
         except Exception as e:
             print (e)
             return Response(status=status.HTTP_400_BAD_REQUEST)

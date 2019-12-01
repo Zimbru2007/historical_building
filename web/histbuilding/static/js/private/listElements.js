@@ -2,11 +2,11 @@ var elementstable;
 
 $(document).ready(function() {
     elementstable = $('#elementsTable').DataTable();
-
-    updateElementsEntities(val);
+    elementstable.destroy();
+    updateElementsEntities();
 })
 
-function updateElementsEntities(oid) {
+function updateElementsEntities() {
     $.ajax({
         url: "./manageListElements/",
         method: 'GET',
@@ -15,14 +15,14 @@ function updateElementsEntities(oid) {
         dataType: "json",
     }).done(function(response) {
         console.log(response);
-        docs = response['docs'];
-        doc = response['doc'];
+        elements = response['elements'];
+        //doc = response['doc'];
 
         /*$('#sourcesTable').DataTable({
             "ajax": docs
         });*/
 
-        has_required = false;
+        /*has_required = false;
         $('#sourcesTable thead tr').empty();
         for (var key in doc) {
             $('#sourcesTable thead tr').append("<th>" + key + "</th>")
@@ -31,22 +31,38 @@ function updateElementsEntities(oid) {
         if (!has_required) {
             $('#sourcesTable thead tr').append("<th>id</th>")
         }
-        $('#sourcesTable thead tr').append("<th>Modifica</th>")
+        $('#sourcesTable thead tr').append("<th>Modifica</th>")*/
 
-        $('#sourcesTable tbody').empty();
-        for (var i = 0; i < docs.length; i++) {
-
-            $('#sourcesTable tbody').append("<tr id='sourcetable" + i + "'> </tr> ");
-            if (has_required) {
-                for (var key in doc) {
-                    $('#sourcetable' + i).append("<td>" + docs[i][key] + "</td>");
+        $('#elementsTable tbody').empty();
+        for (var i = 0; i < elements.length; i++) {
+            $('#elementsTable tbody').append("<tr id='elementsTable" + i + "'> </tr> ");
+            var fontenames = '';
+            for (var j = 0; j < elements[i]['fontename'].length; j++) {
+                for (var key in elements[i]['fontename'][j]) {
+                    if (key != '_id') {
+                        fontenames += elements[i]['fontename'][j][key];
+                        fontenames += ' ';
+                    }
                 }
-            } else {
-                $('#sourcetable' + i).append("<td>" + i + "</td>");
+                fontenames += ';';
             }
-            $('#sourcetable' + i).append("<td><button type='button' class='btn btn-primary' data-oid='" + docs[i]['_id']['$oid'] + "'><span class='oi oi-pencil'></span></button></td>");
+            var elementname = '';
+            $('#elementsTable' + i).append("<td>" + fontenames + "</td>");
+            $('#elementsTable' + i).append("<td>" + elements[i]['locationname'] + "</td>");
+            $('#elementsTable' + i).append("<td>" + elements[i]['buildingname'] + "</td>");
+            $('#elementsTable' + i).append("<td>" + elements[i]['element']['elementname'] + "</td>");
+
+            for (var key in elements[i]['element']) {
+                if (key != 'element_id' && key != 'elementname') {
+                    elementname += elements[i]['element'][key];
+                    elementname += ' ';
+                }
+            }
+            $('#elementsTable' + i).append("<td>" + elementname + "</td>");
+
+            $('#elementsTable' + i).append("<td><button type='button' class='btn btn-primary' data-oid='" + elements[i]['_id']['$oid'] + "'><span class='oi oi-pencil'></span></button></td>");
 
         }
-        sourcetable = $('#sourcesTable').DataTable();
+        elementstable = $('#elementsTable').DataTable();
     });
 }

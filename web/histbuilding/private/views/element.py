@@ -13,14 +13,14 @@ class ManageElements(APIView):
     def post(self, request):
         try:
             print (request.data)
-            doc = {'_id': '', 'fonteidlist': '','palazzoid': '', 'elements': []}
+            doc = {'_id': '', 'fonteidlist': [],'palazzoid': '', 'elements': []}
             for k, v in request.data.items():
                 if k == 'fonteidlist':
                     doc['fonteidlist']=v
                 elif k == 'palazzoid':
                     doc['palazzoid'] = v
                 elif k == '_id':
-                    doc['_id'] = v 
+                    doc['_id'] = v
                 else:
                     doc['elements'].append(v)
             if doc['_id'] == None or doc['_id'] == '':
