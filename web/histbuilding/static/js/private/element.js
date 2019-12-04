@@ -1,16 +1,15 @@
 newElementId = 1;
 var fonteid;
+var elementid;
 var fontename;
 var fontilist = [];
+var suggestionswithidlist2 = {};
+var suggestionswithidlist = {};
+var initelemid = false;
+suggestionslist = [];
+
 $(document).ready(function() {
 
-    /*listTags = $('#fontelist').amsifySuggestags({
-        type: 'amsify',
-        suggestionsAction: {
-            url: '/private/fonti/listSources/'
-        }
-        // suggestions: ['Black', 'White', 'Red', 'Blue', 'Green', 'Orange'],
-    });*/
 
     $('#elementType').on('change', function() {
         val = $(this).val();
@@ -22,11 +21,18 @@ $(document).ready(function() {
         saveForm();
         //$('#saveButton').val('test');
     })
-
+    selectFontiECitta();
 
     fontename = "";
     fonteid = getUrlVars()["fonteid"];
-    if (fonteid) {
+    elementid = getUrlVars()["elementid"];
+
+
+    if (elementid) {
+        initelemid = true;
+    }
+    /*if (fonteid) {
+
         $.ajax({
             url: "/private/fonti/listSources/",
             method: 'GET',
@@ -43,14 +49,12 @@ $(document).ready(function() {
             }
             console.log(fontename);
 
-            selectFontiECitta(true);
+            selectFontiECitta(true, false);
         });
     } else {
-        selectFontiECitta(false);
+        selectFontiECitta(false, false);
     }
-
-
-    $('#btnsaveTrans').on('click', function() {});
+*/
 
 });
 
@@ -113,16 +117,109 @@ function updateElementForm(element_typeid) {
         }
         newElementId += 1;
         $("#elementType option:eq(0)").prop('selected', true);
+        if (initelemid) {
+            $.ajax({
+                url: "/private/elenco_elementi/manageListElements/",
+                method: 'GET',
+                data: { 'elementid': elementid },
+
+            }).done(function(response) {
+                console.log(response);
+                doc = response['element'];
+
+
+                for (var key in doc['element']) {
+                    $('#formElement input[name="' + key + '-1"]').val(doc['element'][key]);
+                    console.log(key + " " + $('#formElement input[name="' + key + '-1"]').prop('type'));
+                    if ($('#formElement input[name="' + key + '-1"]').attr('type') == 'checkbox') {
+                        if (doc['element'][key] == 'on') {
+                            $('#formElement input[name="' + key + '-1"]').prop('checked', true);
+                        }
+                    }
+                }
+
+            });
+            initelemid = false;
+        }
     });
 }
 
-function selectFontiECitta(is_existing) {
-    console.log("is_existing" + is_existing);
-    if (is_existing) {
-        $('#fontelist').prop('readonly', true);
-    } else {
-        $('#fontelist').prop('readonly', false);
-    }
+function editForm2() {
+
+    fontenames = suggestionswithidlist2[fonteid];
+    $('#fontelist').val(fontenames);
+    $('#fontelist').amsifySuggestags({
+        type: 'amsify',
+        suggestions: suggestionslist,
+        whiteList: true,
+        afterAdd: function(value) {
+            //console.info(value); // Parameter will be value
+            fontilist.push(suggestionswithidlist[value]);
+            console.info(fontilist);
+            $('#fonteidlist').val(fontilist);
+        },
+        afterRemove: function(value) {
+            //console.info(value); // Parameter will be value
+            fontilist.splice(fontilist.indexOf(suggestionswithidlist[value]), 1);
+            console.info(fontilist);
+            $('#fonteidlist').val(fontilist);
+        }
+    }, 'refresh');
+
+}
+
+function editForm() {
+    $.ajax({
+        url: "/private/elenco_elementi/manageListElements/",
+        method: 'GET',
+        data: { 'elementid': elementid },
+
+    }).done(function(response) {
+        console.log(response);
+        doc = response['element'];
+        updateElementForm(doc['element']['element_id']);
+        var fontenames = [];
+        for (var j = 0; j < doc['fonteidlist'].length; j++) {
+            // console.log("www" + j + "=" + suggestionswithidlist2[doc['fonteidlist'][j]]);
+            fontenames.push(suggestionswithidlist2[doc['fonteidlist'][j]]);
+            // $('#fontelist').val(suggestionswithidlist2[doc['fonteidlist'][j]]);
+
+        }
+        $('#fontelist').val(fontenames.join());
+        $('#fontelist').amsifySuggestags({
+            type: 'amsify',
+            suggestions: suggestionslist,
+            whiteList: true,
+            afterAdd: function(value) {
+                //console.info(value); // Parameter will be value
+                fontilist.push(suggestionswithidlist[value]);
+                console.info(fontilist);
+                $('#fonteidlist').val(fontilist);
+            },
+            afterRemove: function(value) {
+                //console.info(value); // Parameter will be value
+                fontilist.splice(fontilist.indexOf(suggestionswithidlist[value]), 1);
+                console.info(fontilist);
+                $('#fonteidlist').val(fontilist);
+            }
+        }, 'refresh');
+
+        $('#citta').val(doc['locationname']);
+        $('#cittaid').val(doc['locationid']['$oid']);
+        $('#palazzo').val(doc['buildingname']);
+        $('#palazzoid').val(doc['palazzoid']);
+
+    });
+
+}
+
+function selectFontiECitta() {
+    /*console.log("isfontiid" + isfontiid);
+     if (isfontiid) {
+         $('#fontelist').prop('readonly', true);
+     } else {
+         $('#fontelist').prop('readonly', false);
+     }*/
     $.ajax({
         url: "/private/fonti/listSources/",
         method: 'GET',
@@ -134,6 +231,7 @@ function selectFontiECitta(is_existing) {
         docs = response['docs'];
         console.log(docs);
         suggestionswithidlist = {};
+        suggestionswithidlist2 = {};
         suggestionslist = [];
         for (var i = 0; i < docs.length; i++) {
             sug = {}
@@ -143,11 +241,14 @@ function selectFontiECitta(is_existing) {
                     tag += docs[i][key] + " ";
                 }
             }
+            var res = tag.replace(",", ";");
+            var trimtag = $.trim(res);
 
-            suggestionswithidlist[tag] = docs[i]["_id"];
+            suggestionswithidlist[trimtag] = docs[i]["_id"]["$oid"];
+            suggestionswithidlist2[docs[i]["_id"]["$oid"]] = trimtag;
             //sug["tag"] = tag;
             //suggestionswithidlist.push(sug);
-            suggestionslist.push(tag);
+            suggestionslist.push(trimtag);
 
         }
         fontilist = [];
@@ -158,17 +259,24 @@ function selectFontiECitta(is_existing) {
             whiteList: true,
             afterAdd: function(value) {
                 //console.info(value); // Parameter will be value
-                fontilist.push(suggestionswithidlist[value]["$oid"]);
+                fontilist.push(suggestionswithidlist[value]);
                 console.info(fontilist);
                 $('#fonteidlist').val(fontilist);
             },
             afterRemove: function(value) {
                 //console.info(value); // Parameter will be value
-                fontilist.splice(fontilist.indexOf(suggestionswithidlist[value]["$oid"]), 1);
+                fontilist.splice(fontilist.indexOf(suggestionswithidlist[value]), 1);
                 console.info(fontilist);
                 $('#fonteidlist').val(fontilist);
-            },
+            }
         });
+        if (elementid) {
+            editForm();
+
+        }
+        if (fonteid) {
+            editForm2();
+        }
     });
 
     /* $('#fontelist').typeahead({
@@ -202,6 +310,8 @@ function selectFontiECitta(is_existing) {
             console.log(item);
 
             $('#cittaid').val(item.value);
+            $('#palazzoid').val("");
+            $('#palazzo').val("");
         },
         ajax: {
             url: '/private/luoghi/manageLocation/',
@@ -250,6 +360,8 @@ function selectFontiECitta(is_existing) {
             }
         }
     });
+
+
 }
 
 function getUrlVars() {
@@ -263,7 +375,7 @@ function getUrlVars() {
     }
     return vars;
 }
-
+/*
 function addFormElement(is_existing) {
 
     $.get("/static/templates/formSourceElement.html", function(data) {
@@ -303,7 +415,7 @@ function addFormElement(is_existing) {
 
 
 
-}
+}*/
 
 
 function saveForm() {
@@ -325,11 +437,13 @@ function saveForm() {
         } else {
             if (el['name'] == "palazzoid") {
                 data[el['name']] = el['value'];
-            } else if (el['name'] == "fonteidlist") {
-
             }
         }
         // }
+    }
+    if (elementid) {
+        data['_id'] = elementid;
+
     }
     console.log(formData);
     console.log(data);

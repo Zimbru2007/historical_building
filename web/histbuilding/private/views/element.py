@@ -33,17 +33,25 @@ class ManageElements(APIView):
                     doc_id = db.elements.insert_one(doc_temp).inserted_id
                 return Response({'message':'Tipo fonte salvato corretamente'})
             else:
-                doc_temp = {'_id': '', 'fonteidlist': '','palazzoid': '', 'element': ''}
-                doc_temp['palazzoid']=doc['palazzoid']
-                doc_temp['fonteidlist']=doc['fonteidlist']
-                doc_temp['element']=doc['elements']
-                doc_temp['_id'] = ObjectId(doc['_id'])
-                result = db.elements.replace_one({'_id': doc_temp['_id']}, doc_temp)
-                if result.modified_count:
-                    doc_id = str(doc_temp['_id'])
-                    return Response({'message':'Tipo fonte modificato corretamente'})
-                else:
-                    raise Exception('no matching oid')
+                firstelem=True
+                for elem in doc['elements']:
+                    if firstelem:
+                        doc_temp = {'_id': '', 'fonteidlist': '','palazzoid': '', 'element': ''}
+                        doc_temp['palazzoid']=doc['palazzoid']
+                        doc_temp['fonteidlist']=doc['fonteidlist']
+                        doc_temp['element']=elem
+                        doc_temp['_id'] = ObjectId(doc['_id'])
+                        result = db.elements.replace_one({'_id': doc_temp['_id']}, doc_temp)
+                        firstelem=False
+                        if result.modified_count:
+                            doc_id = str(doc_temp['_id'])
+                    else:
+                        doc_temp = { 'fonteidlist': '','palazzoid': '', 'element': ''}
+                        doc_temp['palazzoid']=doc['palazzoid']
+                        doc_temp['fonteidlist']=doc['fonteidlist']
+                        doc_temp['element']=elem
+                        doc_id = db.elements.insert_one(doc_temp).inserted_id
+                return Response({'message':'Tipo fonte salvato corretamente'})
         except Exception as e:
             print (e)
             request.session['error'] = 'Errore nel salvataggio'

@@ -4,6 +4,13 @@ $(document).ready(function() {
     elementstable = $('#elementsTable').DataTable();
     elementstable.destroy();
     updateElementsEntities();
+
+    $('#elementsTable').on('click', '.btn-primary', function() {
+        console.log('edit');
+        oid = $(this).data('oid');
+        location.replace('/private/elementi/?elementid=' + oid);
+
+    })
 })
 
 function updateElementsEntities() {
@@ -50,7 +57,7 @@ function updateElementsEntities() {
             $('#elementsTable' + i).append("<td>" + fontenames + "</td>");
             $('#elementsTable' + i).append("<td>" + elements[i]['locationname'] + "</td>");
             $('#elementsTable' + i).append("<td>" + elements[i]['buildingname'] + "</td>");
-            $('#elementsTable' + i).append("<td>" + elements[i]['element']['elementname'] + "</td>");
+            $('#elementsTable' + i).append("<td>" + elements[i]['elementname'] + "</td>");
 
             for (var key in elements[i]['element']) {
                 if (key != 'element_id' && key != 'elementname') {
