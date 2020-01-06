@@ -6,7 +6,9 @@
 <div class="row pt-3">
     <div class="col-12">
         {% crispy form %}
+         <a class="btn btn-warning" href="{% url 'password_reset' %}">Reset Password</a>
     </div>
+        
 </div>
 
 {% endblock %}

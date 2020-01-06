@@ -18,7 +18,7 @@ class ManageElements(APIView):
                 if k == 'fonteidlist':
                     doc['fonteidlist']=v
                 elif k == 'palazzoid':
-                    doc['palazzoid'] = v
+                    doc['palazzoid'] = ObjectId(v)
                 elif k == '_id':
                     doc['_id'] = v
                 else:
@@ -30,6 +30,7 @@ class ManageElements(APIView):
                     doc_temp['palazzoid']=doc['palazzoid']
                     doc_temp['fonteidlist']=doc['fonteidlist']
                     doc_temp['element']=elem
+                    doc_temp['element']['element_id']=ObjectId(elem['element_id'])
                     doc_id = db.elements.insert_one(doc_temp).inserted_id
                 return Response({'message':'Tipo fonte salvato corretamente'})
             else:
@@ -40,6 +41,7 @@ class ManageElements(APIView):
                         doc_temp['palazzoid']=doc['palazzoid']
                         doc_temp['fonteidlist']=doc['fonteidlist']
                         doc_temp['element']=elem
+                        doc_temp['element']['element_id']=ObjectId(elem['element_id'])
                         doc_temp['_id'] = ObjectId(doc['_id'])
                         result = db.elements.replace_one({'_id': doc_temp['_id']}, doc_temp)
                         firstelem=False
@@ -50,6 +52,7 @@ class ManageElements(APIView):
                         doc_temp['palazzoid']=doc['palazzoid']
                         doc_temp['fonteidlist']=doc['fonteidlist']
                         doc_temp['element']=elem
+                        doc_temp['element']['element_id']=ObjectId(elem['element_id'])
                         doc_id = db.elements.insert_one(doc_temp).inserted_id
                 return Response({'message':'Tipo fonte salvato corretamente'})
         except Exception as e:

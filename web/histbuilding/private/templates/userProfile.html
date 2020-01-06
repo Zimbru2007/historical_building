@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row pt-3 pb-3">
+        <div class="col-4">
+            <h4>Account details</h4>
+            <table class="table table-striped">
+            <tr>
+                    <th>Username</th>
+                    <td>{{user.username}}</td>
+                </tr>
+                <tr>
+                    <th>First Name</th>
+                    <td>{{user.first_name}}</td>
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <td>{{user.last_name}}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{user.email}}</td>
+                </tr>
+            </table>
+            <a class="btn btn-warning" href="{% url 'changePwd' %}">Change Password</a>
+        </div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

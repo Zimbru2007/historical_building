@@ -127,14 +127,18 @@ function updateElementForm(element_typeid) {
                 console.log(response);
                 doc = response['element'];
 
-
+                console.log('pppp=' + doc['element']);
                 for (var key in doc['element']) {
-                    $('#formElement input[name="' + key + '-1"]').val(doc['element'][key]);
-                    console.log(key + " " + $('#formElement input[name="' + key + '-1"]').prop('type'));
-                    if ($('#formElement input[name="' + key + '-1"]').attr('type') == 'checkbox') {
-                        if (doc['element'][key] == 'on') {
-                            $('#formElement input[name="' + key + '-1"]').prop('checked', true);
+                    if (key != 'element_id') {
+                        $('#formElement input[name="' + key + '-1"]').val(doc['element'][key]);
+                        console.log(key + " " + $('#formElement input[name="' + key + '-1"]').prop('type'));
+                        if ($('#formElement input[name="' + key + '-1"]').attr('type') == 'checkbox') {
+                            if (doc['element'][key] == 'on') {
+                                $('#formElement input[name="' + key + '-1"]').prop('checked', true);
+                            }
                         }
+                    } else {
+                        $('#formElement input[name="' + key + '-1"]').val(doc['element'][key]['$oid']);
                     }
                 }
 
@@ -177,7 +181,7 @@ function editForm() {
     }).done(function(response) {
         console.log(response);
         doc = response['element'];
-        updateElementForm(doc['element']['element_id']);
+        updateElementForm(doc['element']['element_id']['$oid']);
         var fontenames = [];
         for (var j = 0; j < doc['fonteidlist'].length; j++) {
             // console.log("www" + j + "=" + suggestionswithidlist2[doc['fonteidlist'][j]]);
@@ -207,7 +211,7 @@ function editForm() {
         $('#citta').val(doc['locationname']);
         $('#cittaid').val(doc['locationid']['$oid']);
         $('#palazzo').val(doc['buildingname']);
-        $('#palazzoid').val(doc['palazzoid']);
+        $('#palazzoid').val(doc['palazzoid']['$oid']);
 
     });
 

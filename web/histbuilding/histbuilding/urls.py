@@ -25,10 +25,17 @@ from django.contrib.sitemaps.views import sitemap
 
 from django.utils import timezone
 from django.views.decorators.http import last_modified
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    path('tinymce/', include('tinymce.urls')),    
+    path('tinymce/', include('tinymce.urls')),  
+    re_path(r'^accounts/changePwd/$',auth_views.PasswordChangeView.as_view(template_name='user/changePwd.html'),name='changePwd'),
+    re_path(r'^accounts/changePwdDone/$',auth_views.PasswordChangeDoneView.as_view(template_name='user/changePwdDone.html'),name='password_change_done'),
+    re_path(r'^accounts/password_reset/$',auth_views.PasswordResetView.as_view(template_name='user/password_reset.html'),name='password_reset'),
+    re_path(r'^accounts/password_reset/done/$',auth_views.PasswordResetDoneView.as_view(template_name='user/password_reset_done.html'),name='password_reset_done'),
+    path('accounts/reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='user/password_reset_confirm.html'),name='password_reset_confirm'),
+    re_path(r'^accounts/reset/done/$',auth_views.PasswordResetCompleteView.as_view(template_name='user/password_reset_complete.html'),name='password_reset_complete'),
 ]
 
 

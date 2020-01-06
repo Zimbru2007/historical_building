@@ -190,3 +190,13 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5
 
 }
+
+# Email configuration
+
+#EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+#EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'postmaster@sandboxc313fe2f150b42e389716960077ab545.mailgun.org'
+EMAIL_HOST_PASSWORD = '3005350adc7bf5c76fac3095dd767351-f8b3d330-555299f0'
+EMAIL_USE_TLS = True

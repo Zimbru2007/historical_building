@@ -37,3 +37,4 @@ from .translations import *
 from .user_creation import *
 from .element import *
 from .listElements import *
+from .user_profile import *

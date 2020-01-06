@@ -23,6 +23,7 @@ function updateElementsEntities() {
     }).done(function(response) {
         console.log(response);
         elements = response['elements'];
+        console.log(elements);
         //doc = response['doc'];
 
         /*$('#sourcesTable').DataTable({

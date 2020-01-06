@@ -61,9 +61,24 @@ class ManageListElements(APIView):
                         #print(tlocation['name'])
                     if 'element' in e:
                         if 'element_id' in e['element']:
-                            telementtype=db.element_types.find_one({'_id': ObjectId(e['element']['element_id'])},{'name':1})
+                            telementtype=db.element_types.find_one({'_id': ObjectId(e['element']['element_id'])},{'name':1,'elements':1})
                             el['elementname']=telementtype['name']
-                            el['element']=e['element']
+                            #el['element']=e['element']
+                            aaa={}
+                            bbb={}
+                            for x in telementtype["elements"]:
+                                if "required" in x:
+                                    if x["required"]=="on":
+                                        aaa["element."+x["name"]] = 1
+                            if not aaa:
+                                for x in telementtype["elements"]:
+                                     if x["order"] in ("1", "2"):
+                                        aaa["element."+x["name"]] = 1
+                            #print(aaa)
+                            ttelement = db.elements.find_one({'_id': ObjectId(e['_id'])},aaa)
+                            if 'element' in ttelement:
+                                el['element']=ttelement['element']
+                            
                     ellist.append(el)
                 print(to_json(doc))
                 print(to_json(ellist))
