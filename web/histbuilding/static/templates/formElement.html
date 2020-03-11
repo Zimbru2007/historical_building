@@ -1,6 +1,7 @@
 <template id="Tformel">
     <div class="card mt-3 formel">
         <div class="card-body">
+            <div class="text-right"><button type="button" class="btn btn-danger xbutton-input" name="xbutton"><span class="oi oi-x"></span></button></div>
             <div class="form-group">
                 <label>Nome</label>
                 <input type="text" class="form-control name-input" name="name" required>
@@ -19,10 +20,10 @@
                 Obbligatorio
                 <label class="switch ml-2">
                     <input type="checkbox" class="default required-input" name="required">
-                    <span class="slider round" ></span>
+                    <span class="slider round"></span>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label>Ordine</label>
                 <input type="number" class="form-control order-input" name="order" required>
@@ -31,5 +32,5 @@
         </div>
     </div>
 
-    
+
 </template>

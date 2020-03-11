@@ -18,14 +18,14 @@
         <div class="form-row">
             <div class="col-8">
                 <div class="form-group row">
-                    <label class="col-4 col-form-label">Selezionare palazzo</label>
+                    <label class="col-4 col-form-label">{% trans 'Selezionare palazzo' %}</label>
                     <div class="col-8">
                         <input type="typeahead" class="form-control" name="building">
                     </div>
                 </div>
             </div>
             <div class="col-4">
-                <button id="changeBuilding" class="btn btn-warning" style="display: none">Cambia</button>
+                <button id="changeBuilding" class="btn btn-warning" style="display: none">{% trans 'Cambia' %}</button>
             </div>
         </div>
     </div>
@@ -39,13 +39,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-group float-right">
-                        <input type="button" class="btn btn-success" value="Salva" id="submitReview">
+                        <input type="button" class="btn btn-success" value="{% trans 'Salva' %}" id="submitReview">
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label>Lingua</label>
-                <select name="languageReview"  class="form-control">
+                <label>{% trans 'Lingua' %}</label>
+                <select id="selectlanguage" name="languageReview"  class="form-control">
                     {% get_current_language as LANGUAGE_CODE %}
                     {% get_available_languages as LANGUAGES %}
                     {% for lang in LANGUAGES %}
@@ -56,7 +56,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Autori</label>
+                <label>{% trans 'Autori' %}</label>
                 <input type="text" class="form-control" name="authors_review">
             </div>
             

@@ -17,39 +17,39 @@
                 <div class="collapse navbar-collapse" id="navbarNav" >
                    <ul class="navbar-nav" >
                          <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main_private' %}">Home</a>
+                            <a class="nav-link" href="{% url 'main_private' %}">{% trans 'Home' %}</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link" href="{% url 'sources' %}">Fonti</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'location' %}">Località</a>
-                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'private_building' %}" tabindex="-1" aria-disabled="true">Palazzi</a>
-                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'buildingReview' %}" tabindex="-1" aria-disabled="true">Sintesi Palazzo</a>
-                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'city_building' %}" tabindex="-1" aria-disabled="true">Edifici comunali</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'element' %}" tabindex="-1" aria-disabled="true">Inserimento di elementi descrittivi</a>
+                            <a class="nav-link" href="{% url 'sources' %}">{% trans 'Fonti' %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'listElements' %}" tabindex="-1" aria-disabled="true">Elenco di elementi descrittivi</a>
+                            <a class="nav-link" href="{% url 'location' %}">{% trans 'Localita' %}</a>
+                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'private_building' %}" tabindex="-1" aria-disabled="true">{% trans 'Palazzi' %}</a>
+                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'buildingReview' %}" tabindex="-1" aria-disabled="true">{% trans 'Sintesi Palazzo' %}</a>
+                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'city_building' %}" tabindex="-1" aria-disabled="true">{% trans 'Edifici comunali' %}</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'element' %}" tabindex="-1" aria-disabled="true">{% trans 'Inserimento di elementi descrittivi' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'listElements' %}" tabindex="-1" aria-disabled="true">{% trans 'Elenco di elementi descrittivi' %}</a>
                         </li>
                         {% if request.user.is_superuser%}
                          <li class="nav-item">
-                            <a class="nav-link" href="{% url 'configuration' %}" tabindex="-1" aria-disabled="true">Configurazione</a>
+                            <a class="nav-link" href="{% url 'configuration' %}" tabindex="-1" aria-disabled="true">{% trans 'Configurazione' %}</a>
                        </li>
                          <li class="nav-item">
-                            <a class="nav-link" href="{% url 'user_creation' %}" tabindex="-1" aria-disabled="true">Nouvi utenti</a>
+                            <a class="nav-link" href="{% url 'user_creation' %}" tabindex="-1" aria-disabled="true">{% trans 'Nouvi utenti' %}</a>
                        </li>
                         {% endif %}
                          <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">Sito pubblico</a>
+                            <a class="nav-link" href="{% url 'home' %}">{% trans 'Sito pubblico' %}</a>
                         </li>
                     </ul>
                 </div>

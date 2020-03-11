@@ -1,7 +1,10 @@
 var map, drawnItems, nonEditableDrawnItems;
 var currentLocation;
 var initMapFlag = true;
+var buildingtable;
 $(document).ready(function() {
+
+    buildingtable = $('#buildingTable').DataTable();
 
     listTags = $('input[name="old_names"]').amsifySuggestags({
         type: 'amsify',
@@ -10,7 +13,6 @@ $(document).ready(function() {
 
     $('input[name="location"]').typeahead({
         onSelect: function(item) {
-            console.log(item);
             $('#manageBuilding').show();
             $('#buildingForm input[name="locationid"]').val(item.value);
             $('input[name="location"]').prop('disabled', 'disabled');
@@ -28,7 +30,6 @@ $(document).ready(function() {
             triggerLength: 1,
             preProcess: function(data) {
                 listLocations = [];
-                console.log(data);
                 for (var i = 0; i < data['docs'].length; i++) {
                     listLocations.push({ 'id': data['docs'][i]['_id']['$oid'], 'name': data['docs'][i]['name'] });
                 }
@@ -49,8 +50,18 @@ $(document).ready(function() {
         removeMarkers(false);
     });
 
-    //initMap();
+    $('#newBuilding').on('click', function() {
+        $(this).hide();
+        $('#cardTitle').text(gettext("Nuovo Palazzo"));
+        $('#buildingForm input[name="oid"]').val(null);
+        $('#buildingForm').trigger('reset');
+        $('#buildingForm input[name="old_names"]').amsifySuggestags({ type: 'amsify', }, 'refresh');
 
+        removeMarkers(true);
+        if (currentLocation['geo']['type'] == 'Polygon') {
+            map.fitBounds(L.polygon(currentLocation['geo']['coordinates']).getBounds());
+        }
+    });
     $('#buildingTable').on('click', '.btn-primary', function() {
         console.log('edit');
         oid = $(this).data('oid');
@@ -60,8 +71,9 @@ $(document).ready(function() {
             data: { 'oid': oid },
 
         }).done(function(response) {
-            console.log(response);
             doc = response['doc'];
+            $('#newBuilding').show();
+            $('#cardTitle').text(gettext("Modifica Palazzo") + ":<<" + doc['name'] + ">>");
             $('#buildingForm input[name="oid"]').val(doc['_id']['$oid']);
             $('#buildingForm input[name="name"]').val(doc['name']);
             if (doc['recognized']) {
@@ -71,24 +83,23 @@ $(document).ready(function() {
             }
 
             if (doc['old_names'].length) {
-                console.log(doc['old_names'].join())
                 $('#buildingForm input[name="old_names"]').val(doc['old_names'].join());
                 $('input[name="old_names"]').amsifySuggestags({ type: 'amsify' }, 'refresh');
             }
-
 
             if (doc['geo']) {
                 removeMarkers(true);
                 if (doc['geo']['type'] == 'Point') {
                     c = doc['geo']['coordinates'];
                     var marker = drawnItems.addLayer(L.marker([c[0], c[1]]));
+                    map.setView(new L.LatLng(c[0], c[1]), 16);
                     enableDraw(false);
                 }
                 if (doc['geo']['type'] == 'Polygon') {
                     c = doc['geo']['coordinates'];
-                    console.log(c);
-                    var polygon = drawnItems.addLayer(L.polygon(c)); //.addTo(map);
-                    map.fitBounds(polygon.getBounds());
+                    var zoompoly = L.polygon(c);
+                    var polygon = drawnItems.addLayer(L.polygon(c));
+                    map.fitBounds(zoompoly.getBounds());
                     enableDraw(false);
                 }
             }
@@ -110,8 +121,7 @@ $(document).ready(function() {
         data['old_names'] = $('#buildingForm input[name="old_names"]').val().split(',');
         data['recognized'] = $('#buildingForm input[name="recognized"]').is(":checked");
         data['geo'] = getMarkers();
-
-        console.log(data);
+        $('#newBuilding').hide();
 
         $.ajax({
             url: "/private/palazzi/manageBuilding/",
@@ -123,6 +133,7 @@ $(document).ready(function() {
             toastr["success"](response['message']);
             doc = response['doc'];
             updateLocationEntities(currentLocation['_id']['$oid']);
+            $('#cardTitle').text(gettext("Nuovo Palazzo"));
             $('#buildingForm input[name="oid"]').val(null);
             $('#buildingForm').trigger('reset');
             $('#buildingForm input[name="old_names"]').amsifySuggestags({ type: 'amsify', }, 'refresh');
@@ -134,7 +145,20 @@ $(document).ready(function() {
 
     });
 
+    $('#cancelBuilding').on('click', function() {
+        r = confirm(gettext("Vuoi davvero cancellare tutte le modifiche?"));
+        if (r == true) {
+            a = $('#buildingForm input[name="oid"]').val();
 
+            $('#buildingForm').trigger('reset');
+            if (a != null) {
+                $('#buildingForm input[name="oid"]').val(a);
+            }
+            $('input[name="old_names"]').amsifySuggestags({ type: 'amsify', }, 'refresh');
+            removeMarkers(true);
+
+        }
+    });
 });
 
 
@@ -154,24 +178,24 @@ function updateLocationEntities(oid) {
             removeMarkers(true);
             if (loc['geo']['type'] == 'Point') {
                 c = loc['geo']['coordinates'];
+                removeMarkers(false);
                 var marker = nonEditableDrawnItems.addLayer(L.marker([c[0], c[1]]));
-                //enableDraw(false);
             }
             if (loc['geo']['type'] == 'Polygon') {
                 c = loc['geo']['coordinates'];
-                console.log(c);
-                var polygon = nonEditableDrawnItems.addLayer(L.polygon(c)); //addTo(map);
+                removeMarkers(false);
+                var polygon = nonEditableDrawnItems.addLayer(L.polygon(c));
                 map.fitBounds(polygon.getBounds());
-                //enableDraw(false);
             }
 
             docs = response['docs'];
-
+            buildingtable.destroy();
             $('#buildingTable tbody').empty();
             for (var i = 0; i < docs.length; i++) {
                 $('#buildingTable tbody').append("<tr><td>" + docs[i]['name'] + "</td><td><button type='button' class='btn btn-primary' data-oid='" + docs[i]['_id']['$oid'] + "'><span class='oi oi-pencil'></span></button></td></tr> ")
             }
-            //removeMarkers();
+
+            buildingtable = $('#buildingTable').DataTable();
 
         }
 
@@ -215,7 +239,6 @@ function initMap() {
         var layer = event.layer;
 
         drawnItems.addLayer(layer);
-        //nonEditableDrawnItems.addLayer(layer);
     });
 
     map.on('draw:drawstop', function(e) {
@@ -229,9 +252,7 @@ function initMap() {
     map.on('draw:deletestop', function(e) {
         var layers = e.layers;
         markers = getMarkers();
-        // if (markers) {
         enableDraw(true);
-        //}
     });
 
 }
@@ -256,11 +277,7 @@ function removeMarkers(editable) {
                 drawnItems.removeLayer(layer);
                 enableDraw(true);
             }
-            /*
-            if(layer instanceof L.Circle){
-                markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
-            }
-            */
+
             if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
                 drawnItems.removeLayer(layer);
                 enableDraw(true);
@@ -274,11 +291,7 @@ function removeMarkers(editable) {
                 nonEditableDrawnItems.removeLayer(layer);
                 enableDraw(true);
             }
-            /*
-            if(layer instanceof L.Circle){
-                markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
-            }
-            */
+
             if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
                 nonEditableDrawnItems.removeLayer(layer);
                 enableDraw(true);
@@ -295,11 +308,7 @@ function getMarkers() {
         if (layer instanceof L.Marker) {
             markers = { 'type': 'Point', 'coordinates': layer.getLatLng() };
         }
-        /*
-        if(layer instanceof L.Circle){
-            markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
-        }
-        */
+
         if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
             markers = { 'type': 'Polygon', 'coordinates': layer.getLatLngs() };
         }

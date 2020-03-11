@@ -39,7 +39,6 @@ class DefineFormSource(APIView):
                     trans['languages'][l[0]] = doc['name']
                 db.translation.insert_one(trans)
 
-            print (doc)
             if doc['_id'] == None or doc['_id'] == '':
                 del doc['_id']
                 doc_id = db.source_types.insert_one(doc).inserted_id
@@ -63,13 +62,11 @@ class DefineFormSource(APIView):
             return Response({'source': to_json(doc)})
         except Exception as e:
             print (e)
-            print (e.message)
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class DefineFormElement(APIView):
     def post(self, request):
         try:
-            print(request.data)
             doc = {'_id': '', 'name': '', 'elements': []}
             for k, v in request.data.items():
                 if k == 'elname':
@@ -95,7 +92,6 @@ class DefineFormElement(APIView):
                     trans['languages'][l[0]] = doc['name']
                 db.translation.insert_one(trans)
 
-            print (doc)
             if doc['_id'] == None or doc['_id'] == '':
                 del doc['_id']
                 doc_id = db.element_types.insert_one(doc).inserted_id
@@ -119,6 +115,5 @@ class DefineFormElement(APIView):
             return Response({'element': to_json(doc)})
         except Exception as e:
             print (e)
-            print (e.message)
             return Response(status=status.HTTP_400_BAD_REQUEST)
 

@@ -26,21 +26,21 @@
 					<div class="col-8">
 						<form id="formElement">
 							<div class="form-group">
-								<input type="button" class="btn btn-success" value="Salva" id="btnsaveElem">
+								<input type="button" class="btn btn-success" value="{% trans 'Salva' %}" id="btnsaveElem">
 							</div>
 							<div class="form-group">
-								<label>Fonti*</label>
+								<label>{% trans 'Fonti' %}*</label>
 								<input type="text" name="fontelist" class="form-control" id="fontelist" required>
 								<input type="hidden" name="fonteidlist" class="form-control" id="fonteidlist">
 							</div>
 							<div class="form-group">
-								<label>Citta</label>
+								<label>{% trans 'Citta' %}</label>
 								<input type="text" name="citta" class="form-control" id="citta">
 								<input type="hidden" name="cittaid" class="form-control" id="cittaid">
 
 							</div>
 							<div class="form-group">
-								<label>Palazzo*</label>
+								<label>{% trans 'Palazzo' %}*</label>
 								<input type="text" name="palazzo" class="form-control" id="palazzo" required>
 								<input type="hidden" name="palazzoid" class="form-control" id="palazzoid">
 
@@ -48,11 +48,11 @@
 							<div class="form-group" id="elemPart">
 							</div>
 							<div class="form-group">
-								<label>Aggiungi nuovo elemento descrittivo</label>
+								<label>{% trans 'Aggiungi nuovo elemento descrittivo' %}</label>
 								<select class="form-control" id="elementType">
-									<option>Selezionare un elemento</option>
+									<option>{% trans 'Selezionare un elemento' %}</option>
 									{% for s in element_types %}
-									<option value="{{s|oid}}">{{s.name}}</option>
+									<option value="{{s|oid}}">{% trans s.name %} </option>
 									{% endfor %}
 								</select>
 							</div>

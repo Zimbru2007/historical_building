@@ -9,7 +9,7 @@ class EditTranslation(APIView):
                 search = '(.*)' + queryString.strip() + '(.*)'
                 search = search.replace(' ', '(.*)')
                 regex = re.compile(search, re.IGNORECASE)
-                docs = db.translation.find({'message': {"$regex":regex,"$options": 'ix'} }).limit(10)
+                docs = db.translation.find({'message': {"$regex":regex,"$options": 'ix'} })
                 return Response({'docs': to_json(docs)})
             if 'oid' in request.query_params:
                 oid = request.query_params.get('oid')
@@ -27,7 +27,11 @@ class EditTranslation(APIView):
             trans = request.data
             if trans['_id'] == None or trans['_id'] == '':
                 del trans['_id']
-                db.translation.insert_one(trans)
+                tempresult=db.translation.count_documents({"message" : trans['message']})
+                if not tempresult:
+                    db.translation.insert_one(trans)
+                else:
+                    raise Exception('Another message already exist')
             else:
                 trans['_id'] = ObjectId(trans['_id'])
                 result = db.translation.replace_one({'_id': trans['_id']}, trans)
@@ -37,8 +41,8 @@ class EditTranslation(APIView):
                     raise Exception('no matching oid')
             return Response({'message':'Traduzione salvata correttamente'})
         except Exception as e:
-            print ('Error edit translations', e)
-            return Response(status= status.HTTP_400_BAD_REQUEST)
+            print ('Error edit translations', str(e))
+            return Response({'message':str(e)},status= status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -47,7 +51,6 @@ class UpdateTranslation(APIView):
 
     def post(self, request, format=None):
         try:
-            print ('update trans')
 
             management.call_command('makemessages')
             default_locale_path = settings.LOCALE_PATHS[0]
@@ -58,16 +61,12 @@ class UpdateTranslation(APIView):
                 if len(langCode) > 1:
                     dirLangCode += '_' + langCode[1].upper()
                 localeFile = os.path.join(default_locale_path, dirLangCode, 'LC_MESSAGES', 'django.po')
-                print (localeFile)
                 po = polib.pofile(localeFile, check_for_duplicates=True)
                 print ('opened ', localeFile)
 
                 msg_po = []
 
                 for entry in po:
-                    # do something with your entry like:
-                    #print (entry.msgid, entry.msgstr)
-                    
                     
                     msg = db.translation.find_one({'message':entry.msgid})
                     if msg == None:

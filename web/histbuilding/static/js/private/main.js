@@ -9,7 +9,6 @@ $(document).ready(function() {
 
     $('#locationTable').on('click', '.btn-primary', function() {
         localStorage.setItem("oid", $(this).data('oid'));
-        //$.cookie("oid", $(this).data('oid'));
         window.location.href = "/private/luoghi";
 
     });
@@ -25,7 +24,7 @@ function buildingChart() {
         method: 'GET',
         data: { 'buildings': 'buildings' }
     }).done(function(response) {
-        toastr["success"](response['message']);
+
         docs = response['docs'];
         listLocations = [];
         listLocationsData = [];
@@ -44,7 +43,7 @@ function buildingChart() {
 
         }
         if (count != 0) {
-            listLocations.push("Altri");
+            listLocations.push(gettext("Altri"));
             listLocationsData.push(count);
         }
 
@@ -60,8 +59,7 @@ function buildingChart() {
             },
             options: {
                 title: {
-                    display: false,
-                    text: 'Buildings in locations'
+                    display: false
                 }
             }
         });
@@ -75,7 +73,7 @@ function elements1chart() {
         method: 'GET',
         data: { 'elements1': 'elements1' }
     }).done(function(response) {
-        toastr["success"](response['message']);
+
         docs = response['docs'];
 
         listLocations = [];
@@ -95,32 +93,18 @@ function elements1chart() {
 
         }
         if (count != 0) {
-            listLocations.push("Altri");
+            listLocations.push(gettext("Altri"));
             listLocationsData.push(count);
         }
-        console.log(listLocationsData);
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: listLocations,
                 datasets: [{
-                        label: 'Nr. Elements',
-                        backgroundColor: ["#3e95cd", "#8e5ea2", "#52b94d", "#cf3c1c", "#67e4e8", "#d0d33c"],
-                        data: listLocationsData
-                    }]
-                    /* datasets: [{
-                         label: 'Nr. Elements',
-                         backgroundColor: "#3e95cd",
-                         borderColor: "#8e5ea2",
-                         borderWidth: 1,
-                         data: listLocationsData
-                     }, {
-                         label: 'Dataset 2',
-                         backgroundColor: "#52b94d",
-                         borderColor: "#cf3c1c",
-                         borderWidth: 1,
-                         data: listLocationsData
-                     }]*/
+                    label: gettext('Nr. Elementi'),
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#52b94d", "#cf3c1c", "#67e4e8", "#d0d33c"],
+                    data: listLocationsData
+                }]
             },
             options: {
                 title: {
@@ -147,7 +131,7 @@ function elements2chart() {
         method: 'GET',
         data: { 'elements2': 'elements2' }
     }).done(function(response) {
-        toastr["success"](response['message']);
+
         docs = response['docs'];
         listLocations = [];
         listLocationsData = [];
@@ -166,16 +150,15 @@ function elements2chart() {
 
         }
         if (count != 0) {
-            listLocations.push("Altri");
+            listLocations.push(gettext("Altri"));
             listLocationsData.push(count);
         }
-        console.log(listLocationsData);
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: listLocations,
                 datasets: [{
-                    label: 'Nr. Elements',
+                    label: gettext('Nr. Elementi'),
                     backgroundColor: ["#3e95cd", "#8e5ea2", "#52b94d", "#cf3c1c", "#67e4e8", "#d0d33c"],
                     data: listLocationsData
                 }]
@@ -202,10 +185,8 @@ function sourceschart() {
         method: 'GET',
         data: { 'sources': 'sources' }
     }).done(function(response) {
-        toastr["success"](response['message']);
+
         docs = response['docs'];
-        console.log("docs111");
-        console.log(docs);
         listLocations = [];
         listLocationsData = [];
         max = 5;
@@ -223,16 +204,15 @@ function sourceschart() {
 
         }
         if (count != 0) {
-            listLocations.push("Altri");
+            listLocations.push(gettext("Altri"));
             listLocationsData.push(count);
         }
-        console.log(listLocationsData);
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: listLocations,
                 datasets: [{
-                    label: 'Nr. Sources',
+                    label: gettext("Nr. Fonti"),
                     backgroundColor: ["#3e95cd", "#8e5ea2", "#52b94d", "#cf3c1c", "#67e4e8", "#d0d33c"],
                     data: listLocationsData
                 }]

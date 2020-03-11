@@ -16,7 +16,6 @@ class BuildingReview(View):
 class ManageBuilding(APIView):
     def post(self, request):
         try:
-            print (request.data)
             doc = None
             if 'oid' in request.data:
                 if request.data['oid'] != '':
@@ -39,18 +38,13 @@ class ManageBuilding(APIView):
                 doc['review'] = newReviews
             if 'geo' in request.data:
                 geo = request.data.get('geo')
-                print (geo)
                 if geo:
                     doc['geo'] = {'type': geo['type'], 'coordinates': []}
                     coordinates = []
-                    print(doc['geo'])
                     if geo['type'] == 'Polygon':
-                        print (geo['coordinates'])
                         for l in geo['coordinates']:
-                            print ('layer')
                             layer = []
                             for c in l:
-                                print(c)
                                 layer.append([c['lat'], c['lng']])
                             coordinates.append(layer)
                     else:
@@ -58,19 +52,15 @@ class ManageBuilding(APIView):
                     doc['geo']['coordinates'] = coordinates
 
             doc['slug'] = doc['name'].replace(' ','_')
-            print (doc)
             if doc['_id']:
                 result = db.building.replace_one({'_id': doc['_id']}, doc)
-                print (result)
                 if result.modified_count:
                     doc_id = str(doc['_id'])
                 else:
-                    raise Exception('no matching oid')
+                    return Response({'message':'no matching oid'})
             else:
                 del doc['_id']
                 doc_id = db.building.insert_one(doc).inserted_id
-                print ('insert', doc_id)
-            #print (doc)
             
             return Response({'message':'Palazzo salvato corretamente', 'doc': {'oid': str(doc_id), 'name': doc['name']}})
         except Exception as e:

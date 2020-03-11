@@ -21,25 +21,7 @@ function updateElementsEntities() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
     }).done(function(response) {
-        console.log(response);
         elements = response['elements'];
-        console.log(elements);
-        //doc = response['doc'];
-
-        /*$('#sourcesTable').DataTable({
-            "ajax": docs
-        });*/
-
-        /*has_required = false;
-        $('#sourcesTable thead tr').empty();
-        for (var key in doc) {
-            $('#sourcesTable thead tr').append("<th>" + key + "</th>")
-            has_required = true;
-        }
-        if (!has_required) {
-            $('#sourcesTable thead tr').append("<th>id</th>")
-        }
-        $('#sourcesTable thead tr').append("<th>Modifica</th>")*/
 
         $('#elementsTable tbody').empty();
         for (var i = 0; i < elements.length; i++) {

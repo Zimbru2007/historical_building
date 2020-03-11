@@ -12,7 +12,6 @@ class Element(View):
 class ManageElements(APIView):
     def post(self, request):
         try:
-            print (request.data)
             doc = {'_id': '', 'fonteidlist': [],'palazzoid': '', 'elements': []}
             for k, v in request.data.items():
                 if k == 'fonteidlist':

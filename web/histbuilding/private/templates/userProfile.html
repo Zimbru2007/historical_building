@@ -1,29 +1,30 @@
 {% extends "base.html" %}
+{% load i18n static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 <div class="row pt-3 pb-3">
         <div class="col-4">
-            <h4>Account details</h4>
+            <h4>{% trans 'Dettagli utente' %}</h4>
             <table class="table table-striped">
             <tr>
-                    <th>Username</th>
+                    <th>{% trans 'Nome utente' %}</th>
                     <td>{{user.username}}</td>
                 </tr>
                 <tr>
-                    <th>First Name</th>
+                    <th>{% trans 'First Name' %}</th>
                     <td>{{user.first_name}}</td>
                 </tr>
                 <tr>
-                    <th>Last Name</th>
+                    <th>{% trans 'Last Name' %}</th>
                     <td>{{user.last_name}}</td>
                 </tr>
                 <tr>
-                    <th>E-mail</th>
+                    <th>{% trans 'E-mail' %}</th>
                     <td>{{user.email}}</td>
                 </tr>
             </table>
-            <a class="btn btn-warning" href="{% url 'changePwd' %}">Change Password</a>
+            <a class="btn btn-warning" href="{% url 'changePwd' %}">{% trans 'Cambia la password' %}</a>
         </div>
 
 </div>

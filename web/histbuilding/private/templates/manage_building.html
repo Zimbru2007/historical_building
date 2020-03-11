@@ -9,97 +9,97 @@
 
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb "Palazzi" "private_building" %}
+{{ block.super }}
+{% breadcrumb "Palazzi" "private_building" %}
 {% endblock %}
 
 <div class="row pt-3">
-		<div class="col-12">
-			<div class="form-row">
-				<div class="col-8">
-					<div class="form-group row">
-						<label class="col-4 col-form-label">Selezionare località</label>
-						<div class="col-8">
-							<input type="typeahead" class="form-control" name="location">
-						</div>
+	<div class="col-12">
+		<div class="form-row">
+			<div class="col-8">
+				<div class="form-group row">
+					<label class="col-4 col-form-label">{% trans 'Selezionare località' %}</label>
+					<div class="col-8">
+						<input type="typeahead" class="form-control" name="location">
 					</div>
 				</div>
-				<div class="col-4">
-					<button id="changeLocation" class="btn btn-warning" style="display: none">Cambia</button>
-				</div>
+			</div>
+			<div class="col-4">
+				<button id="changeLocation" class="btn btn-warning" style="display: none">{% trans 'Cambia' %}</button>
 			</div>
 		</div>
 	</div>
-	
-	<div class="row pt-3" id="manageBuilding" style="display: none">
-		<div class="col-6">
-			<div class="card">
-				<div class="card-header">
-					<h5>Nuovo Palazzo</h5>
-				</div>
-				<div class="card-body">
-					<form id="buildingForm">
-						<input type="hidden" name="oid">
-						<input type="hidden" name="locationid">
-						<div class="form-group">
-							<label>Denominazione moderna dell’edificio</label>
-							<input type="text" name="name" class="form-control">
-						</div>
-						<div class="form-group">
-							<label>Denominazioni antiche</label>
-							<input type="text" name="old_names" class="form-control" placeholder="">
-						</div>
-						<div class="form-group">
-							Riconoscibilità
-							<label class="switch ml-2">
-								<input type="checkbox" class="default" name="recognized">
-								<span class="slider round" ></span>
-							</label>
-						</div>
-						<div class="form-group">
-							<label>Geolocalizzazione</label>
-							<div id="map" style="height: 300px;"></div>
-						</div>
+</div>
 
-						<div class="form-group">
-							<input id="saveBuilding" type="button" class="btn btn-success" value="Salva">
-						</div>
-						
-				
-					</form>
-				</div>
+<div class="row pt-3" id="manageBuilding" style="display: none">
+	<div class="col-6">
+		<div class="card">
+			<div class="card-header">
+				<h5 id="cardTitle">{% trans 'Nuovo Palazzo' %}</h5>
 			</div>
-		</div>
-		<div class="col-6">
-			<div class="card">
-				<div class="card-header">
-					<h5>Lista palazzi</h5>
-				</div>
-				<div class="card-body">
-						<table class="table table-striped" style="width: 100%" id="buildingTable">
-							<thead>
-								<tr class="table-primary">
-									<th>Nome</th>
-									<th>Modifica</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						
-						</table>
-	
-				</div>
+			<div class="card-body">
+				<form id="buildingForm">
+					<input type="hidden" name="oid">
+					<input type="hidden" name="locationid">
+					<div class="form-group">
+						<label>{% trans 'Denominazione moderna dell’edificio' %}</label>
+						<input type="text" name="name" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>{% trans 'Denominazioni antiche' %}</label>
+						<input type="text" name="old_names" class="form-control" placeholder="">
+					</div>
+					<div class="form-group">
+						{% trans 'Riconoscibilità' %}
+						<label class="switch ml-2">
+							<input type="checkbox" class="default" name="recognized">
+							<span class="slider round"></span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label>{% trans 'Geolocalizzazione' %}</label>
+						<div id="map" style="height: 300px;"></div>
+					</div>
+
+					<div class="form-group">
+						<input id="saveBuilding" type="button" class="btn btn-success" value="{% trans 'Salva' %}">
+						<input id="cancelBuilding" type="button" class="btn btn-danger" value="{% trans 'Resetta il modulo' %}">
+					    <button type="button" class="btn btn-info" id="newElement" style="display: none">{% trans 'Aggiungi nuovo elemento' %}</button>
+               			<input id="newBuilding" type="button" class="btn btn-info" style="display: none" value="{% trans 'Nuovo Palazzo' %}">
+					</div>
+
+
+				</form>
 			</div>
-	
 		</div>
 	</div>
-	
-	{% endblock %}
-	
-	
+	<div class="col-6">
+		<div class="card">
+			<div class="card-header">
+				<h5>{% trans 'Lista palazzi' %}</h5>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped" style="width: 100%" id="buildingTable">
+					<thead>
+						<tr class="table-primary">
+							<th>{% trans 'Nome' %}</th>
+							<th>{% trans 'Modifica' %}</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+
+				</table>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}
+
+
 {%block script %}
 <script defer type="text/javascript" src="/static/js/private/building.js"></script>
 {% endblock %}
-	
-	
-

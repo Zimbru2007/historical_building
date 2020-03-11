@@ -18,7 +18,6 @@ class Sources(View):
 class ListSources(APIView):
     def post(self, request):
         try:
-            print (request.data)
             data = {}
             isedit=False
             for k in request.data:
@@ -41,15 +40,12 @@ class ListSources(APIView):
                     result = db.sources.replace_one({'_id': data['_id']}, data)  
                     if result.modified_count:
                         doc_id = str(data['_id'])
-                        print ('modify', doc_id)
                     else:
                         raise Exception('no matching oid')
                 else:
                     doc_id = db.sources.insert_one(data).inserted_id
-                    print ('insert1', doc_id)
             else:
                 doc_id = db.sources.insert_one(data).inserted_id
-                print ('insert2', doc_id)
             return Response({'message':'Fonte salvato corretamente', 'doc': {'oid': str(doc_id), 'name': 'name'}})
         except Exception as e:
             print (e)
@@ -67,8 +63,6 @@ class ListSources(APIView):
                         if x["required"]=="on":
                             aaa[x["name"]] = 1
                 docs = db.sources.find({'SourceType': ObjectId(oid)},aaa)
-                print()
-                print(oid)
                 return Response({'docs': to_json(docs),'doc': aaa})
             elif 'oid' in request.query_params:
                 oid = request.query_params['oid']
@@ -84,7 +78,6 @@ class ListSources(APIView):
                         if x["required"]=="on":
                             aaa[x["name"]] = 1
                 doc = db.sources.find_one({'_id': ObjectId(oid)},aaa)
-                print(aaa)
                 return Response({'doc': to_json(doc)})
             elif 'query' in request.query_params:
                 queryString = request.query_params.get('query')
@@ -118,8 +111,6 @@ class ListSources(APIView):
                     docs2=db.sources.find({"SourceType":x["_id"]},ccc)
                     for t in docs2:
                         aaa.append(t)
-                
-                print(to_json(aaa))
                 return Response({'docs': to_json(aaa)})
         except Exception as e:
             print (e)

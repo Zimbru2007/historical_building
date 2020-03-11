@@ -1,7 +1,10 @@
 newElementId = 1;
 curroid = "";
+var tableTransRes;
 
 $(document).ready(function() {
+
+    tableTransRes = $('#tableTransRes').DataTable();
 
     $('#sources-tab').on('click', function() {
         $('#newSourceType').show();
@@ -38,22 +41,16 @@ $(document).ready(function() {
     });
 
     $('#tableSources').on('click', '.btn-primary', function() {
-        console.log('edit fonte');
         oid = $(this).data('oid');
         curroid = oid;
-        // alert('edit fonte ' + oid);
         $.ajax({
                 url: "./defineFormSource/",
                 method: 'GET',
                 data: { 'oid': oid }
 
             }).done(function(response) {
-                //console.log(response);
                 source = response['source'];
-                //addFormElement();
                 maxElementId = 1;
-                // $('#formSourceType').empty();
-                //$('#formElemSourceType').empty();
                 $('#divSourceType').show();
                 $('.formel').remove();
 
@@ -64,7 +61,6 @@ $(document).ready(function() {
                 $('input[name="name"]').val(source['name']);
                 for (var i = 0; i < source['elements'].length; i++) {
                     addSrcEditFormElement(source['elements'][i]);
-                    //str = str + " " + source['elements'][i]['type'];
                     tempElemntId = parseInt(source['elements'][i]['order']);
                     if (maxElementId <= tempElemntId) {
                         maxElementId = tempElemntId + 1;
@@ -88,7 +84,6 @@ $(document).ready(function() {
             data: { 'oid': oid }
 
         }).done(function(response) {
-            //console.log(response);
             element = response['element'];
             maxElementId = 1;
             $('#divElementType').show();
@@ -120,48 +115,28 @@ $(document).ready(function() {
 
     $('#saveSrcForm').on('click', function() {
         saveSrcForm();
-        $('#divSourceType').hide();
-        $(this).hide();
-        $('#cancelSrcForm').hide();
-        $('#updateSrcForm').hide();
-        $('#newSourceType').show();
+
     });
 
     $('#saveElForm').on('click', function() {
         saveElForm();
-        $('#divElementType').hide();
-        $(this).hide();
-        $('#cancelElForm').hide();
-        $('#updateElForm').hide();
-        $('#newElementType').show();
+
     });
 
     $('#updateSrcForm').on('click', function() {
         saveSrcForm();
-        $('#divSourceType').hide();
-        $(this).hide();
-        $('#cancelSrcForm').hide();
-        $('#saveSrcForm').hide();
-        $('#newSourceType').show();
+
     });
 
     $('#updateElForm').on('click', function() {
         saveElForm();
-        $('#divElementType').hide();
-        $(this).hide();
-        $('#cancelElForm').hide();
-        $('#saveElForm').hide();
-        $('#newElementType').show();
+
     });
 
     $('#cancelSrcForm').on('click', function() {
         r = confirm("Vuoi davvero cancellare tutte le modifiche?");
         if (r == true) {
-            $(this).hide();
-            $('#updateSrcForm').hide();
-            $('#saveSrcForm').hide();
-            $('#divSourceType').hide();
-            $('#newSourceType').show();
+            hideSrc();
         }
 
 
@@ -170,11 +145,7 @@ $(document).ready(function() {
     $('#cancelElForm').on('click', function() {
         r = confirm("Vuoi davvero cancellare tutte le modifiche?");
         if (r == true) {
-            $(this).hide();
-            $('#updateElForm').hide();
-            $('#saveElForm').hide();
-            $('#divElementType').hide();
-            $('#newElementType').show();
+            hideEl();
         }
 
     });
@@ -187,8 +158,11 @@ $(document).ready(function() {
         }).done(function(response) {
             $('#tableTransRes').hide();
             $('#alertNoresult').hide();
+            $('#editTrans').hide();
+            tableTransRes.destroy();
             $('#tableTransRes tbody').empty();
             $('#resultTrans').show();
+
             docs = response['docs']
             if (docs.length == 0) {
                 $('#alertNoresult').show();
@@ -199,7 +173,7 @@ $(document).ready(function() {
                 }
                 $('#tableTransRes').show();
             }
-
+            tableTransRes = $('#tableTransRes').DataTable();
         });
 
     });
@@ -252,7 +226,6 @@ $(document).ready(function() {
         $.each($('#formEditTrans .languages'), function(i, el) {
             data['languages'][$(el)[0].name] = $(el).val();
         });
-        console.log(data);
         $.ajax({
             url: "./editTranslation/",
             method: 'POST',
@@ -264,6 +237,8 @@ $(document).ready(function() {
             $('#formEditTrans').trigger("reset");
             $('#editTrans').hide();
             $('#resultTrans').hide();
+        }).fail(function(xhr, textStatus, errorThrown) {
+            toastr["error"]("Error: " + xhr.responseJSON.message);
         });
 
     })
@@ -273,23 +248,31 @@ $(document).ready(function() {
 function addSrcFormElement() {
     $.get("/static/templates/formElement.html", function(data) {
         t = $.parseHTML(data)[0]
-        console.log(t.content);
+        t.content.querySelector('.formel').setAttribute("id", "formel-" + newElementId);
+        t.content.querySelector('.xbutton-input').setAttribute("name", "xbutton-" + newElementId);
+        t.content.querySelector('.xbutton-input').setAttribute("id", "xbutton-" + newElementId);
+        t.content.querySelector('.xbutton-input').setAttribute("data-oid", newElementId);
         t.content.querySelector('.name-input').setAttribute("name", "name-" + newElementId);
         t.content.querySelector('.type-input').setAttribute("name", "type-" + newElementId);
         t.content.querySelector('.order-input').setAttribute("name", "order-" + newElementId);
         t.content.querySelector('.order-input').setAttribute("value", newElementId);
         t.content.querySelector('.required-input').setAttribute("name", "required-" + newElementId);
-
         var clone = document.importNode(t.content, true);
         $('#formSourceType').append(clone);
+        $('#xbutton-' + newElementId).on('click', function() {
+            oid = $(this).data('oid');
+            $('#formel-' + oid).remove();
+
+        });
         newElementId += 1;
     });
 }
 
 function addElFormElement() {
     $.get("/static/templates/formElement.html", function(data) {
-        t = $.parseHTML(data)[0]
-        console.log(t.content);
+        t = $.parseHTML(data)[0];
+        t.content.querySelector('.formel').setAttribute("name", "formel-" + newElementId);
+        t.content.querySelector('.xbutton-input').setAttribute("name", "xbutton-" + newElementId);
         t.content.querySelector('.name-input').setAttribute("name", "name-" + newElementId);
         t.content.querySelector('.type-input').setAttribute("name", "type-" + newElementId);
         t.content.querySelector('.order-input').setAttribute("name", "order-" + newElementId);
@@ -305,24 +288,21 @@ function addElFormElement() {
 function addSrcEditFormElement(element) {
     $.get("/static/templates/formElement.html", function(data) {
         t = $.parseHTML(data)[0]
+        t.content.querySelector('.formel').setAttribute("name", "formel-" + element['order']);
+        t.content.querySelector('.xbutton-input').setAttribute("name", "xbutton-" + element['order']);
         t.content.querySelector('.name-input').setAttribute("name", "name-" + element['order']);
         t.content.querySelector('.name-input').setAttribute("value", element['name']);
         t.content.querySelector('.type-input').setAttribute("name", "type-" + element['order']);
-        //t.content.querySelector('.type-input').setAttribute("value", element['type']);
         t.content.querySelector('.order-input').setAttribute("name", "order-" + element['order']);
         t.content.querySelector('.order-input').setAttribute("value", element['order']);
         t.content.querySelector('.required-input').setAttribute("name", "required-" + element['order']);
-        // t.content.querySelector('.required-input').setAttribute("value", element['required']);
-        /* if (element['required'] == 'on') {
-             t.content.querySelector('.required-input').setAttribute("checked", true);
-         }*/
+
         if (element['required'] == 'on') {
             t.content.querySelector('.required-input').checked = true;
         }
         var clone = document.importNode(t.content, true);
         clone.querySelector('.type-input').value = element['type'];
 
-        // $('#formElemSourceType').append(clone);
         $('#formSourceType').append(clone);
     });
 }
@@ -330,24 +310,22 @@ function addSrcEditFormElement(element) {
 function addElEditFormElement(element) {
     $.get("/static/templates/formElement.html", function(data) {
         t = $.parseHTML(data)[0]
+        t.content.querySelector('.formel').setAttribute("name", "formel-" + element['order']);
+        t.content.querySelector('.xbutton-input').setAttribute("name", "xbutton-" + element['order']);
         t.content.querySelector('.name-input').setAttribute("name", "name-" + element['order']);
         t.content.querySelector('.name-input').setAttribute("value", element['name']);
         t.content.querySelector('.type-input').setAttribute("name", "type-" + element['order']);
-        //t.content.querySelector('.type-input').setAttribute("value", element['type']);
         t.content.querySelector('.order-input').setAttribute("name", "order-" + element['order']);
         t.content.querySelector('.order-input').setAttribute("value", element['order']);
         t.content.querySelector('.required-input').setAttribute("name", "required-" + element['order']);
-        // t.content.querySelector('.required-input').setAttribute("value", element['required']);
-        /* if (element['required'] == 'on') {
-             t.content.querySelector('.required-input').setAttribute("checked", true);
-         }*/
+
         if (element['required'] == 'on') {
             t.content.querySelector('.required-input').checked = true;
         }
         var clone = document.importNode(t.content, true);
         clone.querySelector('.type-input').value = element['type'];
 
-        // $('#formElemSourceType').append(clone);
+
         $('#formElementType').append(clone);
     });
 }
@@ -355,7 +333,9 @@ function addElEditFormElement(element) {
 
 function saveSrcForm() {
     formData = $('#formSourceType').serializeArray();
-    data = {}
+
+    has_required = false;
+    data = {};
     for (var i = 0; i < formData.length; i++) {
         el = formData[i];
         if (el['name'].indexOf('-') != -1) {
@@ -366,39 +346,51 @@ function saveSrcForm() {
                 data[keyEl] = {}
             }
             data[keyEl][feature] = el['value'];
+            if (feature == "required" && el['value'] == "on") {
+                has_required = true;
+            }
         } else {
             data[el['name']] = el['value'];
         }
     }
-
     if (curroid != "") {
         data['_id'] = curroid;
     }
 
-    console.log(data);
-    $.ajax({
-            url: "./defineFormSource/",
-            method: 'POST',
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-        }).done(function(response) {
-            toastr["success"](response['message']);
-            source = response['source'];
-            curroid = "";
-            updateTable('#tableSources');
-            // $('#tableSources tbody').append('<tr><td>' + source['name'] + '</td><td><button type="button" class="btn btn-primary" data-oid="' + source['oid'] + '"><span class="oi oi-pencil"></span></button></td></tr>');
+    if (has_required) {
+        saveSrcData(data);
 
-        })
-        /*.fail(function(xhr, textStatus, errorThrown) {
-             })*/
-    ;
+    } else {
+        r = confirm(gettext("Non hai campi obbligatori") + ". " + gettext("Vuoi impostare il campo") + " '" + data['el-1']['name'] + "' " + gettext("con l'opzione 'obbligatorio'") + "?");
+        if (r == true) {
+            data['el-1']['required'] = "on";
+            saveSrcData(data);
+        } else {
+
+        }
+    }
+
 }
 
-
+function saveSrcData(data) {
+    hideSrc();
+    $.ajax({
+        url: "./defineFormSource/",
+        method: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+    }).done(function(response) {
+        toastr["success"](response['message']);
+        source = response['source'];
+        curroid = "";
+        updateTable('#tableSources');
+    });
+}
 
 function saveElForm() {
     formData = $('#formElementType').serializeArray();
+    has_required = false;
     data = {}
     for (var i = 0; i < formData.length; i++) {
         el = formData[i];
@@ -410,15 +402,33 @@ function saveElForm() {
                 data[keyEl] = {}
             }
             data[keyEl][feature] = el['value'];
+            if (feature == "required" && el['value'] == "on") {
+                has_required = true;
+            }
         } else {
             data[el['name']] = el['value'];
         }
     }
 
     if (curroid != "") {
-        console.log('edit fonte = ' + curroid);
         data['_id'] = curroid;
     }
+    if (has_required) {
+        saveElData(data);
+    } else {
+        r = confirm(gettext("Non hai campi obbligatori") + ". " + gettext("Vuoi impostare il campo") + " '" + data['el-1']['name'] + "' " + gettext("con l'opzione 'obbligatorio'") + "?");
+        if (r == true) {
+            data['el-1']['required'] = "on";
+            saveElData(data);
+        } else {
+
+        }
+    }
+
+}
+
+function saveElData(data) {
+    hideEl();
     $.ajax({
         url: "./defineFormElement/",
         method: 'POST',
@@ -428,12 +438,28 @@ function saveElForm() {
     }).done(function(response) {
         toastr["success"](response['message']);
         element = response['element'];
-        //$('#tableElements tbody').append('<tr><td>' + element['name'] + '</td><td><button type="button" class="btn btn-primary" data-oid="' + element['oid'] + '"><span class="oi oi-pencil"></span></button></td></tr>');
         curroid = "";
         updateTable('#tableElements');
+
     });
 }
 
 function updateTable(tableName) {
     $(tableName).load(window.location.href + " " + tableName);
+}
+
+function hideSrc() {
+    $('#divSourceType').hide();
+    $('#saveSrcForm').hide();
+    $('#cancelSrcForm').hide();
+    $('#updateSrcForm').hide();
+    $('#newSourceType').show();
+}
+
+function hideEl() {
+    $('#divElementType').hide();
+    $('#updateElForm').hide();
+    $('#cancelElForm').hide();
+    $('#saveElForm').hide();
+    $('#newElementType').show();
 }

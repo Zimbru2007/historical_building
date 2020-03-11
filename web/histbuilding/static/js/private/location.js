@@ -1,7 +1,8 @@
-var map, drawnItems /*, isedit = false*/ ;
-
+var map, drawnItems;
+var locationtable;
 $(document).ready(function() {
 
+    locationtable = $('#locationTable').DataTable();
 
     listTags = $('input[name="previous_name"]').amsifySuggestags({
         type: 'amsify',
@@ -18,12 +19,21 @@ $(document).ready(function() {
     }
 
     $('#locationTable').on('click', '.btn-primary', function() {
-        console.log('edit');
         oid = $(this).data('oid');
         getManageLocation(oid);
 
     })
+    $('#newLocation').on('click', function() {
+        $(this).hide();
+        $('#cardTitle').text(gettext("Nuova località"));
+        $('#locationForm input[name="oid"]').val(null);
+        $('#locationForm').trigger('reset');
+        $('#locationForm input[name="previous_name"]').amsifySuggestags({ type: 'amsify', }, 'refresh');
 
+        removeMarkers(true);
+        map.setView([44.96, 7.566], 8);
+
+    });
     $('#saveLocation').on('click', function() {
         data = {
             'oid': null,
@@ -37,9 +47,7 @@ $(document).ready(function() {
         data['previous_name'] = $('#locationForm input[name="previous_name"]').val().split(',');
         data['first_date'] = $('#locationForm input[name="first_date"]').val();
         data['geo'] = getMarkers();
-
-        console.log(data);
-
+        $('#newLocation').hide();
         $.ajax({
             url: "./manageLocation/",
             method: 'POST',
@@ -49,10 +57,9 @@ $(document).ready(function() {
         }).done(function(response) {
             toastr["success"](response['message']);
             doc = response['doc'];
-            $('#cardTitle').text("Nuova località");
+            updateLocationList();
+            $('#cardTitle').text(gettext("Nuova località"));
 
-            updateTable();
-            //  }
             $('#locationForm input[name="oid"]').val(null);
             $('#locationForm').trigger('reset');
             $('input[name="previous_name"]').amsifySuggestags({ type: 'amsify', }, 'refresh');
@@ -62,7 +69,7 @@ $(document).ready(function() {
 
     })
     $('#cancelLocation').on('click', function() {
-        r = confirm("Vuoi davvero cancellare tutte le modifiche?");
+        r = confirm(gettext("Vuoi davvero cancellare tutte le modifiche?"));
         if (r == true) {
             a = $('#locationForm input[name="oid"]').val();
 
@@ -77,8 +84,28 @@ $(document).ready(function() {
     });
 });
 
-function updateTable() {
-    $('#locationTable').load(window.location.href + " #locationTable");
+function updateLocationList() {
+    $.ajax({
+        url: "./manageLocation/",
+        method: 'GET',
+        data: { 'list': 'list' },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+    }).done(function(response) {
+
+        docs = response['docs'];
+        locationtable.destroy();
+        $('#locationTable tbody').empty();
+        for (var i = 0; i < docs.length; i++) {
+            $('#locationTable tbody').append("<tr><td>" + docs[i]['name'] + "</td><td><button type='button' class='btn btn-primary' data-oid='" + docs[i]['_id']['$oid'] + "'><span class='oi oi-pencil'></span></button></td></tr> ")
+        }
+
+        locationtable = $('#locationTable').DataTable();
+
+
+
+    });
+
 }
 
 function getManageLocation(oid) {
@@ -88,10 +115,10 @@ function getManageLocation(oid) {
         data: { 'oid': oid },
 
     }).done(function(response) {
-        console.log(response);
         isedit = true;
         doc = response['doc'];
-        $('#cardTitle').text("Modifica località: <<" + doc['name'] + ">>");
+        $('#newLocation').show();
+        $('#cardTitle').text(gettext("Modifica località") + ":<<" + doc['name'] + ">>");
         $('#locationForm input[name="oid"]').val(doc['_id']['$oid']);
         $('#locationForm input[name="name"]').val(doc['name']);
         if (doc['previous_name'].length) {
@@ -103,21 +130,15 @@ function getManageLocation(oid) {
             removeMarkers();
             if (doc['geo']['type'] == 'Point') {
                 c = doc['geo']['coordinates'];
-                // var marker = L.marker([c[0], c[1]]).addTo(map);
                 var marker = drawnItems.addLayer(L.marker([c[0], c[1]]));
                 map.panTo(new L.LatLng(c[0], c[1]));
-                //map.setZoom(11);
-                //map.setView(new L.LatLng(c[0], c[1]), 15);
                 enableDraw(false);
             }
             if (doc['geo']['type'] == 'Polygon') {
                 c = doc['geo']['coordinates'];
-                console.log(c);
-                var polygon = drawnItems.addLayer(L.polygon(c)); //.addTo(map);
-                map.panTo(new L.LatLng(c[0][0][0], c[0][0][1]));
-                //map.setZoom(11);
-                // map.setView(new L.LatLng(c[0][0][0], c[0][0][1]), 15);
-                // map.fitBounds(polygon.getBounds());
+                var zoompoly = L.polygon(c);
+                var polygon = drawnItems.addLayer(L.polygon(c));
+                map.fitBounds(zoompoly.getBounds());
                 enableDraw(false);
             }
         }
@@ -199,11 +220,7 @@ function removeMarkers() {
             map.removeLayer(layer);
             enableDraw(true);
         }
-        /*
-        if(layer instanceof L.Circle){
-            markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
-        }
-        */
+
         if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
             map.removeLayer(layer);
             enableDraw(true);
@@ -214,14 +231,11 @@ function removeMarkers() {
 function getMarkers() {
     markers = null;
     map.eachLayer(function(layer) {
+
         if (layer instanceof L.Marker) {
             markers = { 'type': 'Point', 'coordinates': layer.getLatLng() };
         }
-        /*
-        if(layer instanceof L.Circle){
-            markers.push({'type': 'Circle',coordinates: {'center': layer.getLatLng(), radius:  layer.getRadius()}});
-        }
-        */
+
         if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
             markers = { 'type': 'Polygon', 'coordinates': layer.getLatLngs() };
         }

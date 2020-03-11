@@ -12,24 +12,18 @@ class CityBuilding(View):
 class ManageCityBuilding(APIView):
     def post(self, request):
         try:
-            print(request.data)
             doc = {'name': None, 'type': [], 'geo': None, 'function': None}
             doc['name'] = request.data.get('name', '')
             doc['type'] = request.data.get('type', None)
             doc['function'] = request.data.get('function', None)
             geo = request.data.get('geo', None)
-            print (geo)
             if geo:
                 doc['geo'] = {'type': geo['type'], 'coordinates': []}
                 coordinates = []
-                print(doc['geo'])
                 if geo['type'] == 'Polygon':
-                    print (geo['coordinates'])
                     for l in geo['coordinates']:
-                        print ('layer')
                         layer = []
                         for c in l:
-                            print(c)
                             layer.append([c['lat'], c['lng']])
                         coordinates.append(layer)
                 else:
@@ -46,11 +40,9 @@ class ManageCityBuilding(APIView):
                         raise Exception('no matching oid')
                 else:
                     doc_id = db.city_building.insert_one(doc).inserted_id
-                    print ('insert', doc_id)
             else:
                 doc_id = db.city_building.insert_one(doc).inserted_id
-                print ('insert', doc_id)
-            #print (doc)
+            
             
             return Response({'message':'Luogo salvato corretamente', 'doc': {'oid': str(doc_id), 'name': doc['name']}})
         except Exception as e:
@@ -62,7 +54,6 @@ class ManageCityBuilding(APIView):
             if 'locationid' in request.query_params:
                 oid = request.query_params['locationid']
                 location = db.location.find_one({'_id': ObjectId(oid)})
-                #db.city_building.createIndex( { location: "2dsphere" } )
                 if location['geo']["type"] == "Polygon":
                     coordinates = location["geo"]['coordinates']
                     coordinates[0].append(location["geo"]['coordinates'][0][0])

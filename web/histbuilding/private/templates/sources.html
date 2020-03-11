@@ -19,19 +19,19 @@
 <div class="row pt-3">
     <div class="col-12">
         <div class="form-group">
-                <label>Tipo fonte</label>
+                <label>{% trans 'Tipo fonte' %}</label>
                 <select class="form-control" id="sourceType">
-                    <option>Selezionare una tipologia</option>
+                    <option value= "0">{% trans 'Selezionare una tipologia' %}</option>
                     {% for s in source_types %}
-                        <option value= "{{s|oid}}">{{s.name}}</option>
+                        <option value= "{{s|oid}}"> {% trans s.name %}</option>
                     {% endfor %}
                 </select>
             </div> 
         </div>
     </div>
 
- <div class="row pt-3">
-    <div class="col-6">
+ <div class="row pt-3" >
+    <div class="col-6" >
         {% for s in sources %}
             <form id="{{s|oid}}" style="display:none" class="formSource">
                 {% for e in s.elements %}
@@ -65,13 +65,10 @@
                 <div class="form-group">
                     <input type="hidden" name="oid">
                     <input type="text" hidden="False" name="SourceType" value="{{s|oid}}">
-                    <input id="saveButton" type="button" class="btn btn-success" value="Salva">
+                    <input name="saveButton" type="button" class="btn btn-success saveButton" value="{% trans 'Salva' %}">
                    
-                 <button type="button" class="btn btn-info" id="newElement" style="display: none">Aggiungi nuovo elemento</button>
-                 <button class="btn btn-success" id="saveElement" style="display: none">Salva</button>
-                    <button class="btn btn-success" id="updateElement" style="display: none">Salva</button>
-                    <button class="btn btn-danger" id="cancelElement" style="display: none">Cancella</button>
-                
+                 <input type="button" class="btn btn-info newElement" name="newElement" style="display: none" value="{% trans 'Aggiungi nuovo elemento' %}"> </input>
+                 
                 </div>
             </form>    
         {% endfor %}
@@ -79,17 +76,17 @@
         
     </div>
     <div class="col-6">
-        <div class="card">
+        <div class="card" id="cardSources" style="display: none">
 				<div class="card-header">
-					<h5>Lista fonti</h5>
+					<h5>{% trans 'Lista fonti' %}</h5>
 				</div>
 				<div class="card-body">
 						<table class="table table-striped" style="width: 100%" id="sourcesTable">
 							<thead>
 								<tr class='table-primary'>
-									<th>Autori</th>
-                                    <th>Titolo</th>
-									<th>Modifica</th>
+									<th>{% trans 'Autori' %}</th>
+                                    <th>{% trans 'Titolo' %}</th>
+									<th>{% trans 'Modifica' %}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -110,7 +107,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    Nuovo elemento
+                                    {% trans 'Nuovo elemento' %}
                                 </div>
                                 <div class="card-body">
                                     <div class="row pt-3">

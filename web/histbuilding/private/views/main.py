@@ -16,7 +16,6 @@ class Main(View):
 
 class UploadImage(APIView):
     def post(self, request):
-        print (request.data)
         fin = request.data['file']
         name= uuid.uuid4()
         extension = fin.name.split(".")[1]

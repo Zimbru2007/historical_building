@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-22 13:06+0000\n"
+"POT-Creation-Date: 2020-03-11 18:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,21 +26,399 @@ msgstr "Italiano"
 msgid "Français"
 msgstr "Français"
 
-#: histbuilding/templates/base.html:33 public/templates/home.html:17
-msgid "nome_progetto"
-msgstr "nome_progetto"
+#: histbuilding/templates/base.html:33
+msgid "Atlante dei palazzi comunali"
+msgstr "Atlante dei palazzi comunali"
 
-#: private/templates/element.html:22
+#: histbuilding/templates/user/changePwd.html:15
+#: private/templates/city_building.html:83
+#: private/templates/configuration.html:81
+#: private/templates/configuration.html:150
+#: private/templates/configuration.html:203
+#: private/templates/listElements.html:32 private/templates/location.html:64
+#: private/templates/main.html:57 private/templates/manage_building.html:86
+#: private/templates/sources.html:89
+msgid "Modifica"
+msgstr "Modifica"
+
+#: histbuilding/templates/user/changePwdDone.html:15
+msgid "Torna al profilo"
+msgstr "Torna al profilo"
+
+#: histbuilding/templates/user/password_reset.html:15
+msgid "Ressetta"
+msgstr "Ressetta"
+
+#: histbuilding/templates/user/password_reset_complete.html:15
+#: histbuilding/templates/user/password_reset_done.html:15
+msgid "Torna alla Home page"
+msgstr "Torna alla Home page"
+
+#: histbuilding/templates/user/password_reset_confirm.html:15
+msgid "Conferma"
+msgstr "Conferma"
+
+#: private/templates/city_building.html:21
+#: private/templates/manage_building.html:21
+msgid "Selezionare località"
+msgstr "Selezionare località"
+
+#: private/templates/city_building.html:28
+#: private/templates/manage_building.html:28 private/templates/review.html:28
+msgid "Cambia"
+msgstr "Cambia"
+
+#: private/templates/city_building.html:39
+#: private/templates/city_building.html:63
+msgid "Nuovo Edificio"
+msgstr "Nuovo Edificio"
+
+#: private/templates/city_building.html:45
+#: private/templates/city_building.html:80
+#: private/templates/configuration.html:54
+#: private/templates/configuration.html:80
+#: private/templates/configuration.html:123
+#: private/templates/configuration.html:149 private/templates/location.html:63
+#: private/templates/main.html:56 private/templates/manage_building.html:85
+msgid "Nome"
+msgstr "Nome"
+
+#: private/templates/city_building.html:49
+msgid "Tipo edificio"
+msgstr "Tipo edificio"
+
+#: private/templates/city_building.html:53
+#: private/templates/city_building.html:82
+msgid "Funzione"
+msgstr "Funzione"
+
+#: private/templates/city_building.html:57 private/templates/location.html:40
+#: private/templates/manage_building.html:60
+msgid "Geolocalizzazione"
+msgstr "Geolocalizzazione"
+
+#: private/templates/city_building.html:61
+#: private/templates/configuration.html:39
+#: private/templates/configuration.html:40
+#: private/templates/configuration.html:109
+#: private/templates/configuration.html:110
+#: private/templates/configuration.html:234 private/templates/element.html:29
+#: private/templates/location.html:44
+#: private/templates/manage_building.html:65 private/templates/review.html:42
+#: private/templates/sources.html:68
+msgid "Salva"
+msgstr "Salva"
+
+#: private/templates/city_building.html:62 private/templates/location.html:45
+#: private/templates/manage_building.html:66
+msgid "Resetta il modulo"
+msgstr "Resetta il modulo"
+
+#: private/templates/city_building.html:74
+msgid "Lista edifici"
+msgstr "Lista edifici"
+
+#: private/templates/city_building.html:81
+msgid "Tipo Edificio"
+msgstr "Tipo Edificio"
+
+#: private/templates/configuration.html:21
+msgid "Tipo fonti"
+msgstr "Tipo fonti"
+
+#: private/templates/configuration.html:25
+msgid "Tipo elementi descrittivi"
+msgstr "Tipo elementi descrittivi"
+
+#: private/templates/configuration.html:29
+msgid "Traduzioni"
+msgstr "Traduzioni"
+
+#: private/templates/configuration.html:38
+msgid "Nuovo tipo di fonte"
+msgstr "Nuovo tipo di fonte"
+
+#: private/templates/configuration.html:41
+#: private/templates/configuration.html:111
+msgid "Cancella"
+msgstr "Cancella"
+
+#: private/templates/configuration.html:47
+msgid "Tipo Fonte"
+msgstr "Tipo Fonte"
+
+#: private/templates/configuration.html:62
+#: private/templates/configuration.html:131
+msgid "Aggiungi elemento form"
+msgstr "Aggiungi elemento form"
+
+#: private/templates/configuration.html:74
+msgid "Lista tipologia fonti"
+msgstr "Lista tipologia fonti"
+
+#: private/templates/configuration.html:108
+msgid "Nuovo tipo di elemento"
+msgstr "Nuovo tipo di elemento"
+
+#: private/templates/configuration.html:117
+msgid "Tipo Elemento Descrittivo"
+msgstr "Tipo Elemento Descrittivo"
+
+#: private/templates/configuration.html:143
+msgid "Lista tipologia elementi descrittivi"
+msgstr "Lista tipologia elementi descrittivi"
+
+#: private/templates/configuration.html:178
+#: private/templates/configuration.html:182
+msgid "Cerca"
+msgstr "Cerca"
+
+#: private/templates/configuration.html:185
+msgid "Aggiungi"
+msgstr "Aggiungi"
+
+#: private/templates/configuration.html:188
+msgid "Compila"
+msgstr "Compila"
+
+#: private/templates/configuration.html:196
+msgid "Warning alert! No results found!"
+msgstr "Warning alert! No results found!"
+
+#: private/templates/configuration.html:202
+#: private/templates/configuration.html:223
+msgid "Messaggio"
+msgstr "Messaggio"
+
+#: private/templates/configuration.html:217
+msgid "Traduzione"
+msgstr "Traduzione"
+
+#: private/templates/element.html:22 private/templates/sources.html:110
 msgid "Nuovo elemento"
 msgstr "Nuovo elemento"
 
+#: private/templates/element.html:32 private/templates/listElements.html:27
+#: private/templates/private_base.html:23
+msgid "Fonti"
+msgstr "Fonti"
+
+#: private/templates/element.html:37
+msgid "Citta"
+msgstr "Citta"
+
+#: private/templates/element.html:43 private/templates/listElements.html:29
+msgid "Palazzo"
+msgstr "Palazzo"
+
+#: private/templates/element.html:51
+msgid "Aggiungi nuovo elemento descrittivo"
+msgstr "Aggiungi nuovo elemento descrittivo"
+
+#: private/templates/element.html:53
+msgid "Selezionare un elemento"
+msgstr "Selezionare un elemento"
+
+#: private/templates/listElements.html:21
+msgid "Lista elementi descrittivi"
+msgstr "Lista elementi descrittivi"
+
+#: private/templates/listElements.html:28
+#: private/templates/private_base.html:26
+msgid "Localita"
+msgstr "Localita"
+
+#: private/templates/listElements.html:30
+msgid "Tipo Elemento"
+msgstr "Tipo Elemento"
+
+#: private/templates/listElements.html:31
+msgid "Elemento"
+msgstr "Elemento"
+
+#: private/templates/location.html:22 private/templates/location.html:46
+msgid "Nuova località"
+msgstr "Nuova località"
+
+#: private/templates/location.html:28
+msgid "Denominazione attuale"
+msgstr "Denominazione attuale"
+
+#: private/templates/location.html:32
+msgid "Denominazioni precedenti"
+msgstr "Denominazioni precedenti"
+
+#: private/templates/location.html:36
+msgid "Prima attestazione dell’organismo comunale"
+msgstr "Prima attestazione dell’organismo comunale"
+
+#: private/templates/location.html:57
+msgid "Lista località"
+msgstr "Lista località"
+
+#: private/templates/main.html:19
+msgid "Numero di palazzi nelle località"
+msgstr "Numero di palazzi nelle località"
+
+#: private/templates/main.html:29
+msgid "Numero di elementi nelle località"
+msgstr "Numero di elementi nelle località"
+
+#: private/templates/main.html:39
+msgid "Numero di elementi di ogni tipo"
+msgstr "Numero di elementi di ogni tipo"
+
+#: private/templates/main.html:50
+msgid "Lista delle località più recenti"
+msgstr "Lista delle località più recenti"
+
+#: private/templates/main.html:77
+msgid "Vai a \"Località\""
+msgstr "Vai a \"Località\""
+
+#: private/templates/main.html:86
+msgid "Numero di fonti di ogni tipo"
+msgstr "Numero di fonti di ogni tipo"
+
+#: private/templates/main.html:96
+msgid "Lista degli utenti più recenti"
+msgstr "Lista degli utenti più recenti"
+
+#: private/templates/main.html:102 private/templates/userProfile.html:11
+msgid "Nome utente"
+msgstr "Nome utente"
+
+#: private/templates/main.html:103
+msgid "Ultimo accesso"
+msgstr "Ultimo accesso"
+
+#: private/templates/manage_building.html:38
+#: private/templates/manage_building.html:68
+msgid "Nuovo Palazzo"
+msgstr "Nuovo Palazzo"
+
+#: private/templates/manage_building.html:45
+msgid "Denominazione moderna dell’edificio"
+msgstr "Denominazione moderna dell’edificio"
+
+#: private/templates/manage_building.html:49
+msgid "Denominazioni antiche"
+msgstr "Denominazioni antiche"
+
+#: private/templates/manage_building.html:53
+msgid "Riconoscibilità"
+msgstr "Riconoscibilità"
+
+#: private/templates/manage_building.html:67 private/templates/sources.html:70
+msgid "Aggiungi nuovo elemento"
+msgstr "Aggiungi nuovo elemento"
+
+#: private/templates/manage_building.html:79
+msgid "Lista palazzi"
+msgstr "Lista palazzi"
+
+#: private/templates/private_base.html:20
+msgid "Home"
+msgstr "Home"
+
+#: private/templates/private_base.html:29
+msgid "Palazzi"
+msgstr "Palazzi"
+
+#: private/templates/private_base.html:32
+msgid "Sintesi Palazzo"
+msgstr "Sintesi Palazzo"
+
+#: private/templates/private_base.html:35
+msgid "Edifici comunali"
+msgstr "Edifici comunali"
+
+#: private/templates/private_base.html:38
+msgid "Inserimento di elementi descrittivi"
+msgstr "Inserimento di elementi descrittivi"
+
+#: private/templates/private_base.html:41
+msgid "Elenco di elementi descrittivi"
+msgstr "Elenco di elementi descrittivi"
+
+#: private/templates/private_base.html:45
+msgid "Configurazione"
+msgstr "Configurazione"
+
+#: private/templates/private_base.html:48
+msgid "Nouvi utenti"
+msgstr "Nouvi utenti"
+
+#: private/templates/private_base.html:52
+msgid "Sito pubblico"
+msgstr "Sito pubblico"
+
+#: private/templates/review.html:21
+msgid "Selezionare palazzo"
+msgstr "Selezionare palazzo"
+
+#: private/templates/review.html:47
+msgid "Lingua"
+msgstr "Lingua"
+
+#: private/templates/review.html:59 private/templates/sources.html:87
+msgid "Autori"
+msgstr "Autori"
+
+#: private/templates/sources.html:22
+msgid "Tipo fonte"
+msgstr "Tipo fonte"
+
+#: private/templates/sources.html:24
+msgid "Selezionare una tipologia"
+msgstr "Selezionare una tipologia"
+
+#: private/templates/sources.html:81
+msgid "Lista fonti"
+msgstr "Lista fonti"
+
+#: private/templates/sources.html:88
+msgid "Titolo"
+msgstr "Titolo"
+
+#: private/templates/userProfile.html:8
+msgid "Dettagli utente"
+msgstr "Dettagli utente"
+
+#: private/templates/userProfile.html:15
+msgid "First Name"
+msgstr "First Name"
+
+#: private/templates/userProfile.html:19
+msgid "Last Name"
+msgstr "Last Name"
+
+#: private/templates/userProfile.html:23
+msgid "E-mail"
+msgstr "E-mail"
+
+#: private/templates/userProfile.html:27
+msgid "Cambia la password"
+msgstr "Cambia la password"
+
+#: private/templates/user_creation.html:32
+msgid "Iscriviti"
+msgstr "Iscriviti"
+
+#: public/templates/home.html:17
+msgid "nome_progetto"
+msgstr "Atlante dei palazzi comunali"
+
 #: public/templates/home.html:18
 msgid "desc_progetto"
-msgstr "desc_progetto"
+msgstr ""
+"Uno strumento digitale unico per la raccolta di informazioni eterogenee "
+"sugli edifici, al fine di fornire ai ricercatori analisi e diffusione di "
+"materiale raccolto."
 
 #: public/templates/home.html:19
 msgid "button_explore"
-msgstr "button_explore"
+msgstr "Informazioni sugli palazzi"
 
 #: public/templates/home.html:57
 msgid "home1"
@@ -53,6 +431,12 @@ msgstr "home2"
 #: public/templates/home.html:63
 msgid "home3"
 msgstr "home3"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "home"
+msgstr "Home"
 
 msgid "authors"
 msgstr "authors"
@@ -112,7 +496,7 @@ msgid "signature_archive"
 msgstr "signature_archive"
 
 msgid "paper"
-msgstr "paper"
+msgstr "carta"
 
 msgid "Fonti archivistiche"
 msgstr "Fonti archivistiche"
@@ -125,12 +509,6 @@ msgstr "d1"
 
 msgid "a1"
 msgstr "a1"
-
-msgid "Autori"
-msgstr "Autori"
-
-msgid "Titolo"
-msgstr "Titolo"
 
 msgid "Tomo"
 msgstr "Tomo"
@@ -179,9 +557,6 @@ msgstr "Fonti edite2"
 
 msgid "namw"
 msgstr "namw"
-
-msgid "Fonti2"
-msgstr "Fonti2"
 
 msgid "namu"
 msgstr "namu"
@@ -240,9 +615,6 @@ msgstr "Anno"
 msgid "Autore323"
 msgstr "Autore323"
 
-msgid "Element1"
-msgstr "Element1"
-
 msgid "pascuda"
 msgstr "pascuda"
 
@@ -261,5 +633,197 @@ msgstr "name"
 msgid "is"
 msgstr "is"
 
-msgid ""
-msgstr ""
+msgid "b2"
+msgstr "b2"
+
+msgid "Fonti8"
+msgstr "Fonti8"
+
+msgid "ff3"
+msgstr "ff3"
+
+msgid "f3"
+msgstr "f3"
+
+msgid "Tecnica"
+msgstr "Tecnica"
+
+msgid "Soggetto"
+msgstr "Soggetto"
+
+msgid "Elementi testuali"
+msgstr "Elementi testuali"
+
+msgid "Elementi araldici"
+msgstr "Elementi araldici"
+
+msgid "Pitture"
+msgstr "Pitture"
+
+msgid "Autor"
+msgstr "Autor"
+
+msgid "test5"
+msgstr "test5"
+
+msgid "test6"
+msgstr "test6"
+
+msgid "a2"
+msgstr "a2"
+
+msgid "Fonti9"
+msgstr "Fonti9"
+
+msgid "s2"
+msgstr "s2"
+
+msgid "g5"
+msgstr "g5"
+
+msgid "Fonti10"
+msgstr "Fonti10"
+
+msgid "g55"
+msgstr "g55"
+
+msgid "fonti 11"
+msgstr "fonti 11"
+
+msgid "w2w"
+msgstr "w2w"
+
+msgid "fonti12"
+msgstr "fonti12"
+
+msgid "fonti13"
+msgstr "fonti13"
+
+msgid "f4"
+msgstr "f4"
+
+msgid "y6"
+msgstr "y6"
+
+msgid "fonti 14"
+msgstr "fonti 14"
+
+msgid "d2"
+msgstr "d2"
+
+msgid "Fy5"
+msgstr "Fy5"
+
+msgid "fonti15"
+msgstr "fonti15"
+
+msgid "Fonti18"
+msgstr "Fonti18"
+
+msgid "t5"
+msgstr "t5"
+
+msgid "fonti19"
+msgstr "fonti19"
+
+msgid "r4"
+msgstr "r4"
+
+msgid "fonti20"
+msgstr "fonti20"
+
+msgid "fonti21"
+msgstr "fonti21"
+
+msgid "u7"
+msgstr "u7"
+
+msgid "fonti22"
+msgstr "fonti22"
+
+msgid "fonti23"
+msgstr "fonti23"
+
+msgid "a133"
+msgstr "a133"
+
+msgid "t56"
+msgstr "t56"
+
+msgid "elem1"
+msgstr "elem1"
+
+msgid "gt5"
+msgstr "gt5"
+
+msgid "elem2"
+msgstr "elem2"
+
+msgid "Fonti2"
+msgstr "Fonti2"
+
+msgid "localita"
+msgstr "localita"
+
+msgid "Altri"
+msgstr "Altri"
+
+msgid "Nr. Elementi"
+msgstr "Nr. Elementi"
+
+msgid "Nr. fonti"
+msgstr "Nr. fonti"
+
+msgid "a122"
+msgstr "a222"
+
+msgid "Pagine in cui si trova l’informazione"
+msgstr "Pagine in cui si trova l’informazione"
+
+msgid "Data del contenuto (gg/mm/aaaa)"
+msgstr "Data del contenuto (gg/mm/aaaa)"
+
+msgid "Anno di pubblicazione"
+msgstr "Anno di pubblicazione"
+
+msgid "Fonte di seconda mano"
+msgstr "Fonte di seconda mano"
+
+msgid "Città di conservazione"
+msgstr "Città di conservazione"
+
+msgid "Ente di conservazione"
+msgstr "Ente di conservazione"
+
+msgid "Segnatura archivistica"
+msgstr "Segnatura archivistica"
+
+msgid "Foglio o pagina in cui si trova l’informazione"
+msgstr "Foglio o pagina in cui si trova l’informazione"
+
+msgid "Materiale"
+msgstr "Materiale"
+
+msgid "Tipo di scrittura"
+msgstr "Tipo di scrittura"
+
+msgid "In fase"
+msgstr "In fase"
+
+msgid "Elementi figurativi"
+msgstr "Elementi figurativi"
+
+msgid "Epigrafi"
+msgstr "Epigrafi"
+
+msgid "Sculture"
+msgstr "Sculture"
+
+msgid "Modifica località"
+msgstr "Modifica località"
+
+msgid "Element1"
+msgstr "Element1"
+
+msgid "Name"
+msgstr "Name"

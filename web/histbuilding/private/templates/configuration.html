@@ -18,15 +18,15 @@
 <ul class="nav nav-tabs" id="confTab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="sources-tab" data-toggle="tab" href="#sources" role="tab" aria-controls="sources"
-            aria-selected="true">Tipo fonti</a>
+            aria-selected="true">{% trans 'Tipo fonti' %}</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="elements-tab" data-toggle="tab" href="#elements" role="tab" aria-controls="elements"
-            aria-selected="false">Tipo elementi descrittivi</a>
+            aria-selected="false">{% trans 'Tipo elementi descrittivi' %}</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="translations-tab" data-toggle="tab" href="#translations" role="tab"
-            aria-controls="translations" aria-selected="false">Traduzioni</a>
+            aria-controls="translations" aria-selected="false">{% trans 'Traduzioni' %}</a>
     </li>
 
 </ul>
@@ -35,23 +35,23 @@
         <div class="row pt-3">
             <div class="col-8">
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary" id="newSourceType">Nuovo tipo</button>
-                    <button class="btn btn-success" id="saveSrcForm" style="display: none">Salva</button>
-                    <button class="btn btn-success" id="updateSrcForm" style="display: none">Salva</button>
-                    <button class="btn btn-danger" id="cancelSrcForm" style="display: none">Cancella</button>
+                    <button type="button" class="btn btn-primary" id="newSourceType">{% trans 'Nuovo tipo di fonte' %}</button>
+                    <button class="btn btn-success" id="saveSrcForm" style="display: none">{% trans 'Salva' %}</button>
+                    <button class="btn btn-success" id="updateSrcForm" style="display: none">{% trans 'Salva' %}</button>
+                    <button class="btn btn-danger" id="cancelSrcForm" style="display: none">{% trans 'Cancella' %}</button>
                 </div>
                 <div class="row pt-3" id="divSourceType" style="display: none">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                Tipo Fonte
+                                {% trans 'Tipo Fonte' %}
                             </div>
                             <div class="card-body">
                                 <div class="row pt-3">
                                     <div class="col-8">
                                         <form id="formSourceType">
                                             <div class="form-group">
-                                                <label>Nome</label>
+                                                <label> {% trans 'Nome' %}</label>
                                                 <input type="text" class="form-control" name="name">
                                             </div>
 
@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <button class="btn btn-info" id="addSrcForm">Aggiungi elemento form</button>
+                                            <button class="btn btn-info" id="addSrcForm">{% trans 'Aggiungi elemento form' %}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -71,14 +71,14 @@
             <div class="col-4">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Lista tipologia fonti</h5>
+                        <h5>{% trans 'Lista tipologia fonti' %}</h5>
                     </div>
                     <div class="card-body">
                         <table id="tableSources" class="table table-striped" style="width: 100%">
                             <thead>
                                 <tr class="table-primary">
-                                    <th>Nome</th>
-                                    <th>Modifica</th>
+                                    <th>{% trans 'Nome' %}</th>
+                                    <th>{% trans 'Modifica' %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,22 +105,22 @@
         <div class="row pt-3">
             <div class="col-8">
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary" id="newElementType" style="display: none">Nuovo tipo el</button>
-                    <button class="btn btn-success" id="saveElForm" style="display: none">Salva</button>
-                    <button class="btn btn-success" id="updateElForm" style="display: none">Salva</button>
-                    <button class="btn btn-danger" id="cancelElForm" style="display: none">Cancella</button>
+                    <button type="button" class="btn btn-primary" id="newElementType" style="display: none">{% trans 'Nuovo tipo di elemento' %}</button>
+                    <button class="btn btn-success" id="saveElForm" style="display: none">{% trans 'Salva' %}</button>
+                    <button class="btn btn-success" id="updateElForm" style="display: none">{% trans 'Salva' %}</button>
+                    <button class="btn btn-danger" id="cancelElForm" style="display: none">{% trans 'Cancella' %}</button>
                 </div>
                 <div class="row pt-3" id="divElementType" style="display: none">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                Tipo Elemento Descrittivo                            </div>
+                                {% trans 'Tipo Elemento Descrittivo' %}                            </div>
                             <div class="card-body">
                                 <div class="row pt-3">
                                     <div class="col-8">
                                         <form id="formElementType">
                                             <div class="form-group">
-                                                <label>Nome</label>
+                                                <label>{% trans 'Nome' %}  </label>
                                                 <input type="text" class="form-control" name="elname">
                                             </div>
 
@@ -128,7 +128,7 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <button class="btn btn-info" id="addElForm">Aggiungi elemento form</button>
+                                            <button class="btn btn-info" id="addElForm">{% trans 'Aggiungi elemento form' %}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -140,14 +140,14 @@
             <div class="col-4">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Lista tipologia elementi descrittivi</h5>
+                        <h5>{% trans 'Lista tipologia elementi descrittivi' %}</h5>
                     </div>
                     <div class="card-body">
                         <table id="tableElements" class="table table-striped" style="width: 100%">
                             <thead>
                                 <tr class="table-primary">
-                                    <th>Nome</th>
-                                    <th>Modifica</th>
+                                    <th>{% trans 'Nome' %}</th>
+                                    <th>{% trans 'Modifica' %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -175,17 +175,17 @@
             <div class="col-12">
                 <form class="form-inline">
                     <div class="form-group">
-                        <label>Search</label>
+                        <label>{% trans 'Cerca' %}</label>
                         <input type="text" name="search_string" class="form-control ml-3">
                     </div>
                     <div class="form-group ml-3">
-                        <input type="button" class="btn btn-info" value="Cerca" id="btnSearchTrans">
+                        <input type="button" class="btn btn-info" value="{% trans 'Cerca' %}" id="btnSearchTrans">
                     </div>
                     <div class="form-group ml-3">
-                        <input type="button" class="btn btn-primary" value="Aggiungi" id="btnCreateTrans">
+                        <input type="button" class="btn btn-primary" value="{% trans 'Aggiungi' %}" id="btnCreateTrans">
                     </div>
                     <div class="form-group ml-3">
-                        <input type="button" class="btn btn-success" value="Compila" id="btnCompileTrans">
+                        <input type="button" class="btn btn-success" value="{% trans 'Compila' %}" id="btnCompileTrans">
                     </div>
                 </form>
             </div>
@@ -193,14 +193,14 @@
         <div class="row pt-3" id="resultTrans" style="display: none">
             <div class="col-6">
                 <div class="alert alert-warning" role="alert" id="alertNoresult">
-                    A simple warning alert—check it out!
+                    {% trans 'Warning alert! No results found!' %}
                 </div>
 
                 <table id="tableTransRes" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Messaggio</th>
-                            <th>Modifica</th>
+                            <th> {% trans 'Messaggio' %}</th>
+                            <th> {% trans 'Modifica' %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -214,13 +214,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        Traduzione
+                        {% trans 'Traduzione' %}
                     </div>
                     <div class="card-body">
                         <form id="formEditTrans">
                             <input type="hidden" name="oid">
                             <div class="form-group">
-                                <label>Messaggio</label>
+                                <label>{% trans 'Messaggio' %}</label>
                                 <input type="text" name="message" class="form-control" required>
                             </div>
                             {% get_available_languages as LANGUAGES %}
@@ -231,7 +231,7 @@
                             </div>
                             {% endfor %}
                             <div class="form-group pt-3">
-                                <input type="button" class="btn btn-success" value="Salva" id="btnsaveTrans">
+                                <input type="button" class="btn btn-success" value="{% trans 'Salva' %}" id="btnsaveTrans">
                             </div>
 
 

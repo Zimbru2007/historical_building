@@ -12,8 +12,7 @@ class UserCreation(View):
     def post(self, request):
         try:
             form = UserCreationForm(request.POST)
-            print (request.POST)
-           
+            
             if form.is_valid():
                 mid=db.auth_user.find({}, {'id': 1, '_id':0}).sort('id',-1).limit(1)
                 mid1=list(mid)
@@ -25,11 +24,9 @@ class UserCreation(View):
                 data['last_name'] = request.POST.get('last_name', '')
                 data['email'] = request.POST.get('email', '')
                 data['date_joined'] = datetime.datetime.now()
-                print(request.POST.get('password1', '') )
-                print(data['password'] )
                 temp=db.auth_user.find({'$or':[{'username':data['username']},{'email':data['email']}]})
                 temp1=list(temp)
-                print(temp1)
+        
                 if not temp1:
                     db.auth_user.insert_one(data)
                     return HttpResponseRedirect(reverse('main_private'))
