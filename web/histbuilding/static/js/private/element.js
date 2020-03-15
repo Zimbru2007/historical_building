@@ -111,6 +111,7 @@ function updateElementForm(element_typeid) {
         $('#btn-' + newElementId).on('click', function() {
             oid = $(this).data('oid');
             $('#card-' + oid).remove();
+            countRequiredFields();
 
         });
         newElementId += 1;
